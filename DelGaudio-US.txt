@@ -1,0 +1,4 @@
+	
+As a user, I want to see comments for attractions, so I can choose one.
+As a traveller, I want a help section, so I can have help whit emergencies.
+As a user, I want a to-do list, so I can remember the place I want to see

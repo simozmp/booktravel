@@ -1,0 +1,3 @@
+• The system shall provide informations about customs and traditions for each country available for a route
+• The system shall provide to the user a questionary about his interests and preferences to give him suggestions
+• The system shall provide to activity owners a way to buy sponsored insertions

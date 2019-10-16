@@ -1,0 +1,3 @@
+The system shall provide to the user a to-do list whit the important attraction in the place the traveller goes.
+The system shall provide a questionary about his interest and preference to give him suggestions.
+The system shall provide the possibility to comment on an attraction or a hotel in predeterminated sections.

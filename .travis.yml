@@ -1,0 +1,13 @@
+language: java
+jdk:
+- openjdk8
+addons:
+  sonarcloud:
+    organization: "simozmp"
+    token:
+      secure: "DDYYcgT8uqXOqJHaEC84PHJwxBK2Hl/SpMJl6QTuR0FzDZK0+URw1EuejHLiIXSUsHC0Q9uozqqFZIwDawx3wrKz/+5E7bSiTK27gJUMDTj0xVo5W7slByI74KPVQQ0fg09ZCR5BMBJVceKoiH2ecwZseZJ9lGe9buCNC+POPnsySkirnAXufczxBoG8qhiL/b4bJPSADU9eM7EbaaId+inFeiWqrSAl5f2Yp36PO9atZP7MaJqSzVJ2mXBcuFqSQnvUb0OHrQFwLhkBoDLo1xFOTT72LYya+kMiFNHSkM2bKZaizcFs6dUGpSt7WKNHRkOX1QMa7IRdOqQjFyzufwH5/6lqsnt8Txx1a63U7DIVhmJlKD6CHhqiE2xUlfCYvxGz2V51rhrHPMmHPNcethAE9xPbsWaA326v1QtaZBwXv43kuOQHlCgKwbkWWUBJAf/Lzqom+6+jtP4I3AjWYlKX75mtMjrnzGT759UlgvYOizQU9jvy8ksDcEzR+2ZCEAK/gJ4akZK1YT33vMTH+G1glVB6O9zctl44Nx0lMhw6DEMHccFTKu3OPhpG0vhKpVdY3kCD/Yy+akx0D8Wl4+Ss3r3fhp+jQrh4FuXcS2LfYCK7bwGGAM8Hr5lYhKsGHxqGZ0g+2n3E2+mGzg0iKb66l8vu31AgJ/npd2Czwqg="
+
+script:
+  # the following command line builds the project, runs the tests with coverage and then execute the SonarCloud analysis
+  - ant build
+  - sonar-scanner -X

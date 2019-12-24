@@ -1,6 +1,10 @@
 package logic.view;
 
+import java.time.LocalDate;
+
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -18,15 +22,18 @@ import javafx.stage.Stage;
 
 public class MainMenuView extends Application {
 	
-	public static void main(String [] args) {
-		
-		launch(args);
-		
-	}
+	private Button btnLogin = new Button("Login");
+	private Button btnSignIn = new Button("Sign In");
+	private TextField txtFieldCity= new TextField();
+	private DatePicker dPickerCheckIn = new DatePicker();
+	private DatePicker dPickerCheckOut = new DatePicker();
+	private Button btnSearch = new Button("Search");
+	private Button btnGetStarted = new Button("Get Started");
+	
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		
+	
 		primaryStage.setTitle("TravelBook");
 		
 		BorderPane borderPane = new BorderPane();
@@ -41,10 +48,6 @@ public class MainMenuView extends Application {
 		
 		HBox hBoxLogin = new HBox(10);
 		hBoxLogin.setAlignment(Pos.CENTER_RIGHT);
-		
-		Button btnLogin = new Button("Login");
-		
-		Button btnSignIn = new Button("Sign In");
 		hBoxLogin.getChildren().addAll(btnLogin, btnSignIn);
 		
 		HBox hBoxTop = new HBox();
@@ -56,16 +59,11 @@ public class MainMenuView extends Application {
 		hBoxSearch.setPadding(new Insets(20, 20, 20, 20));
 		hBoxSearch.setPrefWidth(Double.MAX_VALUE);
 		
-		TextField txtFieldCity= new TextField();
 		txtFieldCity.setPromptText("Where do you want to go?");
 		
-		DatePicker dPickerCheckIn = new DatePicker();
 		dPickerCheckIn.setPromptText("Enter Check-In");
 		
-		DatePicker dPickerCheckOut = new DatePicker();
 		dPickerCheckOut.setPromptText("Enter Check-Out");
-		
-		Button btnSearch = new Button("Search");
 		
 		HBox.setHgrow(txtFieldCity, Priority.ALWAYS);
 		txtFieldCity.setMaxWidth(Double.MAX_VALUE);
@@ -78,7 +76,6 @@ public class MainMenuView extends Application {
 		Text txtGetStarted = new Text("Do you need a travel but you don't know where?"
 				+ "\nDon't worry, we will find it for you!");
 		txtGetStarted.setFont(Font.font("Arial", FontWeight.MEDIUM, 18));
-		Button btnGetStarted = new Button("Get Started");
 		btnGetStarted.setFont(new Font(20));
 		
 		vBoxGetStarted.getChildren().addAll(txtGetStarted, btnGetStarted);
@@ -96,5 +93,35 @@ public class MainMenuView extends Application {
 		primaryStage.show();
 		
 	}
+	
+	public void addLoginListener(EventHandler<ActionEvent> loginHandler) {
+		
+		this.btnLogin.setOnAction(loginHandler);
+		
+	}
+	
+	public void addSignInListener(EventHandler<ActionEvent> signInHandler) {
+		
+		this.btnSignIn.setOnAction(signInHandler);
+		
+	}
+	
+	public void addSearchListener(EventHandler<ActionEvent> searchHandler) {
+		
+		this.btnSearch.setOnAction(searchHandler);
+		
+	}
+	
+	public void addGetStartedListener(EventHandler<ActionEvent> getStartedHandler) {
+		
+		this.btnGetStarted.setOnAction(getStartedHandler);
+		
+	}
+	
+	public String getCityField() { return this.txtFieldCity.getText();	}
+	
+	public LocalDate getCheckInDate() { return this.dPickerCheckIn.getValue(); }
+	
+	public LocalDate getCheckOutDate() { return this.dPickerCheckOut.getValue(); }
 
 }

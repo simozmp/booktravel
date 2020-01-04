@@ -3,56 +3,125 @@ package logic;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import logic.controller.MainMenuController;
-import logic.model.RentablePlacesCatalog;
+import logic.model.BookHotelController;
 import logic.view.BookHotelListView;
+import logic.view.BookingView;
 import logic.view.HotelView;
 import logic.view.MainMenuView;
 
+/**
+ * 
+ * @author metal
+ *
+ * Main class of the program. The application starts from here.
+ * This class manage the switching between views.
+ */
 public class Main extends Application{
 	
+	/**
+	 * Reference to the main menu.
+	 */
 	private MainMenuView mainMenuView;
+	
+	/**
+	 * Reference to the list view.
+	 */
 	private BookHotelListView bookHotelListView;
+	
+	/**
+	 * Reference to hotel view.
+	 */
 	private HotelView hotelView;
+	
+	/**
+	 * Reference to booking view.
+	 */
+	private BookingView bookingView;
+	
+	/**
+	 * The primary stage of the javafx application.
+	 */
 	private static Stage primaryStage;
 	
+	/**
+	 * Reference to instance of this class.
+	 */
 	private static Main instance = null;
 	
+	/**
+	 * Constructor of this class. It initialize every view.
+	 */
 	public Main() {
 		
 		this.mainMenuView = new MainMenuView();
 		this.bookHotelListView = new BookHotelListView();
 		this.hotelView = new HotelView();
+		this.bookingView = new BookingView();
 		
 	}
-
+	
+	/**
+	 * The application starts from here.
+	 * 
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		
 		launch(args);
 
 	}
 
+	/**
+	 * start methods. It call the start of the main menu and creates the controller of the main menu.
+	 */
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 
 		Main.primaryStage = primaryStage;
 		mainMenuView.start(Main.primaryStage);
 		
-		MainMenuController controller = new MainMenuController(this.mainMenuView, RentablePlacesCatalog.getInstance());
+		new MainMenuController(this.mainMenuView, BookHotelController.getInstance());
 		
 	}
 	
+	/**
+	 * Change the view to BookHotelListView.
+	 * 
+	 * @throws Exception
+	 */
 	public void changeToBookHotelListView() throws Exception {
 		
 		this.bookHotelListView.start(primaryStage);
 		
 	}
 	
-	public void changeToHotelView( ) throws Exception {
+	/**
+	 * Change the view to HotelView.
+	 * 
+	 * @throws Exception
+	 */
+	public void changeToHotelView() throws Exception {
 		
 		this.hotelView.start(primaryStage);
 		
 	}
 	
+	/**
+	 * Change the view to BookingView.
+	 * 
+	 * @throws Exception
+	 */
+	public void changeToBookingView() throws Exception {
+		
+		this.bookingView.start(primaryStage);
+		
+	}
+	
+	/**
+	 * Get Instance method.
+	 * 
+	 * @return the only instance of this class.
+	 */
 	public synchronized static Main getInstance() {
 		
 		if(Main.instance == null) 
@@ -63,8 +132,25 @@ public class Main extends Application{
 		
 	}
 	
+	/**
+	 * Get method.
+	 * 
+	 * @return	BookHotelListView.
+	 */
 	public BookHotelListView getBookHotelListView() { return this.bookHotelListView; }
 	
+	/**
+	 * Get method.
+	 * 
+	 * @return HotelView.
+	 */
 	public HotelView getHotelView() { return this.hotelView; }
+	
+	/**
+	 * Get method.
+	 * 
+	 * @return BookingView.
+	 */
+	public BookingView getBookingView() { return this.bookingView; }
 	
 }

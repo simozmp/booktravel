@@ -10,26 +10,38 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import logic.mydatecell.MyCallback;
 
 public class MainMenuView extends Application {
 	
 	private Button btnLogin = new Button("Login");
 	private Button btnSignIn = new Button("Sign In");
+	
+	private Text txtErrCity = new Text("You have to fill this field!");
+	private Text txtErrCheckIn = new Text("You have to fill this field!");
+	private Text txtErrCheckOut = new Text("You have to fill this field!");
+	private Text txtErrPersonCount = new Text("You have select how much you are!");
+	
 	private TextField txtFieldCity= new TextField();
 	private DatePicker dPickerCheckIn = new DatePicker();
 	private DatePicker dPickerCheckOut = new DatePicker();
 	private Button btnSearch = new Button("Search");
-	private Button btnGetStarted = new Button("Get Started");
-	
+	private Button btnGetStarted = new Button("Get Started");	
+	private Label lblPersonCount = new Label("0");
+	private Button btnPlus = new Button("+");
+	private Button btnMinus = new Button("-");
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -55,19 +67,59 @@ public class MainMenuView extends Application {
 		hBoxTitle.setMaxWidth(Double.MAX_VALUE);
 		hBoxTop.getChildren().addAll(hBoxTitle, hBoxLogin);
 		
-		HBox hBoxSearch = new HBox(5);
+		HBox hBoxSearch = new HBox(20);
 		hBoxSearch.setPadding(new Insets(20, 20, 20, 20));
 		hBoxSearch.setPrefWidth(Double.MAX_VALUE);
 		
-		txtFieldCity.setPromptText("Where do you want to go?");
+		Label lblcity = new Label("Where do you want to go?");
+		Label lblCheckIn = new Label("Enter Check-In");
+		Label lblCheckOut = new Label("Enter Check-Out");
+		Label lblPerson = new Label("Select how much people you are");
 		
-		dPickerCheckIn.setPromptText("Enter Check-In");
+		txtFieldCity.setPromptText("e.g. Rome");		
+		dPickerCheckIn.setPromptText("Pick a date");
+		dPickerCheckIn.setDayCellFactory(MyCallback.getDayCellFactory());
+		dPickerCheckIn.setEditable(false);
 		
-		dPickerCheckOut.setPromptText("Enter Check-Out");
+		dPickerCheckOut.setPromptText("Pick a date");
+		dPickerCheckOut.setDayCellFactory(MyCallback.getDayCellFactory());
+		dPickerCheckOut.setEditable(false);
 		
-		HBox.setHgrow(txtFieldCity, Priority.ALWAYS);
-		txtFieldCity.setMaxWidth(Double.MAX_VALUE);
-		hBoxSearch.getChildren().addAll(txtFieldCity, dPickerCheckIn, dPickerCheckOut, btnSearch);
+		this.txtErrCity.setFill(Color.RED);
+		this.txtErrCity.setVisible(false);
+		this.txtErrCheckIn.setFill(Color.RED);
+		this.txtErrCheckIn.setVisible(false);
+		this.txtErrCheckOut.setFill(Color.RED);
+		this.txtErrCheckOut.setVisible(false);
+		this.txtErrPersonCount.setFill(Color.RED);
+		this.txtErrPersonCount.setVisible(false);
+	
+		GridPane gridPane = new GridPane();
+		gridPane.setVgap(10);
+		gridPane.setHgap(10);
+		gridPane.add(lblcity, 0, 0);
+		gridPane.add(txtFieldCity, 0, 1);
+		gridPane.add(lblCheckIn, 1, 0);
+		gridPane.add(dPickerCheckIn, 1, 1);
+		gridPane.add(lblCheckOut, 2, 0);
+		gridPane.add(dPickerCheckOut, 2, 1);
+		gridPane.add(lblPerson, 3, 0);
+		gridPane.add(this.txtErrCity, 0, 2);
+		gridPane.add(this.txtErrCheckIn, 1, 2);
+		gridPane.add(this.txtErrCheckOut, 2, 2);
+		gridPane.add(this.txtErrPersonCount, 3, 2);
+		
+		HBox personCountHBox = new HBox(10);
+		personCountHBox.setAlignment(Pos.CENTER);
+		personCountHBox.getChildren().addAll(btnPlus, lblPersonCount, btnMinus);
+		
+		gridPane.add(personCountHBox, 3, 1);		
+		
+		this.disableMinusButton();
+		this.btnSearch.setFont(Font.font(18));
+		hBoxSearch.setAlignment(Pos.CENTER);
+		btnSearch.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+		hBoxSearch.getChildren().addAll(gridPane, btnSearch);
 		
 		VBox vBoxGetStarted = new VBox(10);
 		vBoxGetStarted.setPadding(new Insets(20, 20, 20, 20));
@@ -80,17 +132,41 @@ public class MainMenuView extends Application {
 		
 		vBoxGetStarted.getChildren().addAll(txtGetStarted, btnGetStarted);
 		
-		VBox vBoxMain = new VBox(20);
+		VBox vBoxMain = new VBox(50);
 		vBoxMain.setPadding(new Insets(20, 20, 20, 20));
 		vBoxMain.getChildren().addAll(hBoxSearch, vBoxGetStarted);
 		
 		borderPane.setTop(hBoxTop);
 		borderPane.setCenter(vBoxMain);
 		
-		Scene scene = new Scene(borderPane, 800, 400);
+		Scene scene = new Scene(borderPane, 1200, 800);
 		primaryStage.setScene(scene);
 		primaryStage.setResizable(false);
 		primaryStage.show();
+		
+	}
+	
+	public void setVisibleErrCityField(boolean value) {
+		
+		this.txtErrCity.setVisible(value);
+		
+	}
+	
+	public void setVisibleErrCheckInField(boolean value) {
+		
+		this.txtErrCheckIn.setVisible(value);
+		
+	}
+	
+	public void setVisibleErrCheckOutField(boolean value) {
+		
+		this.txtErrCheckOut.setVisible(value);
+		
+	}
+	
+	public void setVisibleErrPersonCount(boolean value) {
+		
+		this.txtErrPersonCount.setVisible(value);
 		
 	}
 	
@@ -117,6 +193,40 @@ public class MainMenuView extends Application {
 		this.btnGetStarted.setOnAction(getStartedHandler);
 		
 	}
+	
+	public void resetPersonCount() {
+		
+		this.lblPersonCount.setText("0");
+		
+	}
+	
+	public void disableMinusButton() {
+		
+		this.btnMinus.setDisable(true);
+		
+	}
+	
+	public void enableMinusButton() {
+		
+		this.btnMinus.setDisable(false);
+		
+	}
+	
+	public void addPlusHanlder(EventHandler<ActionEvent> addHandler) {
+		
+		this.btnPlus.setOnAction(addHandler);
+		
+	}
+	
+	public void addMinusHanlder(EventHandler<ActionEvent> minusHandler) {
+		
+		this.btnMinus.setOnAction(minusHandler);
+		
+	}
+	
+	public void setPersonCountText(String value) { this.lblPersonCount.setText(value); }
+	
+	public String getPersonCount() { return this.lblPersonCount.getText(); }
 	
 	public String getCityField() { return this.txtFieldCity.getText();	}
 	

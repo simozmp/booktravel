@@ -19,17 +19,17 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import logic.model.RentablePlace;
+import logic.mydatecell.MyCallback;
 
 public class BookHotelListView extends Application {
 	
 	private ScrollPane scrollPane = new ScrollPane();
-	
-//	private ListView<HBoxCell> listview = new ListView<HBoxCell>();
 	
 	private Button btnLogin = new Button("Login");
 	private Button btnSignIn = new Button("Sign In");
@@ -37,6 +37,14 @@ public class BookHotelListView extends Application {
 	private DatePicker dPickerCheckIn = new DatePicker();
 	private DatePicker dPickerCheckOut = new DatePicker();
 	private Button btnSearch = new Button("Search");
+	private Label lblPersonCount = new Label("0");
+	private Button btnPlus = new Button("+");
+	private Button btnMinus = new Button("-");
+	
+	private Text txtErrCity = new Text("You have to fill this field!");
+	private Text txtErrCheckIn = new Text("You have to fill this field!");
+	private Text txtErrCheckOut = new Text("You have to fill this field!");
+	private Text txtErrPersonCount = new Text("You have select how much you are!");
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -59,25 +67,90 @@ public class BookHotelListView extends Application {
 		hBoxTitle.setMaxWidth(Double.MAX_VALUE);
 		hBoxTop.getChildren().addAll(hBoxTitle, hBoxLogin);
 		
-		txtFieldCity.setPromptText("Where do you want to go?");
+		Label lblCity = new Label("Where do you want to go");
+		Label lblCheckIn = new Label("Enter Check-In");
+		Label lblCheckOut = new Label("Enter Check-Out");
 		
-		dPickerCheckIn.setPromptText("Enter Check-In");
+		this.txtErrCity.setFill(Color.RED);
+		this.txtErrCity.setVisible(false);
+		this.txtErrCheckIn.setFill(Color.RED);
+		this.txtErrCheckIn.setVisible(false);
+		this.txtErrCheckOut.setFill(Color.RED);
+		this.txtErrCheckOut.setVisible(false);
+		this.txtErrPersonCount.setFill(Color.RED);
+		this.txtErrPersonCount.setVisible(false);
 		
-		dPickerCheckOut.setPromptText("Enter Check-Out");
+		txtFieldCity.setPromptText("e.g. Rome");	
 		
-		VBox vBoxLeft = new VBox(10);
+		dPickerCheckIn.setPromptText("Pick a date");
+		dPickerCheckIn.setDayCellFactory(MyCallback.getDayCellFactory());
+		dPickerCheckIn.setEditable(false);
+		
+		dPickerCheckOut.setPromptText("Pick a date");
+		dPickerCheckOut.setDayCellFactory(MyCallback.getDayCellFactory());
+		dPickerCheckOut.setEditable(false);
+		
+		HBox personCountHBox = new HBox(10);
+		personCountHBox.setAlignment(Pos.CENTER);
+		personCountHBox.getChildren().addAll(btnPlus, lblPersonCount, btnMinus);
+		
+		VBox vBoxLeft = new VBox(5);
 		vBoxLeft.setPadding(new Insets(50, 20, 20, 0));
-		vBoxLeft.getChildren().addAll(txtFieldCity, dPickerCheckIn, dPickerCheckOut, btnSearch);
+		vBoxLeft.getChildren().addAll(lblCity, txtFieldCity, this.txtErrCity,
+				lblCheckIn, dPickerCheckIn, this.txtErrCheckIn,
+				lblCheckOut, dPickerCheckOut, this.txtErrCheckOut, 
+				personCountHBox, this.txtErrPersonCount, btnSearch);
 		
 		borderPane.setTop(hBoxTop);
 		borderPane.setLeft(vBoxLeft);
 		borderPane.setCenter(this.scrollPane);
-//		borderPane.setCenter(this.listview);
 		
 		Scene scene = new Scene(borderPane, 1200, 800);
 		primaryStage.setScene(scene);
 		primaryStage.setResizable(false);
 		primaryStage.show();
+		
+	}
+	
+	public void setVisibleErrCityField(boolean value) {
+		
+		this.txtErrCity.setVisible(value);
+		
+	}
+	
+	public void setVisibleErrCheckInField(boolean value) {
+		
+		this.txtErrCheckIn.setVisible(value);
+		
+	}
+	
+	public void setVisibleErrCheckOutField(boolean value) {
+		
+		this.txtErrCheckOut.setVisible(value);
+		
+	}
+	
+	public void setVisibleErrPersonCount(boolean value) {
+		
+		this.txtErrPersonCount.setVisible(value);
+		
+	}
+	
+	public void setCityField(String city) {
+		
+		this.txtFieldCity.setText(city);
+		
+	}
+	
+	public void setCheckInDate(LocalDate checkIn) {
+		
+		this.dPickerCheckIn.setValue(checkIn);
+		
+	}
+	
+	public void setCheckOutDate(LocalDate checkOut) {
+		
+		this.dPickerCheckOut.setValue(checkOut);
 		
 	}
 	
@@ -99,6 +172,40 @@ public class BookHotelListView extends Application {
 		
 	}
 	
+	public void resetPersonCount() {
+		
+		this.lblPersonCount.setText("0");
+		
+	}
+	
+	public void disableMinusButton() {
+		
+		this.btnMinus.setDisable(true);
+		
+	}
+	
+	public void enableMinusButton() {
+		
+		this.btnMinus.setDisable(false);
+		
+	}
+	
+	public void addPlusHanlder(EventHandler<ActionEvent> addHandler) {
+		
+		this.btnPlus.setOnAction(addHandler);
+		
+	}
+	
+	public void addMinusHanlder(EventHandler<ActionEvent> minusHandler) {
+		
+		this.btnMinus.setOnAction(minusHandler);
+		
+	}
+	
+	public void setPersonCountText(String value) { this.lblPersonCount.setText(value); }
+	
+	public String getPersonCount() { return this.lblPersonCount.getText(); }
+	
 	public String getCityField() { return this.txtFieldCity.getText();	}
 	
 	public LocalDate getCheckInDate() { return this.dPickerCheckIn.getValue(); }
@@ -112,27 +219,21 @@ public class BookHotelListView extends Application {
 		
 		for(int i = 0; i < rentablePlaces.size(); i++)
 			list.add(new HBoxCell(rentablePlaces.get(i).getName(), rentablePlaces.get(i).getAddress(), buttonHandler));
-		
+			
 		vBox.getChildren().addAll(list);
 		vBox.setMaxWidth(Double.MAX_VALUE);
-		
+			
 		this.scrollPane.setContent(vBox);
-		this.scrollPane.setFitToWidth(true);
+		this.scrollPane.setFitToWidth(true);		
 		
 	}
 	
-//	public void populateListView (List<RentablePlace> rentablePlaces) {
-//		
-//		List<HBoxCell> list = new ArrayList<HBoxCell>();
-//		
-//		for(int i = 0; i < rentablePlaces.size(); i++)
-//			list.add(new HBoxCell(rentablePlaces.get(i).getName(), rentablePlaces.get(i).getAddress()));
-//		
-//		ObservableList<HBoxCell> observableList = FXCollections.observableList(list);
-//		
-//		this.listview.setItems(observableList);
-//		
-//	}
+	public void resultNotFound() {
+		
+		Label lblResultNotFound = new Label("No result for your search");
+		this.scrollPane.setContent(lblResultNotFound);
+		
+	}
 	
 	public class HBoxCell extends HBox {
 		

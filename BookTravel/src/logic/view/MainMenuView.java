@@ -28,6 +28,7 @@ public class MainMenuView extends Application {
 	
 	private Button btnLogin = new Button("Login");
 	private Button btnSignIn = new Button("Sign In");
+	private Button btnLoginAsOwner = new Button("Login as Owner");
 	
 	private Text txtErrCity = new Text("You have to fill this field!");
 	private Text txtErrCheckIn = new Text("You have to fill this field!");
@@ -60,8 +61,8 @@ public class MainMenuView extends Application {
 		
 		HBox hBoxLogin = new HBox(10);
 		hBoxLogin.setAlignment(Pos.CENTER_RIGHT);
-		hBoxLogin.getChildren().addAll(btnLogin, btnSignIn);
-		
+		hBoxLogin.getChildren().addAll(btnLogin, btnSignIn, btnLoginAsOwner);
+	 
 		HBox hBoxTop = new HBox();
 		HBox.setHgrow(hBoxTitle, Priority.ALWAYS);
 		hBoxTitle.setMaxWidth(Double.MAX_VALUE);

@@ -54,14 +54,31 @@ public abstract class RentablePlace {
 	public RentablePlace(String name, String address, String city) {
 		
 		rooms = new ArrayList<Room>();
-		rooms.add(new Room("Bella camera", 2, 20, 1));
-		rooms.add(new Room("Bella camera 2", 3, 25, 1));
-		rooms.add(new Room("Bella camera 3", 4, 30, 2));
-		rooms.add(new Room("Bella camera 4", 5, 35, 2));
+//		rooms.add(new Room("Bella camera", 2, 20, 1));
+//		rooms.add(new Room("Bella camera 2", 3, 25, 1));
+//		rooms.add(new Room("Bella camera 3", 4, 30, 2));
+//		rooms.add(new Room("Bella camera 4", 5, 35, 2));
 		
 		this.name = name;
 		this.address = address;
 		this.city = city;
+		
+	}
+	
+	/**
+	 * Another constructor, it take as a parameter the list of the rooms.
+	 * @param name
+	 * @param address
+	 * @param city
+	 * @param rooms
+	 */
+	public RentablePlace(String name, String address, String city, List<Room> rooms) {
+		
+		this.name = name;
+		this.address = address;
+		this.city = city;
+		
+		this.rooms = new ArrayList<Room>(rooms);
 		
 	}
 	
@@ -82,6 +99,31 @@ public abstract class RentablePlace {
 		this.city = city;
 		
 		this.description = description;
+		
+	}
+	
+	/**
+	 * Add a new room to the rentable place.
+	 * 
+	 * @param description	description.
+	 * @param beds			number of beds.
+	 * @param size			size, measured in square meters.
+	 * @param toilets		number of toilets.
+	 */
+	public void addNewRoom(String description, int beds, int size, int toilets) {
+		
+		this.rooms.add(new Room(description, beds, size, toilets));
+		
+	}
+	
+	/**
+	 * Method used for testing.
+	 * 
+	 * @param newRoom	the new room.
+	 */
+	public void addNewRoom(Room newRoom) {
+		
+		this.rooms.add(newRoom);
 		
 	}
 	
@@ -210,7 +252,6 @@ public abstract class RentablePlace {
 		
 	}
 	
-	
 	/**
 	 * Set the new description.
 	 * 
@@ -239,17 +280,11 @@ public abstract class RentablePlace {
 	 */
 	public String getAddress() { return this.address; }
 	
-	
-	
 	/**
-	 * @author Adri
+	 * Never call this method. It needs for testing.
 	 * 
-	 * this metod add a room to the room list
-	 * @param r
+	 * @return
 	 */
-	
-	public void addRoom(Room r) {
-		rooms.add(r);
-	}
+	public List<Room> getRooms() { return this.rooms; }
 
 }

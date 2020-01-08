@@ -77,6 +77,10 @@ public class Room {
 				/* The given date conflicts with another date of a booking. */
 				return false;
 			
+			if( checkIn.equals(activeBooking.getCheckIn()) && checkOut.equals(activeBooking.checkOut) )
+				
+				/* The given date conflict exactly with another date. */
+				return false;
 		}
 		
 		return true;

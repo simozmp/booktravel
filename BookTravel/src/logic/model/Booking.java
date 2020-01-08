@@ -27,7 +27,7 @@ public abstract class Booking {
 	 * A reference to a list of people which the booking is composed.
 	 * Never pass it out of this class.
 	 */
-	List<Person> people;
+	protected List<Person> people;
 	
 	/**
 	 * Constructor of the class.

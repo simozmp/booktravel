@@ -1,5 +1,7 @@
 package logic.model;
 
+import java.util.List;
+
 /**
  * 
  * @author metal
@@ -19,6 +21,12 @@ public class Hotel extends RentablePlace {
 		
 		super(name, address, city);
 
+	}
+	
+	public Hotel(String name, String address, String city, List<Room> rooms) {
+		
+		super(name, address, city, rooms);
+		
 	}
 
 }

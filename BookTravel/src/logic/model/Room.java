@@ -1,4 +1,4 @@
-package logic.model;
+ package logic.model;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -59,6 +59,7 @@ public class Room {
 		
 	}
 	
+
 	/**
 	 * Check if the room is available for the given date.
 	 * 
@@ -120,5 +121,32 @@ public class Room {
 	 * @return the toilets attribute.
 	 */
 	public int getToilets() { return this.toilets; }
-
+	
+	
+	
+	/**
+	 * @author Adri
+	 * 
+	 * the follow metod set the attribute for a room
+	 */
+	public void setBeds(int i) {
+		this.beds = i;
+		
+	}
+	
+	public void setSize(int i) {
+		this.size = i;
+		
+	}
+	
+	public void setToilets(int i) {
+		this.toilets = i;
+		
+	}
+	
+	public void setDescription(String s) {
+		this.description = s;
+		
+	}
+		
 }

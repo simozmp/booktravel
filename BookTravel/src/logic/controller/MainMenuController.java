@@ -44,8 +44,10 @@ public class MainMenuController {
 		this.view.addSearchListener(new SearchHandler());
 		this.view.addMinusHanlder(new MinusHandler());
 		this.view.addPlusHanlder(new PlusHandler());
-	}
+	//	this.view.addLogInAsOwnerListener(new logInAsOwnerHandler());
+		
 	
+	}
 	/**
 	 * 
 	 * @author metal
@@ -161,6 +163,25 @@ public class MainMenuController {
 			view.setPersonCountText(String.valueOf(personCount));
 			
 		}
+		
+	}
+	
+	private class LogInAsOwnerHandler implements EventHandler<ActionEvent> {
+		
+		@Override
+		public void handle(ActionEvent event) {
+			try {
+			
+				/* Set the new controller and change the view. */
+			//	new ManageHotelListViewController(Main.getInstance().getManageHotelListView(), model, fields);
+			
+				Main.getInstance().changeToManageHotelListView();
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		}
+		
 		
 	}
 

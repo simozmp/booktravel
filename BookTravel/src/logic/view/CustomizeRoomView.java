@@ -24,22 +24,8 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import logic.mydatecell.MyCallback;
 
-public class MainMenuView extends Application {
-	
-	private Button btnLogin = new Button("Login");
-	private Button btnSignIn = new Button("Sign In");
-	private Button btnLoginAsOwner = new Button("Login as Owner");
-	
-	private Text txtErrCity = new Text("You have to fill this field!");
-	private Text txtErrCheckIn = new Text("You have to fill this field!");
-	private Text txtErrCheckOut = new Text("You have to fill this field!");
-	private Text txtErrPersonCount = new Text("You have select how much you are!");
-	
-	private TextField txtFieldCity= new TextField();
-	private DatePicker dPickerCheckIn = new DatePicker();
-	private DatePicker dPickerCheckOut = new DatePicker();
-	private Button btnSearch = new Button("Search");
-	private Button btnGetStarted = new Button("Get Started");	
+public class CustomizeRoomView extends Application {
+		
 	private Label lblPersonCount = new Label("0");
 	private Button btnPlus = new Button("+");
 	private Button btnMinus = new Button("-");
@@ -77,23 +63,9 @@ public class MainMenuView extends Application {
 		Label lblCheckOut = new Label("Enter Check-Out");
 		Label lblPerson = new Label("Select how much people you are");
 		
-		txtFieldCity.setPromptText("e.g. Rome");		
-		dPickerCheckIn.setPromptText("Pick a date");
-		dPickerCheckIn.setDayCellFactory(MyCallback.getDayCellFactory());
-		dPickerCheckIn.setEditable(false);
 		
-		dPickerCheckOut.setPromptText("Pick a date");
-		dPickerCheckOut.setDayCellFactory(MyCallback.getDayCellFactory());
-		dPickerCheckOut.setEditable(false);
-		
-		this.txtErrCity.setFill(Color.RED);
-		this.txtErrCity.setVisible(false);
-		this.txtErrCheckIn.setFill(Color.RED);
-		this.txtErrCheckIn.setVisible(false);
-		this.txtErrCheckOut.setFill(Color.RED);
-		this.txtErrCheckOut.setVisible(false);
-		this.txtErrPersonCount.setFill(Color.RED);
-		this.txtErrPersonCount.setVisible(false);
+	
+	
 	
 		GridPane gridPane = new GridPane();
 		gridPane.setVgap(10);

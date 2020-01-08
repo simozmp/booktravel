@@ -8,6 +8,7 @@ import logic.view.BookHotelListView;
 import logic.view.BookingView;
 import logic.view.HotelView;
 import logic.view.MainMenuView;
+import logic.view.ManageHotelListView;
 
 /**
  * 
@@ -37,6 +38,8 @@ public class Main extends Application{
 	 * Reference to booking view.
 	 */
 	private BookingView bookingView;
+
+	private ManageHotelListView manageHotelListView;
 	
 	/**
 	 * The primary stage of the javafx application.
@@ -152,5 +155,18 @@ public class Main extends Application{
 	 * @return BookingView.
 	 */
 	public BookingView getBookingView() { return this.bookingView; }
+	
+	
+	
+	/**
+	 * @author Adri
+	 * 
+	 * @throws Exception
+	 */
+	
+	public void changeToManageHotelListView() throws Exception {
+		this.manageHotelListView.start(primaryStage);
+		
+	}
 	
 }

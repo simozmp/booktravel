@@ -210,6 +210,7 @@ public abstract class RentablePlace {
 		
 	}
 	
+	
 	/**
 	 * Set the new description.
 	 * 
@@ -237,5 +238,18 @@ public abstract class RentablePlace {
 	 * @return	the address attribute.
 	 */
 	public String getAddress() { return this.address; }
+	
+	
+	
+	/**
+	 * @author Adri
+	 * 
+	 * this metod add a room to the room list
+	 * @param r
+	 */
+	
+	public void addRoom(Room r) {
+		rooms.add(r);
+	}
 
 }

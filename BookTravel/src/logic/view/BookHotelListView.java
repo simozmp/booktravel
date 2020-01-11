@@ -46,6 +46,10 @@ public class BookHotelListView extends Application {
 	private Text txtErrCheckOut = new Text("You have to fill this field!");
 	private Text txtErrPersonCount = new Text("You have select how much you are!");
 
+	private Button btnUserProfile = new Button("User Profile");
+
+	private HBox hBoxLogin = new HBox(10);
+
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		BorderPane borderPane = new BorderPane();
@@ -58,7 +62,6 @@ public class BookHotelListView extends Application {
 		title.setFont(Font.font("Arial", FontWeight.BOLD, 28));
 		hBoxTitle.getChildren().add(title);
 		
-		HBox hBoxLogin = new HBox(10);
 		hBoxLogin.setAlignment(Pos.CENTER_RIGHT);
 		hBoxLogin.getChildren().addAll(btnLogin, btnSignIn);
 		
@@ -112,6 +115,26 @@ public class BookHotelListView extends Application {
 		
 	}
 	
+	public void addUserProfileHandler(EventHandler<ActionEvent> handler) {
+		
+		this.btnUserProfile.setOnAction(handler);
+		
+	}
+	
+	public void loggedView(String username) {
+		
+		this.hBoxLogin.getChildren().clear();
+		this.hBoxLogin.getChildren().addAll(new Text(username), this.btnUserProfile);
+		
+	}
+
+	
+	public void addLoginHandler(EventHandler<ActionEvent> loginHandler) {
+		
+		this.btnLogin.setOnAction(loginHandler);
+		
+	}
+	
 	public void setVisibleErrCityField(boolean value) {
 		
 		this.txtErrCity.setVisible(value);
@@ -151,12 +174,6 @@ public class BookHotelListView extends Application {
 	public void setCheckOutDate(LocalDate checkOut) {
 		
 		this.dPickerCheckOut.setValue(checkOut);
-		
-	}
-	
-	public void addLoginListener(EventHandler<ActionEvent> loginHandler) {
-		
-		this.btnLogin.setOnAction(loginHandler);
 		
 	}
 	

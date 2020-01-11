@@ -9,6 +9,7 @@ import logic.view.BookingView;
 import logic.view.HotelView;
 import logic.view.MainMenuView;
 import logic.view.ManageHotelListView;
+import logic.view.UserProfileView;
 
 /**
  * 
@@ -23,6 +24,11 @@ public class Main extends Application{
 	 * Reference to the main menu.
 	 */
 	private MainMenuView mainMenuView;
+	
+	/**
+	 * Reference to the user profile view.
+	 */
+	private UserProfileView userProfileView;
 	
 	/**
 	 * Reference to the list view.
@@ -60,6 +66,7 @@ public class Main extends Application{
 		this.bookHotelListView = new BookHotelListView();
 		this.hotelView = new HotelView();
 		this.bookingView = new BookingView();
+		this.userProfileView = new UserProfileView();
 		
 	}
 	
@@ -84,6 +91,34 @@ public class Main extends Application{
 		mainMenuView.start(Main.primaryStage);
 		
 		new MainMenuController(this.mainMenuView, BookHotelController.getInstance());
+		
+	}
+	
+	/**
+	 * Change the view to user profile view.
+	 * 
+	 * @throws Exception
+	 */
+	public void changeToUserProfileView() throws Exception {
+		
+		this.userProfileView.start(primaryStage);
+		
+	}
+	
+	/**
+	 * Return the User profile view.
+	 * 
+	 * @return user profile view.
+	 */
+	public UserProfileView getUserProfileView() {
+		
+		return this.userProfileView;
+		
+	}
+	
+	public void changeToMainMenuView() throws Exception {
+		
+		this.mainMenuView.start(primaryStage);
 		
 	}
 	
@@ -134,6 +169,13 @@ public class Main extends Application{
 		return Main.instance;
 		
 	}
+	
+	/**
+	 * Get method.
+	 * 
+	 * @return MainMenuView.
+	 */
+	public MainMenuView getMainMenuView() { return this.mainMenuView; }
 	
 	/**
 	 * Get method.

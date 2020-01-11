@@ -11,6 +11,7 @@ import logic.Main;
 import logic.bean.CityDateBean;
 import logic.bean.RoomBean;
 import logic.model.BookHotelController;
+import logic.model.LoginController;
 import logic.model.Person;
 import logic.model.RentablePlace;
 import logic.view.BookingView;
@@ -60,6 +61,9 @@ public class BookingViewController {
 		this.fields = fields;
 		this.roomBeans = new ArrayList<RoomBean>(roomBeans);
 		
+		if(LoginController.getInstance().isLogged())
+			this.view.setUsername(LoginController.getInstance().getUsername());
+		
 		/* Initialize the form needed for the user input. */
 		this.view.populateView(fields.getPersonCount());
 		
@@ -88,31 +92,51 @@ public class BookingViewController {
 			
 			List<Person> people = new ArrayList<Person>();
 			
+			boolean isEmpty = false;	/* Value to keep track if one or more fields are empty. */
+			
 			for( BookingView.PersonForm personForm : peopleForm ) {
 				
-				people.add( new Person( personForm.getFiscalCode(), personForm.getName(),
-						personForm.getLastname() ) );		/* Extract the input and add it to the bean. */
+				personForm.setErrorVisible(false);
+				
+				if( !personForm.getFiscalCode().equals("") && !personForm.getName().equals("") && !personForm.getLastname().equals("") ) {
+					
+					/* All fields are been filled. */
+					people.add( new Person( personForm.getFiscalCode(), personForm.getName(),
+							personForm.getLastname() ) );		/* Extract the input and add it to the bean. */
+					
+				} else {
+					
+					/* One or more fields are empty. */
+					isEmpty = true;
+					personForm.setErrorVisible(true);
+					
+				}
+				
 				
 			}
 			
-			BookHotelController.getInstance().createBooking(fields, people, roomBeans, model);	/* Tell to the use case controller to create a new booking. */
-			
-			Alert alert = new Alert(AlertType.INFORMATION);
-			alert.setTitle("Booking information.");
-			alert.setHeaderText(null);
-			alert.setContentText("New Booking Confirmed.");
-			
-			alert.showAndWait();
-			
-			try {
+			if(!isEmpty) {
 				
-				/* Change view and set new controller. */
-				Main.getInstance().changeToBookHotelListView();
-				new BookHotelListViewController(Main.getInstance().getBookHotelListView(),	BookHotelController.getInstance(), fields);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+				BookHotelController.getInstance().createBooking(fields, people, roomBeans, model);	/* Tell to the use case controller to create a new booking. */
+				
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("Booking information.");
+				alert.setHeaderText(null);
+				alert.setContentText("New Booking Confirmed.");
+				
+				alert.showAndWait();
+				
+				try {
+					
+					/* Change view and set new controller. */
+					Main.getInstance().changeToBookHotelListView();
+					new BookHotelListViewController(Main.getInstance().getBookHotelListView(),	BookHotelController.getInstance(), fields);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}			
 			
 		}
 		

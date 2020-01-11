@@ -3,7 +3,9 @@ package logic.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import logic.bean.BookingBean;
 import logic.bean.CityDateBean;
+import logic.bean.LoginBean;
 import logic.bean.RoomBean;
 
 /**
@@ -28,7 +30,7 @@ public class BookHotelController {
 	/**
 	 * Constructor of the class. Creates all the rentable place contained in database.
 	 */
-	public BookHotelController() {
+	private BookHotelController() {
 		
 		this.rentablePlaces = new ArrayList<RentablePlace>();
 		
@@ -117,16 +119,47 @@ public class BookHotelController {
 	/**
 	 * Create a new booking and add it to the specified rentable place.
 	 * 
-	 * @param fields		bean that contains input of the user.
-	 * @param people		list of people that want to book.
-	 * @param roomBeans		room choice by the user.
-	 * @param rentPlace		rentable place choice by the user.
+	 * @param loginBean
+	 * @param fields
+	 * @param people
+	 * @param roomBeans
+	 * @param rentPlace
 	 */
 	public void createBooking(CityDateBean fields, List<Person> people, List<RoomBean> roomBeans, RentablePlace rentPlace) {
 		
-		Booking booking = BookingFactory.getInstance().createActiveBooking(fields.getCheckIn(), fields.getCheckOut(), people);
+		Booking booking = BookingFactory.getInstance().createActiveBooking
+				(rentPlace.getName(), LoginController.getInstance().getUsername(), fields.getCheckIn(), fields.getCheckOut(), people);
 		
 		rentPlace.addActiveBooking(booking, roomBeans);
+		
+	}
+	
+	/**
+	 * Retrieve all booking made by an user in the system.
+	 * 
+	 * @param loginBean	input of the user.
+	 * @return	
+	 */
+	public List<BookingBean> retrieveBookingOfAnUser(LoginBean loginBean) {
+		
+		List<Booking> bookings = new ArrayList<Booking>();
+		
+		for(RentablePlace rentablePlace : this.rentablePlaces) {
+			
+			bookings.addAll(rentablePlace.getBookingsByUser(loginBean.getUsername()));
+			
+		}
+		
+		List<BookingBean> bookingsBean = new ArrayList<BookingBean>();
+		
+		for(Booking booking : bookings) {
+			
+			BookingBean bean = new BookingBean( booking.getHotel(), booking.getCheckIn(), booking.getCheckOut(), booking.getPeople() );
+			bookingsBean.add(bean);
+			
+		}
+		
+		return bookingsBean;
 		
 	}
 	

@@ -36,23 +36,23 @@ public class TestRentablePlace {
 		List<Person> people = new ArrayList<Person>();
 		
 		Room room1 = new Room("camera 1", 2, 20, 1);
-		room1.addActiveBooking(new ActiveBooking(LocalDate.of(2020, 1, 5), LocalDate.of(2020, 1, 5), people));
-		room1.addActiveBooking(new ActiveBooking(LocalDate.of(2020, 1, 6), LocalDate.of(2020, 2, 10), people));
+		room1.addActiveBooking(new ActiveBooking(null, null, LocalDate.of(2020, 1, 5), LocalDate.of(2020, 1, 5), people));
+		room1.addActiveBooking(new ActiveBooking(null, null, LocalDate.of(2020, 1, 6), LocalDate.of(2020, 2, 10), people));
 		rentablePlace.addNewRoom(room1);
 		
 		Room room2 = new Room("camera 2", 3, 25, 1);
-		room2.addActiveBooking(new ActiveBooking(LocalDate.of(2020, 1, 5), LocalDate.of(2020, 1, 5), people));
-		room2.addActiveBooking(new ActiveBooking(LocalDate.of(2020, 2, 5), LocalDate.of(2020, 2, 15), people));
+		room2.addActiveBooking(new ActiveBooking(null, null, LocalDate.of(2020, 1, 5), LocalDate.of(2020, 1, 5), people));
+		room2.addActiveBooking(new ActiveBooking(null, null, LocalDate.of(2020, 2, 5), LocalDate.of(2020, 2, 15), people));
 		rentablePlace.addNewRoom(room2);
 		
 		Room room3 = new Room("camera 3", 4, 30, 1);
-		room3.addActiveBooking(new ActiveBooking(LocalDate.of(2020, 1, 5), LocalDate.of(2020, 1, 5), people));
-		room3.addActiveBooking(new ActiveBooking(LocalDate.of(2020, 2, 5), LocalDate.of(2020, 2, 15), people));
+		room3.addActiveBooking(new ActiveBooking(null, null, LocalDate.of(2020, 1, 5), LocalDate.of(2020, 1, 5), people));
+		room3.addActiveBooking(new ActiveBooking(null, null, LocalDate.of(2020, 2, 5), LocalDate.of(2020, 2, 15), people));
 		rentablePlace.addNewRoom(room3);
 		
 		Room room4 = new Room("camera 4", 5, 30, 2);
-		room4.addActiveBooking(new ActiveBooking(LocalDate.of(2020, 1, 5), LocalDate.of(2020, 1, 5), people));
-		room4.addActiveBooking(new ActiveBooking(LocalDate.of(2020, 5, 5), LocalDate.of(2020, 6, 15), people));
+		room4.addActiveBooking(new ActiveBooking(null, null, LocalDate.of(2020, 1, 5), LocalDate.of(2020, 1, 5), people));
+		room4.addActiveBooking(new ActiveBooking(null, null, LocalDate.of(2020, 5, 5), LocalDate.of(2020, 6, 15), people));
 		rentablePlace.addNewRoom(room4);
 		
 		Room room5 = new Room("camera 5", 2, 30, 1);

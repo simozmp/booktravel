@@ -53,11 +53,7 @@ public abstract class RentablePlace {
 	 */
 	public RentablePlace(String name, String address, String city) {
 		
-		rooms = new ArrayList<Room>();
-//		rooms.add(new Room("Bella camera", 2, 20, 1));
-//		rooms.add(new Room("Bella camera 2", 3, 25, 1));
-//		rooms.add(new Room("Bella camera 3", 4, 30, 2));
-//		rooms.add(new Room("Bella camera 4", 5, 35, 2));
+		this.rooms = new ArrayList<Room>();
 		
 		this.name = name;
 		this.address = address;
@@ -286,5 +282,24 @@ public abstract class RentablePlace {
 	 * @return
 	 */
 	public List<Room> getRooms() { return this.rooms; }
+
+	/**
+	 * Retrieve all bookings of an user in this rentablePlace.
+	 * 
+	 * @param username
+	 * @return			return list of bookings of this user.
+	 */
+	public List<Booking> getBookingsByUser(String username) {
+		
+		List<Booking> bookings = new ArrayList<Booking>();
+		
+		for(Room room : this.rooms) {
+			
+			bookings.addAll(room.getAllBookingOfThisUser(username));
+			
+		}
+		
+		return bookings;
+	}
 
 }

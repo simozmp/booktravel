@@ -12,6 +12,16 @@ import java.util.List;
  * You have to instantiate the concrete class.
  */
 public abstract class Booking {
+
+	/**
+	 * The hotel name where the booking is located.
+	 */
+	protected String hotel;
+	
+	/**
+	 * The user who create this booking.
+	 */
+	protected String user;
 	
 	/**
 	 * The Check-In date.
@@ -36,7 +46,11 @@ public abstract class Booking {
 	 * @param checkOut	the check out date.
 	 * @param people	the list of people for this booking
 	 */
-	public Booking(LocalDate checkIn, LocalDate checkOut, List<Person> people) {
+	public Booking(String hotel, String user, LocalDate checkIn, LocalDate checkOut, List<Person> people) {
+		
+		this.hotel = hotel;
+		
+		this.user = user;
 		
 		this.checkIn = checkIn;
 		
@@ -59,5 +73,17 @@ public abstract class Booking {
 	 * @return	check out attribute.
 	 */
 	public LocalDate getCheckOut() { return checkOut; }	
+	
+	public String getHotel() {
+		return hotel;
+	}
+
+	public String getUser() {
+		return user;
+	}
+
+	public List<Person> getPeople() {
+		return people;
+	}
 
 }

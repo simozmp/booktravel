@@ -7,11 +7,14 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Control;
 import javafx.scene.control.Alert.AlertType;
+import javafx.stage.Stage;
 import logic.Main;
 import logic.bean.CityDateBean;
 import logic.model.BookHotelController;
+import logic.model.LoginController;
 import logic.model.RentablePlace;
 import logic.view.BookHotelListView;
+import logic.view.LoginView;
 
 /**
  * 
@@ -60,10 +63,15 @@ public class BookHotelListViewController {
 			/* Set the data found to the view. */
 			this.view.populateView(this.model.retrieveRentablePlaces(this.fields), new MoreInformationHandler());
 		
+		if(LoginController.getInstance().isLogged())
+			this.view.loggedView(LoginController.getInstance().getUsername());
+		
 		/* Add handlers to buttons. */
 		this.view.addSearchListener(new SearchHandler());
 		this.view.addMinusHanlder(new MinusHandler());
 		this.view.addPlusHanlder(new PlusHandler());
+		this.view.addLoginHandler(new LoginHandler());
+		this.view.addUserProfileHandler(new UserProfile());
 		
 		/* Set the text fields with the input provided by the user. */
 		this.view.setCityField(this.fields.getCity());
@@ -75,6 +83,60 @@ public class BookHotelListViewController {
 			
 			/* The minus button has to be disabled */
 			this.view.disableMinusButton();
+		
+	}
+	
+	/**
+	 * 
+	 * @author metal
+	 *
+	 * This class implements the EventHandler interface for the user profile button.
+	 */
+	private class UserProfile implements EventHandler<ActionEvent> {
+
+		@Override
+		public void handle(ActionEvent event) {
+			
+			if(LoginController.getInstance().isLogged()) {
+				
+				try {
+					new UserProfileViewController(Main.getInstance().getUserProfileView(), BookHotelController.getInstance());
+					Main.getInstance().changeToUserProfileView();
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}
+			
+		}
+		
+	}
+	
+	/**
+	 * 
+	 * @author metal
+	 *
+	 * This class implements the EventHandler interface providing the handle method
+	 * for login button. 
+	 */
+	private class LoginHandler implements EventHandler<ActionEvent> {
+
+		@Override
+		public void handle(ActionEvent event) {
+			
+			Stage stage = new Stage();
+			try {
+				LoginView window = new LoginView();
+				new LoginViewController(window, LoginController.getInstance());
+				window.start(stage);
+				view.loggedView(LoginController.getInstance().getUsername());
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+		}
 		
 	}
 

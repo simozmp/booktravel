@@ -152,5 +152,24 @@ public class Room {
 		this.description = s;
 		
 	}
+
+	/**
+	 * Retrieve all bookings made by the user for this room.
+	 * 
+	 * @param username
+	 * @return		list of booking.
+	 */
+	public List<Booking> getAllBookingOfThisUser(String username) {
+		List<Booking> bookings = new ArrayList<Booking>();
+		
+		for(Booking booking : this.activeBookings) {
+			
+			if(booking.getUser().equals(username))
+				bookings.add(booking);
+			
+		}
+		
+		return bookings;
+	}
 		
 }

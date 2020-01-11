@@ -16,7 +16,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
@@ -29,8 +31,8 @@ public class BookingView extends Application {
 	
 	private VBox vBoxLeft = new VBox(10);
 	
-	private Button btnLogin = new Button("Login");
-	private Button btnSignIn = new Button("Sign In");	
+	private Label lblUsername = new Label();
+	
 	private Button btnBook = new Button("Confirm");
 	private Button btnBack = new Button("Cancel");
 	
@@ -51,16 +53,9 @@ public class BookingView extends Application {
 		
 		Text title = new Text("TravelBook");
 		title.setFont(Font.font("Arial", FontWeight.BOLD, 28));
-		hBoxTitle.getChildren().add(title);
-		
-		HBox hBoxLogin = new HBox(10);
-		hBoxLogin.setAlignment(Pos.CENTER_RIGHT);
-		hBoxLogin.getChildren().addAll(btnLogin, btnSignIn);
-		
-		HBox hBoxTop = new HBox();
-		HBox.setHgrow(hBoxTitle, Priority.ALWAYS);
-		hBoxTitle.setMaxWidth(Double.MAX_VALUE);
-		hBoxTop.getChildren().addAll(hBoxTitle, hBoxLogin);
+		Region region = new Region();
+		HBox.setHgrow(region, Priority.ALWAYS);
+		hBoxTitle.getChildren().addAll(title, region, lblUsername);
 		
 		HBox hBoxBottom = new HBox(10);
 		hBoxBottom.setPadding(new Insets(10, 0, 0, 0));
@@ -69,7 +64,7 @@ public class BookingView extends Application {
 		this.btnBack.setFont(Font.font(20));
 		hBoxBottom.getChildren().addAll(this.btnBack, this.btnBook);
 		
-		borderPane.setTop(hBoxTop);
+		borderPane.setTop(hBoxTitle);
 		borderPane.setCenter(this.scrollPane);
 		borderPane.setBottom(hBoxBottom);
 		borderPane.setLeft(this.vBoxLeft);
@@ -78,6 +73,12 @@ public class BookingView extends Application {
 		primaryStage.setScene(scene);
 		primaryStage.setResizable(false);
 		primaryStage.show();		
+		
+	}
+	
+	public void setUsername(String username) {
+		
+		this.lblUsername.setText(username);
 		
 	}
 		
@@ -151,6 +152,7 @@ public class BookingView extends Application {
 		private TextField name = new TextField();
 		private TextField lastname = new TextField();
 		private TextField fiscalCode = new TextField();
+		private Text txtErr = new Text("You have to fill all the fields.");
 		
 		public PersonForm(String num) {
 			super(10);
@@ -160,8 +162,17 @@ public class BookingView extends Application {
 			this.name.setPromptText("Enter name");
 			this.lastname.setPromptText("Enter lastname");
 			this.fiscalCode.setPromptText("Enter fiscal code");
+			this.txtErr.setFill(Color.RED);
+			this.txtErr.setFont(Font.font(18));
+			this.txtErr.setVisible(false);
 			
-			this.getChildren().addAll(number, this.name, this.lastname, this.fiscalCode);
+			this.getChildren().addAll(number, this.name, this.lastname, this.fiscalCode, this.txtErr);
+			
+		}
+		
+		public void setErrorVisible(boolean value) {
+			
+			this.txtErr.setVisible(value);
 			
 		}
 		

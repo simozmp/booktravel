@@ -12,15 +12,17 @@ import java.util.List;
 public class ActiveBooking extends Booking {
 
 	/**
-	 * Constructor of the class, it just call the super constructor.
+	 * Constructor of the concrete class.
 	 * 
-	 * @param checkIn	check in date.
-	 * @param checkOut	check out date.
-	 * @param people	list of people for this booking.
+	 * @param hotel
+	 * @param user
+	 * @param checkIn
+	 * @param checkOut
+	 * @param people
 	 */
-	public ActiveBooking(LocalDate checkIn, LocalDate checkOut, List<Person> people) {
+	public ActiveBooking(String hotel, String user, LocalDate checkIn, LocalDate checkOut, List<Person> people) {
 		
-		super(checkIn, checkOut, people);
+		super(hotel, user, checkIn, checkOut, people);
 
 	}
 

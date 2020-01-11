@@ -15,6 +15,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
@@ -32,6 +33,9 @@ public class HotelView extends Application {
 	private Label information = new Label();
 	private VBox vBoxLeft;
 	private List<RoomSelector> roomSelectors;
+	private Text txtErr = new Text("You have to select beds that \ncan contain how much people you are.");
+	private Button btnUserProfile = new Button("User Profile");
+	private HBox hBoxLogin = new HBox(10);
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -46,7 +50,6 @@ public class HotelView extends Application {
 		title.setFont(Font.font("Arial", FontWeight.BOLD, 28));
 		hBoxTitle.getChildren().add(title);
 		
-		HBox hBoxLogin = new HBox(10);
 		hBoxLogin.setAlignment(Pos.CENTER_RIGHT);
 		hBoxLogin.getChildren().addAll(btnLogin, btnSignIn);
 		
@@ -63,7 +66,9 @@ public class HotelView extends Application {
 		hBoxCenter.getChildren().addAll(this.name, this.address, this.information);
 		
 		this.vBoxLeft = new VBox(10);
-		vBoxLeft.getChildren().add(this.btnBack);
+		this.txtErr.setFill(Color.RED);
+		this.txtErr.setVisible(false);
+		vBoxLeft.getChildren().addAll(this.btnBack, this.txtErr);
 		
 		HBox hBoxBottom = new HBox(10);
 		hBoxBottom.setAlignment(Pos.CENTER_RIGHT);
@@ -81,6 +86,26 @@ public class HotelView extends Application {
 		
 	}
 	
+	public void addUserProfileHandler(EventHandler<ActionEvent> handler) {
+		
+		this.btnUserProfile.setOnAction(handler);
+		
+	}
+	
+	public void loggedView(String username) {
+		
+		this.hBoxLogin.getChildren().clear();
+		this.hBoxLogin.getChildren().addAll(new Text(username), this.btnUserProfile);
+		
+	}
+
+	
+	public void addLoginHandler(EventHandler<ActionEvent> loginHandler) {
+		
+		this.btnLogin.setOnAction(loginHandler);
+		
+	}
+	
 	public void addBackHandler(EventHandler<ActionEvent> backHandler) {
 		
 		this.btnBack.setOnAction(backHandler);
@@ -90,6 +115,12 @@ public class HotelView extends Application {
 	public void addBookHandler(EventHandler<ActionEvent> bookHandler) {
 		
 		this.btnBook.setOnAction(bookHandler);
+		
+	}
+	
+	public void setErrVisible(boolean value) {
+		
+		this.txtErr.setVisible(value);
 		
 	}
 	

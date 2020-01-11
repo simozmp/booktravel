@@ -43,6 +43,8 @@ public class MainMenuView extends Application {
 	private Label lblPersonCount = new Label("0");
 	private Button btnPlus = new Button("+");
 	private Button btnMinus = new Button("-");
+	private HBox hBoxLogin = new HBox(10);
+	private Button btnUserProfile = new Button("User Profile");
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -59,7 +61,6 @@ public class MainMenuView extends Application {
 		title.setFont(Font.font("Arial", FontWeight.BOLD, 28));
 		hBoxTitle.getChildren().add(title);
 		
-		HBox hBoxLogin = new HBox(10);
 		hBoxLogin.setAlignment(Pos.CENTER_RIGHT);
 		hBoxLogin.getChildren().addAll(btnLogin, btnSignIn, btnLoginAsOwner);
 	 
@@ -144,6 +145,19 @@ public class MainMenuView extends Application {
 		primaryStage.setScene(scene);
 		primaryStage.setResizable(false);
 		primaryStage.show();
+		
+	}
+	
+	public void addUserProfileHandler(EventHandler<ActionEvent> handler) {
+		
+		this.btnUserProfile.setOnAction(handler);
+		
+	}
+	
+	public void loggedView(String username) {
+		
+		this.hBoxLogin.getChildren().clear();
+		this.hBoxLogin.getChildren().addAll(new Text(username), this.btnUserProfile);
 		
 	}
 	

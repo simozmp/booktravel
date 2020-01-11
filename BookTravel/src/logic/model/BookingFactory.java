@@ -19,14 +19,16 @@ public class BookingFactory {
 	/**
 	 * Create a new ActiveBooking.
 	 * 
-	 * @param checkIn	check in date.
-	 * @param checkOut	check out date.
-	 * @param people	list of people for this booking.
-	 * @return			a new ActiveBooking.
+	 * @param hotel
+	 * @param user
+	 * @param checkIn
+	 * @param checkOut
+	 * @param people
+	 * @return		new ActiveBooking.
 	 */
-	public Booking createActiveBooking(LocalDate checkIn, LocalDate checkOut, List<Person> people) {
+	public Booking createActiveBooking(String hotel, String user, LocalDate checkIn, LocalDate checkOut, List<Person> people) {
 		
-		return new ActiveBooking(checkIn, checkOut, people);
+		return new ActiveBooking(hotel, user, checkIn, checkOut, people);
 		
 	}
 	

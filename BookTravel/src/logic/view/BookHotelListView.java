@@ -4,84 +4,61 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import logic.model.RentablePlace;
 import logic.mydatecell.MyCallback;
 
-public class BookHotelListView extends Application {
+public class BookHotelListView extends MainView {
 	
 	private ScrollPane scrollPane = new ScrollPane();
 	
-	private Button btnLogin = new Button("Login");
-	private Button btnSignIn = new Button("Sign In");
-	private TextField txtFieldCity= new TextField();
-	private DatePicker dPickerCheckIn = new DatePicker();
-	private DatePicker dPickerCheckOut = new DatePicker();
-	private Button btnSearch = new Button("Search");
-	private Label lblPersonCount = new Label("0");
 	private Button btnPlus = new Button("+");
 	private Button btnMinus = new Button("-");
+	private Button btnSearch = new Button("Search");
+	
+	private TextField txtFieldCity= new TextField();
+	
+	private DatePicker dPickerCheckIn = new DatePicker();
+	private DatePicker dPickerCheckOut = new DatePicker();
+	
+	private Label lblPersonCount = new Label("0");
 	
 	private Text txtErrCity = new Text("You have to fill this field!");
 	private Text txtErrCheckIn = new Text("You have to fill this field!");
 	private Text txtErrCheckOut = new Text("You have to fill this field!");
 	private Text txtErrPersonCount = new Text("You have select how much you are!");
 
-	private Button btnUserProfile = new Button("User Profile");
-
-	private HBox hBoxLogin = new HBox(10);
-
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		BorderPane borderPane = new BorderPane();
-		borderPane.setPadding(new Insets(20, 20, 20, 20));
 		
-		HBox hBoxTitle = new HBox();
-		hBoxTitle.setAlignment(Pos.CENTER_LEFT);
-		
-		Text title = new Text("TravelBook");
-		title.setFont(Font.font("Arial", FontWeight.BOLD, 28));
-		hBoxTitle.getChildren().add(title);
-		
-		hBoxLogin.setAlignment(Pos.CENTER_RIGHT);
-		hBoxLogin.getChildren().addAll(btnLogin, btnSignIn);
-		
-		HBox hBoxTop = new HBox();
-		HBox.setHgrow(hBoxTitle, Priority.ALWAYS);
-		hBoxTitle.setMaxWidth(Double.MAX_VALUE);
-		hBoxTop.getChildren().addAll(hBoxTitle, hBoxLogin);
+		super.start(primaryStage);
 		
 		Label lblCity = new Label("Where do you want to go");
 		Label lblCheckIn = new Label("Enter Check-In");
 		Label lblCheckOut = new Label("Enter Check-Out");
 		
-		this.txtErrCity.setFill(Color.RED);
-		this.txtErrCity.setVisible(false);
-		this.txtErrCheckIn.setFill(Color.RED);
-		this.txtErrCheckIn.setVisible(false);
-		this.txtErrCheckOut.setFill(Color.RED);
-		this.txtErrCheckOut.setVisible(false);
-		this.txtErrPersonCount.setFill(Color.RED);
-		this.txtErrPersonCount.setVisible(false);
+		txtErrCity.setFill(Color.RED);
+		txtErrCity.setVisible(false);
+		txtErrCheckIn.setFill(Color.RED);
+		txtErrCheckIn.setVisible(false);
+		txtErrCheckOut.setFill(Color.RED);
+		txtErrCheckOut.setVisible(false);
+		txtErrPersonCount.setFill(Color.RED);
+		txtErrPersonCount.setVisible(false);
 		
 		txtFieldCity.setPromptText("e.g. Rome");	
 		
@@ -99,135 +76,87 @@ public class BookHotelListView extends Application {
 		
 		VBox vBoxLeft = new VBox(5);
 		vBoxLeft.setPadding(new Insets(50, 20, 20, 0));
-		vBoxLeft.getChildren().addAll(lblCity, txtFieldCity, this.txtErrCity,
-				lblCheckIn, dPickerCheckIn, this.txtErrCheckIn,
-				lblCheckOut, dPickerCheckOut, this.txtErrCheckOut, 
-				personCountHBox, this.txtErrPersonCount, btnSearch);
+		vBoxLeft.getChildren().addAll(lblCity, txtFieldCity, txtErrCity,
+				lblCheckIn, dPickerCheckIn, txtErrCheckIn,
+				lblCheckOut, dPickerCheckOut, txtErrCheckOut, 
+				personCountHBox, txtErrPersonCount, btnSearch);
 		
-		borderPane.setTop(hBoxTop);
-		borderPane.setLeft(vBoxLeft);
-		borderPane.setCenter(this.scrollPane);
-		
-		Scene scene = new Scene(borderPane, 1200, 800);
-		primaryStage.setScene(scene);
-		primaryStage.setResizable(false);
-		primaryStage.show();
+		super.borderPane.setLeft(vBoxLeft);
+		super.borderPane.setCenter(this.scrollPane);
 		
 	}
 	
-	public void addUserProfileHandler(EventHandler<ActionEvent> handler) {
-		
-		this.btnUserProfile.setOnAction(handler);
-		
+	public void setVisibleErrCityField(boolean value) {		
+		this.txtErrCity.setVisible(value);		
 	}
 	
-	public void loggedView(String username) {
-		
-		this.hBoxLogin.getChildren().clear();
-		this.hBoxLogin.getChildren().addAll(new Text(username), this.btnUserProfile);
-		
-	}
-
-	
-	public void addLoginHandler(EventHandler<ActionEvent> loginHandler) {
-		
-		this.btnLogin.setOnAction(loginHandler);
-		
+	public void setVisibleErrCheckInField(boolean value) {		
+		this.txtErrCheckIn.setVisible(value);		
 	}
 	
-	public void setVisibleErrCityField(boolean value) {
-		
-		this.txtErrCity.setVisible(value);
-		
+	public void setVisibleErrCheckOutField(boolean value) {		
+		this.txtErrCheckOut.setVisible(value);		
 	}
 	
-	public void setVisibleErrCheckInField(boolean value) {
-		
-		this.txtErrCheckIn.setVisible(value);
-		
+	public void setVisibleErrPersonCount(boolean value) {		
+		this.txtErrPersonCount.setVisible(value);		
 	}
 	
-	public void setVisibleErrCheckOutField(boolean value) {
-		
-		this.txtErrCheckOut.setVisible(value);
-		
+	public void setCityField(String city) {		
+		this.txtFieldCity.setText(city);		
 	}
 	
-	public void setVisibleErrPersonCount(boolean value) {
-		
-		this.txtErrPersonCount.setVisible(value);
-		
+	public void setCheckInDate(LocalDate checkIn) {		
+		this.dPickerCheckIn.setValue(checkIn);		
 	}
 	
-	public void setCityField(String city) {
-		
-		this.txtFieldCity.setText(city);
-		
+	public void setCheckOutDate(LocalDate checkOut) {		
+		this.dPickerCheckOut.setValue(checkOut);		
+	}	
+	
+	public void addSearchListener(EventHandler<ActionEvent> searchHandler) {		
+		this.btnSearch.setOnAction(searchHandler);		
 	}
 	
-	public void setCheckInDate(LocalDate checkIn) {
-		
-		this.dPickerCheckIn.setValue(checkIn);
-		
+	public void resetPersonCount() {		
+		this.lblPersonCount.setText("0");		
 	}
 	
-	public void setCheckOutDate(LocalDate checkOut) {
-		
-		this.dPickerCheckOut.setValue(checkOut);
-		
+	public void disableMinusButton() {		
+		this.btnMinus.setDisable(true);		
 	}
 	
-	public void addSignInListener(EventHandler<ActionEvent> signInHandler) {
-		
-		this.btnSignIn.setOnAction(signInHandler);
-		
+	public void enableMinusButton() {		
+		this.btnMinus.setDisable(false);		
 	}
 	
-	public void addSearchListener(EventHandler<ActionEvent> searchHandler) {
-		
-		this.btnSearch.setOnAction(searchHandler);
-		
+	public void addPlusHanlder(EventHandler<ActionEvent> addHandler) {		
+		this.btnPlus.setOnAction(addHandler);		
 	}
 	
-	public void resetPersonCount() {
-		
-		this.lblPersonCount.setText("0");
-		
+	public void addMinusHanlder(EventHandler<ActionEvent> minusHandler) {		
+		this.btnMinus.setOnAction(minusHandler);		
 	}
 	
-	public void disableMinusButton() {
-		
-		this.btnMinus.setDisable(true);
-		
+	public void setPersonCountText(String value) {
+		this.lblPersonCount.setText(value); 
 	}
 	
-	public void enableMinusButton() {
-		
-		this.btnMinus.setDisable(false);
-		
+	public String getPersonCount() { 
+		return this.lblPersonCount.getText(); 
 	}
 	
-	public void addPlusHanlder(EventHandler<ActionEvent> addHandler) {
-		
-		this.btnPlus.setOnAction(addHandler);
-		
+	public String getCityField() { 
+		return this.txtFieldCity.getText();	
 	}
 	
-	public void addMinusHanlder(EventHandler<ActionEvent> minusHandler) {
-		
-		this.btnMinus.setOnAction(minusHandler);
-		
+	public LocalDate getCheckInDate() { 
+		return this.dPickerCheckIn.getValue(); 
 	}
 	
-	public void setPersonCountText(String value) { this.lblPersonCount.setText(value); }
-	
-	public String getPersonCount() { return this.lblPersonCount.getText(); }
-	
-	public String getCityField() { return this.txtFieldCity.getText();	}
-	
-	public LocalDate getCheckInDate() { return this.dPickerCheckIn.getValue(); }
-	
-	public LocalDate getCheckOutDate() { return this.dPickerCheckOut.getValue(); }
+	public LocalDate getCheckOutDate() {
+		return this.dPickerCheckOut.getValue(); 
+	}
 	
 	public void populateView (List<RentablePlace> rentablePlaces, EventHandler<ActionEvent> buttonHandler) {
 		
@@ -278,9 +207,13 @@ public class BookHotelListView extends Application {
 			
 		}
 		
-		public String getName() { return this.name.getText(); }
+		public String getName() { 
+			return this.name.getText();
+		}
 		
-		public String getAddress() { return this.address.getText(); }
+		public String getAddress() { 
+			return this.address.getText(); 
+		}
 		
 	}
 

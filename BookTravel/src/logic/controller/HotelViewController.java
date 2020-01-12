@@ -7,7 +7,6 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.stage.Stage;
 import javafx.scene.control.Control;
 import logic.Main;
 import logic.bean.CityDateBean;
@@ -16,7 +15,6 @@ import logic.model.RentablePlace;
 import logic.model.BookHotelController;
 import logic.model.LoginController;
 import logic.view.HotelView;
-import logic.view.LoginView;
 
 /**
  * 
@@ -24,7 +22,7 @@ import logic.view.LoginView;
  *
  * MVC controller for the view HotelView.
  */
-public class HotelViewController {
+public class HotelViewController extends MainViewController {
 	
 	/**
 	 * Reference to the view.
@@ -51,13 +49,12 @@ public class HotelViewController {
 	 */
 	public HotelViewController(HotelView view, RentablePlace model, CityDateBean fields) {
 		
+		super(view, model);
+		
 		/* Set the new view and the new model. */
-		this.view = view;
+		this.view = (HotelView) super.view;
 		this.model = model;
 		this.fields = fields;
-		
-		if(LoginController.getInstance().isLogged())
-			this.view.loggedView(LoginController.getInstance().getUsername());
 		
 		/* Set the data to the view. */
 		this.view.setName(this.model.getName());
@@ -70,8 +67,6 @@ public class HotelViewController {
 		/* Add handlers to button. */
 		this.view.addBackHandler(new BackHandler());
 		this.view.addBookHandler(new BookHandler());
-		this.view.addLoginHandler(new LoginHandler());
-		this.view.addUserProfileHandler(new UserProfile());
 		
 	}
 	
@@ -101,60 +96,6 @@ public class HotelViewController {
 		}
 		
 		this.view.createRoomSelector(roomsAvailability, new PlusHandler(), new MinusHandler());
-		
-	}
-	
-	
-	/**
-	 * 
-	 * @author metal
-	 *
-	 * This class implements the EventHandler interface for the user profile button.
-	 */
-	private class UserProfile implements EventHandler<ActionEvent> {
-
-		@Override
-		public void handle(ActionEvent event) {
-			
-			if(LoginController.getInstance().isLogged()) {
-				
-				try {
-					new UserProfileViewController(Main.getInstance().getUserProfileView(), BookHotelController.getInstance());
-					Main.getInstance().changeToUserProfileView();
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
-			}
-			
-		}
-		
-	}
-	
-	/**
-	 * 
-	 * @author metal
-	 * 
-	 * This class implements the EventHandler interface for the login button.
-	 */
-	private class LoginHandler implements EventHandler<ActionEvent> {
-
-		@Override
-		public void handle(ActionEvent event) {
-			
-			Stage stage = new Stage();
-			try {
-				LoginView window = new LoginView();
-				new LoginViewController(window, LoginController.getInstance());
-				window.start(stage);
-				view.loggedView(LoginController.getInstance().getUsername());
-			} catch (Exception e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-			
-		}
 		
 	}
 	

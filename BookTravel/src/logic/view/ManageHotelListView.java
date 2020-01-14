@@ -1,6 +1,6 @@
 package logic.view;
 
-import java.time.LocalDate;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,10 +11,9 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
+
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -25,7 +24,6 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import logic.model.RentablePlace;
-import logic.mydatecell.MyCallback;
 
 public class ManageHotelListView extends Application {
 	
@@ -33,8 +31,7 @@ public class ManageHotelListView extends Application {
 	
 	
 	private Button btnAddHotel = new Button("AddHotel");
-	private Button btnViewInfo = new Button("More");
-	private Button btnDeleteHotel = new Button("Delete");
+
 	private Button btnProfile = new Button("Profile");
 
 	private Button btnExit = new Button("Exit");
@@ -84,13 +81,14 @@ public class ManageHotelListView extends Application {
 	
 	
 	
-	public void populateView (List<RentablePlace> rentablePlaces, EventHandler<ActionEvent> buttonHandler) {
+	public void populateView (List<RentablePlace> rentablePlaces, EventHandler<ActionEvent> buttonHandler, EventHandler<ActionEvent> buttonHandler1) {
 		
 		VBox vBox = new VBox(10);		
 		List<HBoxCell> list = new ArrayList<HBoxCell>();
 		
+		
 		for(int i = 0; i < rentablePlaces.size(); i++)
-			list.add(new HBoxCell(rentablePlaces.get(i).getName(), rentablePlaces.get(i).getAddress(), buttonHandler));
+			list.add(new HBoxCell(rentablePlaces.get(i).getName(), rentablePlaces.get(i).getAddress(), buttonHandler, buttonHandler1));
 			
 		vBox.getChildren().addAll(list);
 		vBox.setMaxWidth(Double.MAX_VALUE);
@@ -106,8 +104,10 @@ public class ManageHotelListView extends Application {
 		private Label name = new Label();
 		private Label address = new Label();
 		private Button button = new Button();
+		private Button button1 = new Button();
 		
-		public HBoxCell(String name, String address, EventHandler<ActionEvent> buttonHandler) {
+		
+		public HBoxCell(String name, String address, EventHandler<ActionEvent> buttonHandler, EventHandler<ActionEvent> buttonHandler1) {
 			
 			super();
 			
@@ -123,11 +123,11 @@ public class ManageHotelListView extends Application {
 			this.button.setId(name);
 			this.button.setOnAction(buttonHandler);
 			
-			this.button.setText("Delete");
-			this.button.setId(name);
-			this.button.setOnAction(buttonHandler);
+			this.button1.setText("Delete");
+			this.button1.setId(name);
+			this.button1.setOnAction(buttonHandler1);
 			
-			this.getChildren().addAll(this.name, this.address, this.button);
+			this.getChildren().addAll(this.name, this.address, this.button, this.button1);
 			
 		}
 		
@@ -135,6 +135,13 @@ public class ManageHotelListView extends Application {
 		
 		public String getAddress() { return this.address.getText(); }
 		
+	/**	public void resultNotFound() {
+			
+			Label lblResultNotFound = new Label("No result for your search");
+			this.scrollPane.setContent(lblResultNotFound);
+			
+		}
+		**/
 	}
 
 }

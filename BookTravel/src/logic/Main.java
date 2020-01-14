@@ -67,6 +67,7 @@ public class Main extends Application{
 		this.hotelView = new HotelView();
 		this.bookingView = new BookingView();
 		this.userProfileView = new UserProfileView();
+		this.manageHotelListView = new ManageHotelListView();
 		
 	}
 	
@@ -208,7 +209,9 @@ public class Main extends Application{
 	
 	public void changeToManageHotelListView() throws Exception {
 		this.manageHotelListView.start(primaryStage);
+	
 		
 	}
 	
+	public ManageHotelListView getManageHotelListView() {return this.manageHotelListView;}
 }

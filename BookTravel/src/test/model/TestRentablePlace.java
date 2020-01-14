@@ -31,7 +31,7 @@ public class TestRentablePlace {
 	 */
 	public RentablePlace setup() {
 		
-		RentablePlace rentablePlace = new Hotel("nome", "indirizzo", "città");
+		RentablePlace rentablePlace = new Hotel("nome", "indirizzo", "città", "Proprietario");
 		
 		List<Person> people = new ArrayList<Person>();
 		

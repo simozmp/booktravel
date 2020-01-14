@@ -38,6 +38,20 @@ public class LoginController {
 		else return false;
 		
 	}
+	public boolean theOwnerExist(LoginBean loginBean) { 
+		
+		User user = UserDao.findOwnerMock(loginBean.getUsername(), loginBean.getPassword());
+		
+		if(user != null) {
+			this.username = loginBean.getUsername();
+			this.password = loginBean.getPassword();
+			logged = true;
+			return true;
+		}
+		
+		else return false;
+		
+	}
 
 	public boolean isLogged() {
 		return logged;

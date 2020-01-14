@@ -199,7 +199,7 @@ public class BookHotelListViewController extends MainViewController {
 	 * This class implements the EventHandler interface providing the handle for
 	 * the MoreinformationButton.
 	 */
-	private class MoreInformationHandler implements EventHandler<ActionEvent> {
+	public class MoreInformationHandler implements EventHandler<ActionEvent> {
 
 		@Override
 		public void handle(ActionEvent event) {

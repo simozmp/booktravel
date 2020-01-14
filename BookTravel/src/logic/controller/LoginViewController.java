@@ -16,9 +16,9 @@ import logic.view.LoginView;
  */
 public class LoginViewController {
 	
-	private LoginView view;
+	protected LoginView view;
 	
-	private LoginController model;
+	protected LoginController model;
 	
 	public LoginViewController(LoginView view, LoginController model) {
 		

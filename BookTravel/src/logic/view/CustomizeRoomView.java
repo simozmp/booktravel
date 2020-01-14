@@ -1,6 +1,7 @@
-package logic.view;
-
+ package logic.view;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -11,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -22,13 +24,30 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import logic.mydatecell.MyCallback;
+
 
 public class CustomizeRoomView extends Application {
-		
-	private Label lblPersonCount = new Label("0");
+	
+	
+	
+
+	
+
+	private TextField txtSize= new TextField();
+
+	private Label lblToiletsCount = new Label("0");
+	private Label lblBedsCount = new Label("0");
+	
+	
+	private Button btnSave = new Button("Save");
+	private Button btnSaveAndAdd = new Button("Save and add");
+	
 	private Button btnPlus = new Button("+");
 	private Button btnMinus = new Button("-");
+	
+	private Button btnPlus1 = new Button("+");
+	private Button btnMinus1 = new Button("-");
+
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -45,69 +64,66 @@ public class CustomizeRoomView extends Application {
 		title.setFont(Font.font("Arial", FontWeight.BOLD, 28));
 		hBoxTitle.getChildren().add(title);
 		
-		HBox hBoxLogin = new HBox(10);
-		hBoxLogin.setAlignment(Pos.CENTER_RIGHT);
-		hBoxLogin.getChildren().addAll(btnLogin, btnSignIn, btnLoginAsOwner);
-	 
+		
 		HBox hBoxTop = new HBox();
 		HBox.setHgrow(hBoxTitle, Priority.ALWAYS);
 		hBoxTitle.setMaxWidth(Double.MAX_VALUE);
-		hBoxTop.getChildren().addAll(hBoxTitle, hBoxLogin);
+		hBoxTop.getChildren().addAll(hBoxTitle);
 		
-		HBox hBoxSearch = new HBox(20);
-		hBoxSearch.setPadding(new Insets(20, 20, 20, 20));
-		hBoxSearch.setPrefWidth(Double.MAX_VALUE);
+		HBox hBoxSave = new HBox(20);
+		hBoxSave.setPadding(new Insets(20, 20, 20, 20));
+		hBoxSave.setPrefWidth(Double.MAX_VALUE);
 		
-		Label lblcity = new Label("Where do you want to go?");
-		Label lblCheckIn = new Label("Enter Check-In");
-		Label lblCheckOut = new Label("Enter Check-Out");
-		Label lblPerson = new Label("Select how much people you are");
+		HBox hBoxSaveAndAdd = new HBox(20);
+		hBoxSaveAndAdd.setPadding(new Insets(20, 20, 20, 20));
+		hBoxSaveAndAdd.setPrefWidth(Double.MAX_VALUE);
 		
 		
-	
-	
+		
+		Label lblSize = new Label("Size:");
+		
+		Label lblBeds = new Label("How many beds there are?");
+		Label lblToilets = new Label("How many Toilettes there are?");
+		
 	
 		GridPane gridPane = new GridPane();
 		gridPane.setVgap(10);
 		gridPane.setHgap(10);
-		gridPane.add(lblcity, 0, 0);
-		gridPane.add(txtFieldCity, 0, 1);
-		gridPane.add(lblCheckIn, 1, 0);
-		gridPane.add(dPickerCheckIn, 1, 1);
-		gridPane.add(lblCheckOut, 2, 0);
-		gridPane.add(dPickerCheckOut, 2, 1);
-		gridPane.add(lblPerson, 3, 0);
-		gridPane.add(this.txtErrCity, 0, 2);
-		gridPane.add(this.txtErrCheckIn, 1, 2);
-		gridPane.add(this.txtErrCheckOut, 2, 2);
-		gridPane.add(this.txtErrPersonCount, 3, 2);
+		gridPane.add(lblSize, 0, 0);
+		gridPane.add(txtSize, 0, 1);
+		gridPane.add(lblBeds, 1, 0);
+		gridPane.add(lblToilets, 2, 0);
 		
-		HBox personCountHBox = new HBox(10);
-		personCountHBox.setAlignment(Pos.CENTER);
-		personCountHBox.getChildren().addAll(btnPlus, lblPersonCount, btnMinus);
 		
-		gridPane.add(personCountHBox, 3, 1);		
+		HBox toiletsCountHBox = new HBox(10);
+		toiletsCountHBox.setAlignment(Pos.CENTER);
+		toiletsCountHBox.getChildren().addAll(btnPlus1, lblToiletsCount, btnMinus1);
+		
+		gridPane.add(toiletsCountHBox, 2, 1);	
+
+		
+		HBox bedsCountHBox = new HBox(10);
+		bedsCountHBox.setAlignment(Pos.CENTER);
+		bedsCountHBox.getChildren().addAll(btnPlus, lblBedsCount, btnMinus);
+		
+		gridPane.add(bedsCountHBox, 1, 1);		
 		
 		this.disableMinusButton();
-		this.btnSearch.setFont(Font.font(18));
-		hBoxSearch.setAlignment(Pos.CENTER);
-		btnSearch.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-		hBoxSearch.getChildren().addAll(gridPane, btnSearch);
+		this.disableMinusButton1();
+		this.btnSave.setFont(Font.font(18)); 
+		hBoxSave.setAlignment(Pos.CENTER);
+		btnSave.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+		hBoxSave.getChildren().addAll(gridPane, btnSave, btnSaveAndAdd);
 		
-		VBox vBoxGetStarted = new VBox(10);
-		vBoxGetStarted.setPadding(new Insets(20, 20, 20, 20));
-		vBoxGetStarted.setAlignment(Pos.CENTER);
 		
-		Text txtGetStarted = new Text("Do you need a travel but you don't know where?"
-				+ "\nDon't worry, we will find it for you!");
-		txtGetStarted.setFont(Font.font("Arial", FontWeight.MEDIUM, 18));
-		btnGetStarted.setFont(new Font(20));
 		
-		vBoxGetStarted.getChildren().addAll(txtGetStarted, btnGetStarted);
+		
+		
+		
 		
 		VBox vBoxMain = new VBox(50);
 		vBoxMain.setPadding(new Insets(20, 20, 20, 20));
-		vBoxMain.getChildren().addAll(hBoxSearch, vBoxGetStarted);
+		vBoxMain.getChildren().addAll(hBoxSave, hBoxSaveAndAdd);
 		
 		borderPane.setTop(hBoxTop);
 		borderPane.setCenter(vBoxMain);
@@ -117,71 +133,27 @@ public class CustomizeRoomView extends Application {
 		primaryStage.setResizable(false);
 		primaryStage.show();
 		
-	}
-	
-	public void setVisibleErrCityField(boolean value) {
-		
-		this.txtErrCity.setVisible(value);
-		
-	}
-	
-	public void setVisibleErrCheckInField(boolean value) {
-		
-		this.txtErrCheckIn.setVisible(value);
-		
-	}
-	
-	public void setVisibleErrCheckOutField(boolean value) {
-		
-		this.txtErrCheckOut.setVisible(value);
-		
-	}
-	
-	public void setVisibleErrPersonCount(boolean value) {
-		
-		this.txtErrPersonCount.setVisible(value);
-		
-	}
-	
-	public void addLoginListener(EventHandler<ActionEvent> loginHandler) {
-		
-		this.btnLogin.setOnAction(loginHandler);
-		
-	}
-	
-	public void addSignInListener(EventHandler<ActionEvent> signInHandler) {
-		
-		this.btnSignIn.setOnAction(signInHandler);
-		
-	}
-	
-	public void addSearchListener(EventHandler<ActionEvent> searchHandler) {
-		
-		this.btnSearch.setOnAction(searchHandler);
-		
-	}
-	
-	public void addGetStartedListener(EventHandler<ActionEvent> getStartedHandler) {
-		
-		this.btnGetStarted.setOnAction(getStartedHandler);
-		
-	}
-	
-	public void resetPersonCount() {
-		
-		this.lblPersonCount.setText("0");
-		
-	}
-	
+
+}
 	public void disableMinusButton() {
 		
 		this.btnMinus.setDisable(true);
+		
+	}
+	public void disableMinusButton1() {
+		
+		this.btnMinus1.setDisable(true);
 		
 	}
 	
 	public void enableMinusButton() {
 		
 		this.btnMinus.setDisable(false);
+		
+	}
+	public void enableMinusButton1() {
+		
+		this.btnMinus1.setDisable(false);
 		
 	}
 	
@@ -197,24 +169,27 @@ public class CustomizeRoomView extends Application {
 		
 	}
 	
-	public void setPersonCountText(String value) { this.lblPersonCount.setText(value); }
-	
-	public String getPersonCount() { return this.lblPersonCount.getText(); }
-	
-	public String getCityField() { return this.txtFieldCity.getText();	}
-	
-	public LocalDate getCheckInDate() { return this.dPickerCheckIn.getValue(); }
-	
-	public LocalDate getCheckOutDate() { return this.dPickerCheckOut.getValue(); }
-	
-	/**
-	 * @author Adri
-	 * @param signInAsOwnerHandler
-	 */
-	
-	public void addLogInAsOwnerListener(EventHandler<ActionEvent> logInAsOwnerHandler) {
+	public void addPlusHanlder1(EventHandler<ActionEvent> addHandler1) {
 		
-		this.btnSignIn.setOnAction(logInAsOwnerHandler);
+		this.btnPlus1.setOnAction(addHandler1);
+		
 	}
-
+	
+	public void addMinusHanlder1(EventHandler<ActionEvent> minusHandler1) {
+		
+		this.btnMinus1.setOnAction(minusHandler1);
+		
+	}
+	
+	public void addSaveListener(EventHandler<ActionEvent> saveHandler) {
+		
+		this.btnSave.setOnAction(saveHandler);
+		
+	}
+	
+	public void addSaveAndAddListener(EventHandler<ActionEvent> saveAndAddHandler) {
+		
+		this.btnSaveAndAdd.setOnAction(saveAndAddHandler);
+		
+	}
 }

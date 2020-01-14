@@ -7,6 +7,7 @@ import java.util.List;
 import logic.bean.CityDateBean;
 import logic.bean.RoomBean;
 
+
 /**
  * 
  * @author metal
@@ -43,6 +44,9 @@ public abstract class RentablePlace {
 	 */
 	protected String description;
 	
+	
+	protected String Owner;
+	
 	/**
 	 * Constructor of the class. It initialize the state of the object and
 	 * creates the rooms of which is composed, retrieving them from database.
@@ -51,13 +55,14 @@ public abstract class RentablePlace {
 	 * @param address
 	 * @param city
 	 */
-	public RentablePlace(String name, String address, String city) {
+	public RentablePlace(String name, String address, String city, String Owner) {
 		
 		this.rooms = new ArrayList<Room>();
 		
 		this.name = name;
 		this.address = address;
 		this.city = city;
+		this.Owner = Owner;
 		
 	}
 	
@@ -68,11 +73,12 @@ public abstract class RentablePlace {
 	 * @param city
 	 * @param rooms
 	 */
-	public RentablePlace(String name, String address, String city, List<Room> rooms) {
+	public RentablePlace(String name, String address, String city, List<Room> rooms, String Owner) {
 		
 		this.name = name;
 		this.address = address;
 		this.city = city;
+		this.Owner = Owner;
 		
 		this.rooms = new ArrayList<Room>(rooms);
 		
@@ -86,7 +92,7 @@ public abstract class RentablePlace {
 	 * @param city
 	 * @param description
 	 */
-	public RentablePlace(String name, String address, String city, String description) {
+	public RentablePlace(String name, String address, String city, String description, String Owner) {
 		
 		this.name = name;
 		
@@ -95,6 +101,8 @@ public abstract class RentablePlace {
 		this.city = city;
 		
 		this.description = description;
+		
+		this.Owner = Owner;
 		
 	}
 	
@@ -282,6 +290,13 @@ public abstract class RentablePlace {
 	 * @return
 	 */
 	public List<Room> getRooms() { return this.rooms; }
+	
+	/**
+	 * @author Adri
+	 * @return
+	 */
+	
+	public String getOwner() { return this.Owner;}
 
 	/**
 	 * Retrieve all bookings of an user in this rentablePlace.

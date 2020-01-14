@@ -34,7 +34,7 @@ public class BookHotelController {
 		
 		this.rentablePlaces = new ArrayList<RentablePlace>();
 		
-		this.rentablePlaces.add(new Hotel("hotel 1", "indirizzo 1", "Roma"));
+		this.rentablePlaces.add(new Hotel("hotel 1", "indirizzo 1", "Roma", "owner"));
 //		this.rentablePlaces.add(new Hotel("hotel 2", "indirizzo 2", "Roma"));
 //		this.rentablePlaces.add(new Hotel("hotel 3", "indirizzo 3", "Milano"));
 //		this.rentablePlaces.add(new Hotel("hotel 4", "indirizzo 4", "Milano"));

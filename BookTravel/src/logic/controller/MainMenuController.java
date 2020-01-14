@@ -4,9 +4,13 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.stage.Stage;
 import logic.Main;
 import logic.bean.CityDateBean;
 import logic.model.BookHotelController;
+import logic.model.LoginController;
+import logic.model.ManageHotelList;
+import logic.view.LoginView;
 import logic.view.MainMenuView;
 
 /**
@@ -39,7 +43,7 @@ public class MainMenuController extends MainViewController {
 		this.view.addSearchListener(new SearchHandler());
 		this.view.addMinusHanlder(new MinusHandler());
 		this.view.addPlusHanlder(new PlusHandler());
-	//	this.view.addLogInAsOwnerListener(new logInAsOwnerHandler());
+		this.view.addLogInAsOwnerListener(new LogInAsOwnerHandler());
 		
 	
 	}
@@ -163,21 +167,27 @@ public class MainMenuController extends MainViewController {
 	
 	private class LogInAsOwnerHandler implements EventHandler<ActionEvent> {
 		
-		@Override
 		public void handle(ActionEvent event) {
-			try {
-			
-				/* Set the new controller and change the view. */
-			//	new ManageHotelListViewController(Main.getInstance().getManageHotelListView(), model, fields);
-			
-				Main.getInstance().changeToManageHotelListView();
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-		}
-		
-		
-	}
 
+			Stage stage = new Stage();
+			try {
+				LoginView window = new LoginView();
+				new LoginViewOwnerController(window, LoginController.getInstance());
+				window.start(stage);
+				if(LoginController.getInstance().isLogged()) {
+					Main.getInstance().changeToManageHotelListView();
+					
+					new ManageHotelListController(Main.getInstance().getManageHotelListView(), ManageHotelList.getInstance(), LoginController.getInstance().getUsername());
+
+				}	
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+	
+		
+		}
+
+	}
 }

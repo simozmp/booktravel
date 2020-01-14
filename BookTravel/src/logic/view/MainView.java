@@ -92,7 +92,7 @@ public abstract class MainView extends Application {
 	
 	public void addLogInAsOwnerListener(EventHandler<ActionEvent> logInAsOwnerHandler) {
 		
-		this.btnSignIn.setOnAction(logInAsOwnerHandler);
+		this.btnLoginAsOwner.setOnAction(logInAsOwnerHandler);
 	}
 
 }

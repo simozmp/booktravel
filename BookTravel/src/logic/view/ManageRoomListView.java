@@ -13,6 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
@@ -69,8 +70,7 @@ public class ManageRoomListView extends Application {
 		borderPane.setTop(hBoxTop);
 		borderPane.setLeft(vBoxLeft);
 		borderPane.setCenter(this.scrollPane);
-
-		
+ 
 		Scene scene = new Scene(borderPane, 1200, 800);
 		primaryStage.setScene(scene);
 		primaryStage.setResizable(false);
@@ -80,13 +80,13 @@ public class ManageRoomListView extends Application {
 	
 	
 	
-	public void populateView (List<RentablePlace> rentablePlaces, EventHandler<ActionEvent> buttonHandler) {
+	/**public void populateView (List<RentablePlace> rentablePlaces, EventHandler<ActionEvent> buttonHandler, EventHandler<ActionEvent> buttonHandler1) {
 		
 		VBox vBox = new VBox(10);		
 		List<HBoxCell> list = new ArrayList<HBoxCell>();
 		
 		for(int i = 0; i < rentablePlaces.size(); i++)
-			list.add(new HBoxCell(rentablePlaces.get(i).getName(), rentablePlaces.get(i).getAddress(), buttonHandler));
+			list.add(new HBoxCell(rentablePlaces.get(i).getName(), rentablePlaces.get(i).getAddress(), buttonHandler, EventHandler<ActionEvent> buttonHandler1));
 			
 		vBox.getChildren().addAll(list);
 		vBox.setMaxWidth(Double.MAX_VALUE);
@@ -94,8 +94,57 @@ public class ManageRoomListView extends Application {
 		this.scrollPane.setContent(vBox);
 		this.scrollPane.setFitToWidth(true);		
 		
-	}
+	}*/
 	
+	class ButtonListCell extends ListCell<RentablePlace> {
+	    @Override
+	    public void updateItem(RentablePlace obj, boolean empty) {
+	        super.updateItem(obj, empty);
+	        if (empty) {
+	            setText(null);
+	            setGraphic(null);
+	        } else {
+	            setText(obj.toString());
+
+	            Button butt = new Button();
+	            Button butt2 = new Button();
+	            butt.setOnAction(new EventHandler<ActionEvent>() {
+	                @Override
+	                public void handle(ActionEvent event) {
+	                    System.out.println("clicked");
+	                } 
+	            }); 
+	            butt2.setOnAction(new EventHandler<ActionEvent>() {
+		                @Override
+		                public void handle(ActionEvent event) {
+		                    System.out.println("clicked");
+		                } 
+	            });
+	            setGraphic(butt);
+	        }
+	    }
+	}
+	/**class ButtonListCell extends ListCell<MyObject> {
+	    @Override
+	    public void updateItem(MyObject obj, boolean empty) {
+	        super.updateItem(obj, empty);
+	        if (empty) {
+	            setText(null);
+	            setGraphic(null);
+	        } else {
+	            setText(obj.toString());
+	 
+	            Button butt = new Button();
+	            butt.setOnAction(new EventHandler<ActionEvent>() {
+	                @Override
+	                public void handle(ActionEvent event) {
+	                    System.out.println("clicked");
+	                }                            
+	            });
+	            setGraphic(butt);
+	        }
+	    }**/
+
 	
 	
 	public class HBoxCell extends HBox {
@@ -104,7 +153,7 @@ public class ManageRoomListView extends Application {
 		private Label address = new Label();
 		private Button button = new Button();
 		
-		public HBoxCell(String name, String address, EventHandler<ActionEvent> buttonHandler) {
+		public HBoxCell(String name, String address, EventHandler<ActionEvent> buttonHandler, EventHandler<ActionEvent> buttonHandler1) {
 			
 			super();
 			
@@ -122,7 +171,7 @@ public class ManageRoomListView extends Application {
 			
 			this.button.setText("More");
 			this.button.setId(name);
-			this.button.setOnAction(buttonHandler);
+			this.button.setOnAction(buttonHandler1);
 			
 			
 			

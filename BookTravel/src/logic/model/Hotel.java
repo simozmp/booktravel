@@ -17,9 +17,9 @@ public class Hotel extends RentablePlace {
 	 * @param address	address of the hotel.
 	 * @param city		city where hotel is located.
 	 */
-	public Hotel(String name, String address, String city) {
+	public Hotel(String name, String address, String city, String Owner) {
 		
-		super(name, address, city);
+		super(name, address, city, Owner);
 		
 		this.rooms.add(new Room("Bella camera", 2, 20, 1));
 		this.rooms.add(new Room("Bella camera 2", 3, 25, 1));
@@ -36,9 +36,9 @@ public class Hotel extends RentablePlace {
 	 * @param city			city where hotel is located.
 	 * @param rooms			rooms available in the hotel.
 	 */
-	public Hotel(String name, String address, String city, List<Room> rooms) {
+	public Hotel(String name, String address, String city, List<Room> rooms, String Owner) {
 		
-		super(name, address, city, rooms);
+		super(name, address, city, rooms, Owner);
 		
 	}
 

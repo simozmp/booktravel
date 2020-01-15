@@ -23,6 +23,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import logic.controller.ManageHotelListController.ExitHandler;
 import logic.model.RentablePlace;
 
 public class ManageHotelListView extends Application {
@@ -142,6 +143,13 @@ public class ManageHotelListView extends Application {
 			
 		}
 		**/
+		
 	}
+	public void addExitHandler(EventHandler<ActionEvent> handler) {
+		
+		btnExit.setOnAction(handler);
+		
+	}
+
 
 }

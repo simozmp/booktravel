@@ -9,6 +9,7 @@ import logic.view.BookingView;
 import logic.view.HotelView;
 import logic.view.MainMenuView;
 import logic.view.ManageHotelListView;
+import logic.view.ManageRoomListView;
 import logic.view.UserProfileView;
 
 /**
@@ -47,6 +48,8 @@ public class Main extends Application{
 
 	private ManageHotelListView manageHotelListView;
 	
+	private ManageRoomListView manageRoomListView;
+	
 	/**
 	 * The primary stage of the javafx application.
 	 */
@@ -68,7 +71,7 @@ public class Main extends Application{
 		this.bookingView = new BookingView();
 		this.userProfileView = new UserProfileView();
 		this.manageHotelListView = new ManageHotelListView();
-		
+		this.manageRoomListView = new ManageRoomListView();
 	}
 	
 	/**
@@ -214,4 +217,14 @@ public class Main extends Application{
 	}
 	
 	public ManageHotelListView getManageHotelListView() {return this.manageHotelListView;}
+	
+	
+	public void changeToManageRoomListView() throws Exception {
+		this.manageRoomListView.start(primaryStage);
+	
+		
+	}
+	
+	public ManageRoomListView getManageRoomListView() {return this.manageRoomListView;}
+	
 }

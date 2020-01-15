@@ -43,7 +43,7 @@ public abstract class MainViewController {
 			this.view.loggedView(LoginController.getInstance().getUsername());
 		
 		this.view.addLoginListener(new LoginHandler());
-		this.view.addUserProfileHandler(new UserProfileHandler());
+		this.view.addUserProfileHandler(new UserProfileHandler());	
 		
 	}
 	

@@ -8,6 +8,7 @@ import javafx.scene.control.Control;
 import javafx.scene.control.Alert.AlertType;
 import logic.Main;
 import logic.controller.BookHotelListViewController.MoreInformationHandler;
+import logic.model.BookHotelController;
 import logic.model.ManageHotelList;
 import logic.view.ManageHotelListView;
 
@@ -32,6 +33,9 @@ public class ManageHotelListController {
 		this.model = model;
 		this.owner = owner;
 		
+		
+		this.view.addExitHandler(new ExitHandler());
+		//this.view.add
 		/**
 		if ( this.model.retrieveRentablePlaces(this.fields).isEmpty() )
 			
@@ -42,21 +46,38 @@ public class ManageHotelListController {
 			**/
 			/* Set the data found to the view. */
 			this.view.populateView(this.model.retrieveRentablePlaces(this.owner), new MoreInformationHandler(), new DeleteHandler());
+			
 		
 	}
+	
+	public class ExitHandler implements EventHandler<ActionEvent>{
+		
+		@Override
+		public void handle(ActionEvent event) {
+				
+			try {
+				Main.getInstance().changeToMainMenuView();
+				new MainMenuController(Main.getInstance().getMainMenuView(), BookHotelController.getInstance());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+				
+		}
+		
+		
+	}
+	
 	
 	private class MoreInformationHandler implements EventHandler<ActionEvent> {
 
 		@Override
 		public void handle(ActionEvent event) {
 			
-		
-	
-			
 			try {
 				
 				/* Change the view to HotelView and initialize the new controller. */
-				Main.getInstance().changeToHotelView();
+				Main.getInstance().changeToManageRoomListView();
 			//	new HotelViewController(Main.getInstance().getHotelView(),
 				//		model.getRentablePlace(((Control)event.getSource()).getId()), fields);
 			} catch (Exception e) {

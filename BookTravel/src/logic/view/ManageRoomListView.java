@@ -81,13 +81,13 @@ public class ManageRoomListView extends Application {
 	
 	
 	
-	public void populateView (List<RentablePlace> rentablePlaces, EventHandler<ActionEvent> buttonHandler, EventHandler<ActionEvent> buttonHandler1) {
+	public void populateView (List<RentablePlace> room, EventHandler<ActionEvent> buttonHandler, EventHandler<ActionEvent> buttonHandler1) {
 		
 		VBox vBox = new VBox(10);		
 		List<HBoxCell> list = new ArrayList<HBoxCell>();
 		
-		for(int i = 0; i < rentablePlaces.size(); i++)
-			list.add(new HBoxCell(rentablePlaces.get(i).getName(), rentablePlaces.get(i).getAddress(), buttonHandler, buttonHandler1));
+		for(int i = 0; i < room.size(); i++)
+			list.add(new HBoxCell(room.get(i).getName(), room.get(i).getAddress(), buttonHandler, buttonHandler1));
 			
 		vBox.getChildren().addAll(list);
 		vBox.setMaxWidth(Double.MAX_VALUE);

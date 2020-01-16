@@ -243,7 +243,6 @@ public class HotelViewController extends MainViewController {
 						Main.getInstance().changeToBookingView();
 						new BookingViewController(Main.getInstance().getBookingView(), model, fields, roomBeans);
 					} catch (Exception e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					
@@ -285,7 +284,6 @@ public class HotelViewController extends MainViewController {
 				Main.getInstance().changeToBookHotelListView();
 				new BookHotelListViewController(Main.getInstance().getBookHotelListView(),	BookHotelController.getInstance(), fields);
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			

@@ -13,7 +13,6 @@ public class LoginViewOwnerController extends LoginViewController {
 	public LoginViewOwnerController(LoginView view, LoginController model) {
 		super(view, model);
 		super.view.setLoginHandler(new LoginHandler());
-		// TODO Auto-generated constructor stub
 	}
 	private class LoginHandler implements EventHandler<ActionEvent> {
 

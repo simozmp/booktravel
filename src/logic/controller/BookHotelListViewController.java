@@ -217,7 +217,7 @@ public class BookHotelListViewController extends MainViewController {
 				new HotelViewController(Main.getInstance().getHotelView(),
 						model.getRentablePlace(((Control)event.getSource()).getId()), fields);
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
+				
 				e.printStackTrace();
 			}
 			

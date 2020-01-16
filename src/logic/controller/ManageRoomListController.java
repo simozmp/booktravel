@@ -22,6 +22,7 @@ public class ManageRoomListController {
 		this.model = model;
 		
 		this.view.addBackHandler(new BackHandler());
+		this.view.populateView(this.model.retrieveRooms(owner), new MoreInformationHandler(), new DeleteHandler());
 		
 	}
 	
@@ -63,5 +64,25 @@ public class ManageRoomListController {
 			
 		}
 	
+	}
+	
+	private class DeleteHandler implements EventHandler<ActionEvent>{
+		
+	
+		@Override
+		public void handle(ActionEvent event) {
+			
+			try {
+				
+				/* Change the view to HotelView and initialize the new controller. */
+				Main.getInstance().changeToManageRoomListView();
+			//	new HotelViewController(Main.getInstance().getHotelView(),
+				//		model.getRentablePlace(((Control)event.getSource()).getId()), fields);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
+		}
 	}
 }

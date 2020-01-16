@@ -164,7 +164,7 @@ public class Main extends Application{
 	 * 
 	 * @return the only instance of this class.
 	 */
-	public synchronized static Main getInstance() {
+	public static synchronized  Main getInstance() {
 		
 		if(Main.instance == null) 
 			

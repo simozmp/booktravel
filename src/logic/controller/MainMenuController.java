@@ -87,7 +87,6 @@ public class MainMenuController extends MainViewController {
 						new BookHotelListViewController(Main.getInstance().getBookHotelListView(), model, fields);
 						
 					} catch (Exception e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					
@@ -167,7 +166,7 @@ public class MainMenuController extends MainViewController {
 	
 	private class LogInAsOwnerHandler implements EventHandler<ActionEvent> {
 		
-		public void handle(ActionEvent event) {
+		public void handle(ActionEvent ) {
 
 			Stage stage = new Stage();
 			try {
@@ -181,7 +180,6 @@ public class MainMenuController extends MainViewController {
 
 				}	
 			} catch (Exception e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 			

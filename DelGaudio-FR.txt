@@ -1,3 +1,0 @@
-The system shall provide to the user a to-do list whit the important attraction in the place the traveller goes.
-The system shall provide a list of place to go ordered by bearing after the questionary.
-The system shall provide the possibility to comment on an attraction or a hotel in predeterminated sections.

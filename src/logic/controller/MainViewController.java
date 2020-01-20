@@ -6,7 +6,6 @@ import javafx.stage.Stage;
 import logic.Main;
 import logic.model.BookHotelController;
 import logic.model.LoginController;
-import logic.model.RentablePlace;
 import logic.view.LoginView;
 import logic.view.MainView;
 
@@ -51,9 +50,8 @@ public abstract class MainViewController {
 	 * Constructor, it is implemented by HotelViewController.
 	 * 
 	 * @param view
-	 * @param model
 	 */
-	public MainViewController(MainView view, RentablePlace model) {
+	public MainViewController(MainView view) {
 		
 		this.view = view;
 		
@@ -84,7 +82,6 @@ public abstract class MainViewController {
 				if(LoginController.getInstance().isLogged())
 					view.loggedView(LoginController.getInstance().getUsername());
 			} catch (Exception e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 			
@@ -109,7 +106,6 @@ public abstract class MainViewController {
 					new UserProfileViewController(Main.getInstance().getUserProfileView(), BookHotelController.getInstance());
 					Main.getInstance().changeToUserProfileView();
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				

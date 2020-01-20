@@ -81,7 +81,7 @@ public class Booking {
 		this.user = user;
 		this.checkIn = checkIn;
 		this.checkOut = checkOut;		
-		this.people = new ArrayList<Person>();
+		this.people = new ArrayList<>();
 	}
 	
 	/**

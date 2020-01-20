@@ -73,7 +73,7 @@ public class HotelView extends MainView {
 	public void createRoomSelector(List<RoomBean> roomBeans,
 			EventHandler<ActionEvent> plusHandler, EventHandler<ActionEvent> minusHandler) {
 		
-		this.roomSelectors = new ArrayList<RoomSelector>();
+		this.roomSelectors = new ArrayList<>();
 		
 		for( int i = 0; i < roomBeans.size(); i++ ) {
 			

@@ -21,10 +21,10 @@ import javafx.stage.Stage;
 import logic.mydatecell.MyCallback;
 
 public class MainMenuView extends MainView {
-	
-	private Text txtErrCity = new Text("You have to fill this field!");
-	private Text txtErrCheckIn = new Text("You have to fill this field!");
-	private Text txtErrCheckOut = new Text("You have to fill this field!");
+	private static final String ERR_MESSAGE = "You have to fill this field!";
+	private Text txtErrCity = new Text(ERR_MESSAGE);
+	private Text txtErrCheckIn = new Text(ERR_MESSAGE);
+	private Text txtErrCheckOut = new Text(ERR_MESSAGE);
 	private Text txtErrPersonCount = new Text("You have select how much you are!");
 	
 	private TextField txtFieldCity= new TextField();

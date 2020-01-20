@@ -24,6 +24,8 @@ import logic.mydatecell.MyCallback;
 
 public class BookHotelListView extends MainView {
 	
+	private static final String ERR_MESSAGE = "You have to fill this field!";
+	
 	private ScrollPane scrollPane = new ScrollPane();
 	
 	private Button btnPlus = new Button("+");
@@ -37,9 +39,9 @@ public class BookHotelListView extends MainView {
 	
 	private Label lblPersonCount = new Label("0");
 	
-	private Text txtErrCity = new Text("You have to fill this field!");
-	private Text txtErrCheckIn = new Text("You have to fill this field!");
-	private Text txtErrCheckOut = new Text("You have to fill this field!");
+	private Text txtErrCity = new Text(ERR_MESSAGE);
+	private Text txtErrCheckIn = new Text(ERR_MESSAGE);
+	private Text txtErrCheckOut = new Text(ERR_MESSAGE);
 	private Text txtErrPersonCount = new Text("You have select how much you are!");
 
 	@Override
@@ -161,7 +163,7 @@ public class BookHotelListView extends MainView {
 	public void populateView (List<HotelBean> hotels, EventHandler<ActionEvent> buttonHandler) {
 		
 		VBox vBox = new VBox(10);		
-		List<HBoxCell> list = new ArrayList<HBoxCell>();
+		List<HBoxCell> list = new ArrayList<>();
 		
 		for(int i = 0; i < hotels.size(); i++)
 			list.add(new HBoxCell(hotels.get(i), buttonHandler));

@@ -24,7 +24,7 @@ public class MainMenuController extends MainViewController {
 	/**
 	 * Reference to the current view.
 	 */
-	private MainMenuView view;
+	private MainMenuView mainMenuView;
 	
 	/**
 	 * Constructor of the class.
@@ -37,13 +37,13 @@ public class MainMenuController extends MainViewController {
 		
 		super(view, model);
 		
-		this.view = (MainMenuView) super.view;
+		this.mainMenuView = (MainMenuView) super.view;
 		
 		/* Add the handlers to buttons.  */
-		this.view.addSearchListener(new SearchHandler());
-		this.view.addMinusHanlder(new MinusHandler());
-		this.view.addPlusHanlder(new PlusHandler());
-		this.view.addLogInAsOwnerListener(new LogInAsOwnerHandler());
+		this.mainMenuView.addSearchListener(new SearchHandler());
+		this.mainMenuView.addMinusHanlder(new MinusHandler());
+		this.mainMenuView.addPlusHanlder(new PlusHandler());
+		this.mainMenuView.addLogInAsOwnerListener(new LogInAsOwnerHandler());
 		
 	
 	}
@@ -55,30 +55,57 @@ public class MainMenuController extends MainViewController {
 	 * for the searchHandler button.
 	 */
 	private class SearchHandler implements EventHandler<ActionEvent> {
+		
+		private boolean fieldsAreFilled() {			
+			boolean fieldsAreFilled = !mainMenuView.getCityField().isEmpty() && mainMenuView.getCheckInDate() != null && 
+					mainMenuView.getCheckOutDate() != null && Integer.parseInt(mainMenuView.getPersonCount()) != 0;
+			
+			return fieldsAreFilled;
+		}
+		
+		private boolean checkInDateIsBeforeCheckOutDate() {
+			boolean isBefore = mainMenuView.getCheckInDate().isBefore(mainMenuView.getCheckOutDate()) ||
+					mainMenuView.getCheckInDate().equals(mainMenuView.getCheckOutDate());
+			
+			return isBefore;
+		}
+		
+		private void checkEmptyFields() {
+			if(mainMenuView.getCityField().isEmpty())
+				mainMenuView.setVisibleErrCityField(true);
+			
+			if(mainMenuView.getCheckInDate() == null)
+				mainMenuView.setVisibleErrCheckInField(true);
+			
+			if(mainMenuView.getCheckOutDate() == null)
+				mainMenuView.setVisibleErrCheckOutField(true);
+			
+			if(Integer.parseInt(mainMenuView.getPersonCount()) == 0)
+				mainMenuView.setVisibleErrPersonCount(true);
+		}
 
 		@Override
 		public void handle(ActionEvent event) {
 			
 			/* Set invisible all errors. */
-			view.setVisibleErrCityField(false);
-			view.setVisibleErrCheckInField(false);
-			view.setVisibleErrCheckOutField(false);
-			view.setVisibleErrPersonCount(false);
+			mainMenuView.setVisibleErrCityField(false);
+			mainMenuView.setVisibleErrCheckInField(false);
+			mainMenuView.setVisibleErrCheckOutField(false);
+			mainMenuView.setVisibleErrPersonCount(false);
 			
-			if( !view.getCityField().isEmpty() && view.getCheckInDate() != null && 
-					view.getCheckOutDate() != null && Integer.parseInt(view.getPersonCount()) != 0 ) {
+			if( this.fieldsAreFilled() ) {
 				
 				/* The user filled all the fields. */
-				if( view.getCheckInDate().isBefore(view.getCheckOutDate()) || view.getCheckInDate().equals(view.getCheckOutDate()) ) {
+				if( this.checkInDateIsBeforeCheckOutDate() ) {
 					
 					/* The check-in date is before or equal to the check-out date.  */
 					
 					/* Fill the bean fields. */
 					CityDateBean fields = new CityDateBean();
-					fields.setCity(view.getCityField());
-					fields.setCheckIn(view.getCheckInDate());
-					fields.setCheckOut(view.getCheckOutDate());
-					fields.setPersonCount(Integer.parseInt(view.getPersonCount()));
+					fields.setCity(mainMenuView.getCityField());
+					fields.setCheckIn(mainMenuView.getCheckInDate());
+					fields.setCheckOut(mainMenuView.getCheckOutDate());
+					fields.setPersonCount(Integer.parseInt(mainMenuView.getPersonCount()));
 					
 					try {
 						
@@ -87,7 +114,6 @@ public class MainMenuController extends MainViewController {
 						new BookHotelListViewController(Main.getInstance().getBookHotelListView(), model, fields);
 						
 					} catch (Exception e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					
@@ -106,17 +132,7 @@ public class MainMenuController extends MainViewController {
 			} else {
 				
 				/* The user doesn't fill all the fields. */
-				if(view.getCityField().isEmpty())
-					view.setVisibleErrCityField(true);
-				
-				if(view.getCheckInDate() == null)
-					view.setVisibleErrCheckInField(true);
-				
-				if(view.getCheckOutDate() == null)
-					view.setVisibleErrCheckOutField(true);
-				
-				if(Integer.parseInt(view.getPersonCount()) == 0)
-					view.setVisibleErrPersonCount(true);
+				this.checkEmptyFields();
 				
 			}
 			
@@ -135,11 +151,11 @@ public class MainMenuController extends MainViewController {
 		@Override
 		public void handle(ActionEvent event) {
 			
-			int personCount = Integer.parseInt(view.getPersonCount());
+			int personCount = Integer.parseInt(mainMenuView.getPersonCount());
 			personCount--;
 			if(personCount == 0)
-				view.disableMinusButton();
-			view.setPersonCountText(String.valueOf(personCount));
+				mainMenuView.disableMinusButton();
+			mainMenuView.setPersonCountText(String.valueOf(personCount));
 			
 		}
 		
@@ -156,10 +172,10 @@ public class MainMenuController extends MainViewController {
 		@Override
 		public void handle(ActionEvent event) {
 			
-			int personCount = Integer.parseInt(view.getPersonCount());
+			int personCount = Integer.parseInt(mainMenuView.getPersonCount());
 			personCount++;
-			view.enableMinusButton();
-			view.setPersonCountText(String.valueOf(personCount));
+			mainMenuView.enableMinusButton();
+			mainMenuView.setPersonCountText(String.valueOf(personCount));
 			
 		}
 		
@@ -167,6 +183,7 @@ public class MainMenuController extends MainViewController {
 	
 	private class LogInAsOwnerHandler implements EventHandler<ActionEvent> {
 		
+		@Override
 		public void handle(ActionEvent event) {
 
 			Stage stage = new Stage();
@@ -181,7 +198,6 @@ public class MainMenuController extends MainViewController {
 
 				}	
 			} catch (Exception e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 			

@@ -36,9 +36,8 @@ public class MyCallback implements Callback<DatePicker, DateCell> {
 	
 	public static MyCallback getDayCellFactory() {
 		
-		final MyCallback dayCellFactory = new MyCallback();
+		return new MyCallback();
 		
-		return dayCellFactory;
 	}
 
 }

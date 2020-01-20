@@ -19,7 +19,6 @@ public class DeletedState implements BookingState {
 	 */
 	@Override
 	public void accept(Booking context) {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -28,7 +27,6 @@ public class DeletedState implements BookingState {
 	 */
 	@Override
 	public void delete(Booking context) {
-		// TODO Auto-generated method stub
 		
 	}
 

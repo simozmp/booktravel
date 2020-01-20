@@ -14,7 +14,7 @@ public class LoginController {
 	
 	private LoginController() {	}
 	
-	public synchronized static LoginController getInstance() {
+	public static synchronized LoginController getInstance() {
 		
 		if(LoginController.instance == null) 
 			

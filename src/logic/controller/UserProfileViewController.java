@@ -92,7 +92,6 @@ public class UserProfileViewController {
 				Main.getInstance().changeToMainMenuView();
 				new MainMenuController(Main.getInstance().getMainMenuView(), BookHotelController.getInstance());
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			

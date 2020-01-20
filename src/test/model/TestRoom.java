@@ -28,7 +28,7 @@ public class TestRoom {
 		
 		Room room = new Room("prova", 2, 20, 1);
 		
-		List<Person> people = new ArrayList<Person>();
+		List<Person> people = new ArrayList<>();
 		
 		room.addActiveBooking(new Booking(null, null, LocalDate.of(2020, 1, 5), LocalDate.of(2020, 1, 5), people));
 		

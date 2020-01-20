@@ -49,7 +49,7 @@ public class BookingDAOImpl implements BookingDAO {
 	
 	@Override
 	public List<BookingBean> getAllBookingOfARoom(int roomId) {
-		List<BookingBean> bookings = new ArrayList<BookingBean>();
+		List<BookingBean> bookings = new ArrayList<>();
 		BookingBean booking = null;
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -143,7 +143,7 @@ public class BookingDAOImpl implements BookingDAO {
             preparedStatement.execute();
             result = preparedStatement.getGeneratedKeys();
  
-            if (result.next() && result != null) {
+            if (result.next()) {
                 return result.getInt(1);
             } else {
                 return -1;
@@ -205,7 +205,7 @@ public class BookingDAOImpl implements BookingDAO {
 			preparedStatement.execute();
 			resultSet = preparedStatement.getResultSet();
 			
-			if(resultSet.next() && resultSet != null) {
+			if(resultSet.next()) {
 				booking = new BookingBean();
 				booking.setCheckIn(resultSet.getDate(1).toLocalDate());
 				booking.setCheckOut(resultSet.getDate(2).toLocalDate());

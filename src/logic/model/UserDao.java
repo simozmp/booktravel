@@ -2,6 +2,10 @@ package logic.model;
 
 public class UserDao {
 	
+	private UserDao() {
+		throw new IllegalStateException("Utility class");
+	}
+	
 	public static User findUserMock(String username, String password) {
 		
 		if(username.equals("username") && password.equals("password"))

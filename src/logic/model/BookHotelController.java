@@ -39,7 +39,7 @@ public class BookHotelController {
 	 */
 	private BookHotelController() {
 		
-		this.rentablePlaces = new ArrayList<RentablePlace>();
+		this.rentablePlaces = new ArrayList<>();
 		
 	}
 	
@@ -50,12 +50,10 @@ public class BookHotelController {
 	 * @return		the list of bean that contain data.
 	 */
 	public List<HotelBean> retrieveHotelByCity(String city) {
-		List<HotelBean> hotels = new ArrayList<HotelBean>();
 		
 		HotelDAO dao = new HotelDAOImpl();
-		hotels = dao.getAllHotelByCity(city);		
+		return dao.getAllHotelByCity(city);		
 		
-		return hotels;
 	}
 	
 	/**
@@ -104,7 +102,7 @@ public class BookHotelController {
 	 */
 	public List<RentablePlace> retrieveRentablePlaces(CityDateBean fields) {
 		
-		List<RentablePlace> searchResult = new ArrayList<RentablePlace>();
+		List<RentablePlace> searchResult = new ArrayList<>();
 		
 		for( RentablePlace rentablePlace : this.rentablePlaces ) {
 			
@@ -145,7 +143,7 @@ public class BookHotelController {
 	 */
 	public List<BookingBean> retrieveBookingOfAnUser(LoginBean loginBean) {
 		
-		List<BookingBean> bookings = new ArrayList<BookingBean>();
+		List<BookingBean> bookings = new ArrayList<>();
 		
 		BookingDAO dao = new BookingDAOImpl();
 		bookings.addAll(dao.getAllBookingOfAUser(loginBean.getUsername()));
@@ -164,7 +162,7 @@ public class BookHotelController {
 	 * 
 	 * @return the only instance of this class.
 	 */
-	public synchronized static BookHotelController getInstance() {
+	public static synchronized BookHotelController getInstance() {
 		
 		if(BookHotelController.instance == null) 
 			

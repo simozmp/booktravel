@@ -91,11 +91,15 @@ public class Main extends Application{
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 
-		Main.primaryStage = primaryStage;
+		this.setStage(primaryStage);
 		mainMenuView.start(Main.primaryStage);
 		
 		new MainMenuController(this.mainMenuView, BookHotelController.getInstance());
 		
+	}
+	
+	public synchronized void setStage(Stage primaryStage) {
+		Main.primaryStage = primaryStage;
 	}
 	
 	/**

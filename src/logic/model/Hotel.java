@@ -22,9 +22,9 @@ public class Hotel extends RentablePlace {
 	 * @param address	address of the hotel.
 	 * @param city		city where hotel is located.
 	 */
-	public Hotel(String name, String address, String city, String Owner) {
+	public Hotel(String name, String address, String city, String owner) {
 		
-		super(name, address, city, Owner);
+		super(name, address, city, owner);
 
 	}
 	
@@ -36,9 +36,9 @@ public class Hotel extends RentablePlace {
 	 * @param city			city where hotel is located.
 	 * @param rooms			rooms available in the hotel.
 	 */
-	public Hotel(String name, String address, String city, List<Room> rooms, String Owner) {
+	public Hotel(String name, String address, String city, List<Room> rooms, String owner) {
 		
-		super(name, address, city, rooms, Owner);
+		super(name, address, city, rooms, owner);
 		
 	}
 	

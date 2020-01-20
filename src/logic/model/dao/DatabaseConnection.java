@@ -3,30 +3,37 @@ package logic.model.dao;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DatabaseConnection {
 	
+	private static final Logger LOGGER = Logger.getLogger(DatabaseConnection.class.getName());
 	private static DatabaseConnection instance;
-	private Connection connection;
-	private String url = "jdbc:mysql://localhost/travelbook?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
-	private String username = "root";
-	private String password = "password";
+	private static Connection connection;
+	private static String url = "jdbc:mysql://localhost/travelbook?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+	private static String username = "root";
+	private static String password = "password";
 	
 	private DatabaseConnection() throws SQLException {
 		
+		openConnection();
+		
+	}
+	
+	private static void openConnection() throws SQLException {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			this.connection = DriverManager.getConnection(url, username, password);
+			connection = DriverManager.getConnection(url, username, password);
 			
 		} catch(ClassNotFoundException ex) {
-			System.out.println("Database connection creation failed: " + ex.getMessage());
+			LOGGER.log(Level.SEVERE, ex.toString(), ex);
 		}
-		
 	}
 	
 	public Connection getConnection() {		
 		
-		return this.connection;		
+		return connection;		
 	}
 	
 	public static synchronized DatabaseConnection getInstance() throws SQLException {
@@ -35,7 +42,7 @@ public class DatabaseConnection {
 			instance = new DatabaseConnection();
 			
 		} else if(instance.getConnection().isClosed()) {
-			instance = new DatabaseConnection();
+			openConnection();
 		}
 		
 		return instance;

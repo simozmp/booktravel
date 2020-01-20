@@ -25,7 +25,7 @@ public class BookHotelListViewController extends MainViewController {
 	/**
 	 * Reference to the view.
 	 */
-	private BookHotelListView view;
+	private BookHotelListView bookHotelListView;
 	
 	/**
 	 * Reference to the bean, that will contain the input of the user.
@@ -43,37 +43,37 @@ public class BookHotelListViewController extends MainViewController {
 	public BookHotelListViewController(BookHotelListView view, BookHotelController model, CityDateBean fields) {
 		super(view, model);
 		
-		this.view = (BookHotelListView) super.view;
+		this.bookHotelListView = (BookHotelListView) super.view;
 		this.fields = fields;
 		
 		/* Add handlers to buttons. */
-		this.view.addSearchListener(new SearchHandler());
-		this.view.addMinusHanlder(new MinusHandler());
-		this.view.addPlusHanlder(new PlusHandler());
+		this.bookHotelListView.addSearchListener(new SearchHandler());
+		this.bookHotelListView.addMinusHanlder(new MinusHandler());
+		this.bookHotelListView.addPlusHanlder(new PlusHandler());
 		
 		/* Set the text fields with the input provided by the user. */
-		this.view.setCityField(this.fields.getCity());
-		this.view.setCheckInDate(this.fields.getCheckIn());
-		this.view.setCheckOutDate(this.fields.getCheckOut());
-		this.view.setPersonCountText(String.valueOf(this.fields.getPersonCount()));
+		this.bookHotelListView.setCityField(this.fields.getCity());
+		this.bookHotelListView.setCheckInDate(this.fields.getCheckIn());
+		this.bookHotelListView.setCheckOutDate(this.fields.getCheckOut());
+		this.bookHotelListView.setPersonCountText(String.valueOf(this.fields.getPersonCount()));
 		
-		if(Integer.parseInt(this.view.getPersonCount()) == 0)
+		if(Integer.parseInt(this.bookHotelListView.getPersonCount()) == 0)
 			
 			/* The minus button has to be disabled */
-			this.view.disableMinusButton();
+			this.bookHotelListView.disableMinusButton();
 		
-		List<HotelBean> hotels = new ArrayList<HotelBean>();
+		List<HotelBean> hotels = new ArrayList<>();
 		hotels = this.model.retrieveHotelByCity(this.fields.getCity());
 		
 		if ( hotels.isEmpty() )
 			
 			/* The input of the doesn't produce result. */
-			this.view.resultNotFound();
+			this.bookHotelListView.resultNotFound();
 		
 		else
 			
 			/* Set the data found to the view. */
-			this.view.populateView(hotels, new MoreInformationHandler());
+			this.bookHotelListView.populateView(hotels, new MoreInformationHandler());
 		
 	}
 
@@ -89,11 +89,11 @@ public class BookHotelListViewController extends MainViewController {
 		@Override
 		public void handle(ActionEvent event) {
 			
-			int personCount = Integer.parseInt(view.getPersonCount());
+			int personCount = Integer.parseInt(bookHotelListView.getPersonCount());
 			personCount--;
 			if(personCount == 0)
-				view.disableMinusButton();
-			view.setPersonCountText(String.valueOf(personCount));
+				bookHotelListView.disableMinusButton();
+			bookHotelListView.setPersonCountText(String.valueOf(personCount));
 			
 		}
 		
@@ -111,10 +111,10 @@ public class BookHotelListViewController extends MainViewController {
 		@Override
 		public void handle(ActionEvent event) {
 			
-			int personCount = Integer.parseInt(view.getPersonCount());
+			int personCount = Integer.parseInt(bookHotelListView.getPersonCount());
 			personCount++;
-			view.enableMinusButton();
-			view.setPersonCountText(String.valueOf(personCount));
+			bookHotelListView.enableMinusButton();
+			bookHotelListView.setPersonCountText(String.valueOf(personCount));
 			
 		}
 		
@@ -128,40 +128,67 @@ public class BookHotelListViewController extends MainViewController {
 	 * for search button.
 	 */
 	private class SearchHandler implements EventHandler<ActionEvent> {
+		
+		private boolean fieldsAreFilled() {			
+			boolean fieldsAreFilled = !bookHotelListView.getCityField().isEmpty() && bookHotelListView.getCheckInDate() != null && 
+					bookHotelListView.getCheckOutDate() != null && Integer.parseInt(bookHotelListView.getPersonCount()) != 0;
+			
+			return fieldsAreFilled;
+		}
+		
+		private boolean checkInDateIsBeforeCheckOutDate() {
+			boolean isBefore = bookHotelListView.getCheckInDate().isBefore(bookHotelListView.getCheckOutDate()) ||
+					bookHotelListView.getCheckInDate().equals(bookHotelListView.getCheckOutDate());
+			
+			return isBefore;
+		}
+		
+		private void checkEmptyFields() {
+			if(bookHotelListView.getCityField().isEmpty())
+				bookHotelListView.setVisibleErrCityField(true);
+			
+			if(bookHotelListView.getCheckInDate() == null)
+				bookHotelListView.setVisibleErrCheckInField(true);
+			
+			if(bookHotelListView.getCheckOutDate() == null)
+				bookHotelListView.setVisibleErrCheckOutField(true);
+			
+			if(Integer.parseInt(bookHotelListView.getPersonCount()) == 0)
+				bookHotelListView.setVisibleErrPersonCount(true);
+		}
 
 		@Override
 		public void handle(ActionEvent event) {
 			
 			/* Set invisible all errors. */
-			view.setVisibleErrCityField(false);
-			view.setVisibleErrCheckInField(false);
-			view.setVisibleErrCheckOutField(false);
-			view.setVisibleErrPersonCount(false);
+			bookHotelListView.setVisibleErrCityField(false);
+			bookHotelListView.setVisibleErrCheckInField(false);
+			bookHotelListView.setVisibleErrCheckOutField(false);
+			bookHotelListView.setVisibleErrPersonCount(false);
 			
-			if( !view.getCityField().isEmpty() && view.getCheckInDate() != null && 
-					view.getCheckOutDate() != null && Integer.parseInt(view.getPersonCount()) != 0 ) {
+			if( this.fieldsAreFilled() ) {
 				
 				/* The user filled all the fields. */
-				if( view.getCheckInDate().isBefore(view.getCheckOutDate()) || view.getCheckInDate().equals(view.getCheckOutDate()) ) {
+				if( this.checkInDateIsBeforeCheckOutDate() ) {
 					
 					/* The check-in date is before or equal to the check-out date.  */
 					
 					/* Fill the bean fields. */
-					fields.setCity(view.getCityField()); 
-					fields.setCheckIn(view.getCheckInDate());
-					fields.setCheckOut(view.getCheckOutDate());
-					fields.setPersonCount(Integer.parseInt(view.getPersonCount()));
+					fields.setCity(bookHotelListView.getCityField()); 
+					fields.setCheckIn(bookHotelListView.getCheckInDate());
+					fields.setCheckOut(bookHotelListView.getCheckOutDate());
+					fields.setPersonCount(Integer.parseInt(bookHotelListView.getPersonCount()));
 				
 					List<HotelBean> rentablePlaces = model.retrieveHotelByCity(fields.getCity());
 					
 					if( rentablePlaces.isEmpty() )
 						
 						/* The input provided by the user doesn't provide result */
-						view.resultNotFound();
+						bookHotelListView.resultNotFound();
 					
 					else
 						
-						view.populateView(rentablePlaces, new MoreInformationHandler());
+						bookHotelListView.populateView(rentablePlaces, new MoreInformationHandler());
 					
 				} else {
 					
@@ -178,17 +205,7 @@ public class BookHotelListViewController extends MainViewController {
 			} else {
 				
 				/* The user doesn't fill all the fields. */
-				if(view.getCityField().isEmpty())
-					view.setVisibleErrCityField(true);
-				
-				if(view.getCheckInDate() == null)
-					view.setVisibleErrCheckInField(true);
-				
-				if(view.getCheckOutDate() == null)
-					view.setVisibleErrCheckOutField(true);
-				
-				if(Integer.parseInt(view.getPersonCount()) == 0)
-					view.setVisibleErrPersonCount(true);
+				this.checkEmptyFields();
 				
 			}
 			
@@ -209,10 +226,10 @@ public class BookHotelListViewController extends MainViewController {
 		public void handle(ActionEvent event) {
 			
 			/* Fill the bean with the data provided by the user. */
-			fields.setCity(view.getCityField());
-			fields.setCheckIn(view.getCheckInDate());
-			fields.setCheckOut(view.getCheckOutDate());
-			fields.setPersonCount(Integer.parseInt(view.getPersonCount()));
+			fields.setCity(bookHotelListView.getCityField());
+			fields.setCheckIn(bookHotelListView.getCheckInDate());
+			fields.setCheckOut(bookHotelListView.getCheckOutDate());
+			fields.setPersonCount(Integer.parseInt(bookHotelListView.getPersonCount()));
 			
 			int id = Integer.parseInt( ((Control)event.getSource()).getId() );	// The id of the hotel selected.
 			
@@ -222,7 +239,6 @@ public class BookHotelListViewController extends MainViewController {
 				Main.getInstance().changeToHotelView();
 				new HotelViewController(Main.getInstance().getHotelView(), model.getRentablePlace(id), fields);
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			

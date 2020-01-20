@@ -36,7 +36,7 @@ public class BookingFactory {
 	 * Get instance method. 
 	 * @return	The instance of this class.
 	 */
-	public synchronized static BookingFactory getInstance() {
+	public static synchronized BookingFactory getInstance() {
 		
 		if(BookingFactory.instance == null) 
 			

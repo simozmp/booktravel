@@ -27,12 +27,12 @@ public class HotelViewController extends MainViewController {
 	/**
 	 * Reference to the view.
 	 */
-	private HotelView view;
+	private HotelView hotelView;
 	
 	/**
 	 * Reference to the model.
 	 */
-	private RentablePlace model;
+	private RentablePlace hotelModel;
 	
 	/**
 	 * Reference to the bean that contain data input of the user.
@@ -49,24 +49,24 @@ public class HotelViewController extends MainViewController {
 	 */
 	public HotelViewController(HotelView view, RentablePlace model, CityDateBean fields) {
 		
-		super(view, model);
+		super(view);
 		
 		/* Set the new view and the new model. */
-		this.view = (HotelView) super.view;
-		this.model = model;
+		this.hotelView = (HotelView) super.view;
+		this.hotelModel = model;
 		this.fields = fields;
 		
 		/* Set the data to the view. */
-		this.view.setName(this.model.getName());
-		this.view.setAddress(this.model.getAddress());
-		this.view.setInformation(this.model.getDescription());
+		this.hotelView.setName(this.hotelModel.getName());
+		this.hotelView.setAddress(this.hotelModel.getAddress());
+		this.hotelView.setInformation(this.hotelModel.getDescription());
 		
 		/* Set the view to represent how much rooms are available. */
 		this.setRoomAvailability();
 		
 		/* Add handlers to button. */
-		this.view.addBackHandler(new BackHandler());
-		this.view.addBookHandler(new BookHandler());
+		this.hotelView.addBackHandler(new BackHandler());
+		this.hotelView.addBookHandler(new BookHandler());
 		
 	}
 	
@@ -75,17 +75,17 @@ public class HotelViewController extends MainViewController {
 	 */
 	public void setRoomAvailability() {
 		
-		List<RoomBean> roomsAvailability = new ArrayList<RoomBean>();
+		List<RoomBean> roomsAvailability = new ArrayList<>();
 		
 		if( this.fields.getPersonCount() == 1 ) {
 			
-			roomsAvailability.add(this.model.getNumberOfRoomByBeds(2, this.fields));
+			roomsAvailability.add(this.hotelModel.getNumberOfRoomByBeds(2, this.fields));
 			
 		} else {
 		
 			for( int i = 1; i <= this.fields.getPersonCount(); i++ ) {
 				
-				RoomBean roomBean = this.model.getNumberOfRoomByBeds(i, this.fields);
+				RoomBean roomBean = this.hotelModel.getNumberOfRoomByBeds(i, this.fields);
 				
 				if(roomBean.getAvailability() != 0)
 				
@@ -95,7 +95,7 @@ public class HotelViewController extends MainViewController {
 			
 		}
 		
-		this.view.createRoomSelector(roomsAvailability, new PlusHandler(), new MinusHandler());
+		this.hotelView.createRoomSelector(roomsAvailability, new PlusHandler(), new MinusHandler());
 		
 	}
 	
@@ -112,7 +112,7 @@ public class HotelViewController extends MainViewController {
 			
 			int index = Integer.parseInt( ((Control)event.getSource()).getId() ); 	/* The id of the button clicked. */
 			
-			HotelView.RoomSelector roomSelector = view.getRoomSelector(index);		/* The component of the view that contains the button clicked. */
+			HotelView.RoomSelector roomSelector = hotelView.getRoomSelector(index);		/* The component of the view that contains the button clicked. */
 			
 			int numberOfRooms = Integer.parseInt( roomSelector.getRoomChoise() );	/* Number of room entered by the user. */
 			
@@ -135,7 +135,7 @@ public class HotelViewController extends MainViewController {
 			
 			int totalBeds = 0;		/* Counter for the beds. */
 			
-			for( HotelView.RoomSelector roomSel : view.getAllRoomSelectors() ) {
+			for( HotelView.RoomSelector roomSel : hotelView.getAllRoomSelectors() ) {
 				
 				numberOfRooms = Integer.parseInt( roomSel.getRoomChoise() );	/* Number of rooms choice for this beds. */
 				
@@ -148,7 +148,7 @@ public class HotelViewController extends MainViewController {
 			if( totalBeds >= fields.getPersonCount() ) {
 				
 				/* Total beds for the rooms selected reached the person count, so all the plus buttons can be disabled. */
-				for (HotelView.RoomSelector roomSel : view.getAllRoomSelectors() ) {
+				for (HotelView.RoomSelector roomSel : hotelView.getAllRoomSelectors() ) {
 					
 					roomSel.disablePlusButton();
 					
@@ -173,7 +173,7 @@ public class HotelViewController extends MainViewController {
 			
 			int index = Integer.parseInt( ((Control)event.getSource()).getId() );  	/* The id of the button clicked. */
 			
-			HotelView.RoomSelector roomSelector = view.getRoomSelector(index);		/* The corresponding part of the view for the button clicked. */
+			HotelView.RoomSelector roomSelector = hotelView.getRoomSelector(index);		/* The corresponding part of the view for the button clicked. */
 			
 			int numberOfRooms = Integer.parseInt( roomSelector.getRoomChoise() );	/* Number of rooms selected by the user. */
 			
@@ -186,7 +186,7 @@ public class HotelViewController extends MainViewController {
 			
 			roomSelector.setRoomChoise( String.valueOf( numberOfRooms ) );		/* Update with new value. */
 			
-			for (HotelView.RoomSelector roomSel : view.getAllRoomSelectors() ) {
+			for (HotelView.RoomSelector roomSel : hotelView.getAllRoomSelectors() ) {
 				
 				/* After a decrease all the plus button can be enabled. */
 				roomSel.enablePlusButton();
@@ -210,13 +210,13 @@ public class HotelViewController extends MainViewController {
 			
 			if(LoginController.getInstance().isLogged()) {
 			
-				List<RoomBean> roomBeans = new ArrayList<RoomBean>();	/* List of beans. */
+				List<RoomBean> roomBeans = new ArrayList<>();	/* List of beans. */
 				
-				view.setErrVisible(false);
+				hotelView.setErrVisible(false);
 				
 				int totalBeds = 0;
 				
-				for(HotelView.RoomSelector roomSelector : view.getAllRoomSelectors()) {
+				for(HotelView.RoomSelector roomSelector : hotelView.getAllRoomSelectors()) {
 					
 					if( Integer.parseInt(roomSelector.getRoomChoise()) > 0) {
 					
@@ -241,15 +241,14 @@ public class HotelViewController extends MainViewController {
 						
 						/* Change view and start new controller. */
 						Main.getInstance().changeToBookingView();
-						new BookingViewController(Main.getInstance().getBookingView(), model, fields, roomBeans);
+						new BookingViewController(Main.getInstance().getBookingView(), hotelModel, fields, roomBeans);
 					} catch (Exception e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					
 				} else {
 					
-					view.setErrVisible(true);
+					hotelView.setErrVisible(true);
 					
 				}
 			
@@ -285,7 +284,6 @@ public class HotelViewController extends MainViewController {
 				Main.getInstance().changeToBookHotelListView();
 				new BookHotelListViewController(Main.getInstance().getBookHotelListView(),	BookHotelController.getInstance(), fields);
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			

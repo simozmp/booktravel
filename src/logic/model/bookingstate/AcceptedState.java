@@ -15,8 +15,7 @@ public class AcceptedState implements BookingState{
 
 	@Override
 	public void accept(Booking context) {
-		// TODO Auto-generated method stub
-		
+				
 	}
 
 	@Override
@@ -35,7 +34,6 @@ public class AcceptedState implements BookingState{
 
 	@Override
 	public void resubmit(Booking context) {
-		// TODO Auto-generated method stub
 		
 	}
 

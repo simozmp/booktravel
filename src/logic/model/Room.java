@@ -6,9 +6,7 @@ import java.util.List;
 
 import logic.bean.BookingBean;
 import logic.bean.RoomBean;
-import logic.model.bookingstate.AcceptedState;
 import logic.model.bookingstate.StateEnum;
-import logic.model.bookingstate.SubmittedState;
 import logic.model.dao.BookingDAO;
 import logic.model.dao.BookingDAOImpl;
 import logic.model.dao.PersonDAO;
@@ -71,7 +69,7 @@ public class Room {
 		
 		this.toilets = toilets;
 		
-		this.bookings =  new ArrayList<Booking>();
+		this.bookings =  new ArrayList<>();
 		
 	}
 	
@@ -127,7 +125,7 @@ public class Room {
 	 */
 	public List<Booking> getActiveBooking() {
 		
-		List<Booking> activeBooking = new ArrayList<Booking>();
+		List<Booking> activeBooking = new ArrayList<>();
 		StateEnum state;
 		
 		for(Booking booking : this.bookings) {
@@ -252,16 +250,16 @@ public class Room {
 	 * @return		list of booking.
 	 */
 	public List<Booking> getAllBookingOfThisUser(String username) {
-		List<Booking> bookings = new ArrayList<Booking>();
+		List<Booking> userBookings = new ArrayList<>();
 		
 		for(Booking booking : this.bookings) {
 			
 			if(booking.getUser().equals(username))
-				bookings.add(booking);
+				userBookings.add(booking);
 			
 		}
 		
-		return bookings;
+		return userBookings;
 	}
 		
 }

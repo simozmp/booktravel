@@ -48,7 +48,6 @@ public class SubmittedState implements BookingState {
 	 */
 	@Override
 	public void resubmit(Booking context) {
-		// TODO Auto-generated method stub
 		
 	}
 

@@ -97,7 +97,7 @@ public class BookingView extends Application {
 	public void populateView(int numberOfPerson) {
 		
 		VBox vBox = new VBox(10);
-		this.people = new ArrayList<PersonForm>();
+		this.people = new ArrayList<>();
 		
 		for(int i = 0; i < numberOfPerson; i++)
 			people.add(new PersonForm(String.valueOf(i+1)));
@@ -118,7 +118,7 @@ public class BookingView extends Application {
 		this.vBoxLeft.getChildren().clear();
 		this.vBoxLeft.setPadding(new Insets(20, 20, 20, 20));
 		
-		this.roomsBox = new ArrayList<RoomBox>();
+		this.roomsBox = new ArrayList<>();
 		
 		for(RoomBean roomBean : roomBeans) {
 			

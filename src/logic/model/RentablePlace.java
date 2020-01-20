@@ -44,7 +44,7 @@ public abstract class RentablePlace {
 	 */
 	protected String description;
 
-	protected String Owner;
+	protected String owner;
 	
 	/**
 	 * Constructor of the class. It initialize the state of the object and
@@ -54,14 +54,14 @@ public abstract class RentablePlace {
 	 * @param address
 	 * @param city
 	 */
-	public RentablePlace(String name, String address, String city, String Owner) {
+	public RentablePlace(String name, String address, String city, String owner) {
 		
-		this.rooms = new ArrayList<Room>();
+		this.rooms = new ArrayList<>();
 		
 		this.name = name;
 		this.address = address;
 		this.city = city;
-		this.Owner = Owner;
+		this.owner = owner;
 		
 	}
 	
@@ -72,14 +72,11 @@ public abstract class RentablePlace {
 	 * @param city
 	 * @param rooms
 	 */
-	public RentablePlace(String name, String address, String city, List<Room> rooms, String Owner) {
+	public RentablePlace(String name, String address, String city, List<Room> rooms, String owner) {
 		
-		this.name = name;
-		this.address = address;
-		this.city = city;
-		this.Owner = Owner;
+		this(name, address, city, owner);
 		
-		this.rooms = new ArrayList<Room>(rooms);
+		this.rooms = new ArrayList<>(rooms);
 		
 	}
 	
@@ -91,7 +88,7 @@ public abstract class RentablePlace {
 	 * @param city
 	 * @param description
 	 */
-	public RentablePlace(String name, String address, String city, String description, String Owner) {
+	public RentablePlace(String name, String address, String city, String description, String owner) {
 		
 		this.name = name;
 		
@@ -101,9 +98,9 @@ public abstract class RentablePlace {
 		
 		this.description = description;
 		
-		this.Owner = Owner;
+		this.owner = owner;
 		
-		this.rooms = new ArrayList<Room>();
+		this.rooms = new ArrayList<>();
 		
 	}
 	
@@ -151,15 +148,7 @@ public abstract class RentablePlace {
 			
 		}
 		
-		if( availability >= fields.getPersonCount() )
-			
-			/* There are sufficient beds to contain all people. */
-			return true;
-		
-		else
-			
-			/* There are not sufficient beds to contain all people. */
-			return false;
+		return availability >= fields.getPersonCount();
 		
 	}
 	
@@ -205,7 +194,7 @@ public abstract class RentablePlace {
 	 */
 	public List<Room> getRooms(int beds, int number, LocalDate checkIn, LocalDate checkOut) {
 		
-		List<Room> rooms = new ArrayList<Room>();
+		List<Room> availableRooms = new ArrayList<>();
 		
 		int i = 0;	/* Counter for sliding the list. */
 		
@@ -217,7 +206,7 @@ public abstract class RentablePlace {
 			if( room.isAvailable(checkIn, checkOut) && room.getBeds() == beds ) {
 				
 				/* The room is available for the given date and contain the specified amount of beds. */
-				rooms.add(room);
+				availableRooms.add(room);
 				
 				number--;
 				
@@ -227,7 +216,7 @@ public abstract class RentablePlace {
 			
 		}
 		
-		return rooms;
+		return availableRooms;
 		
 	}
 	
@@ -305,7 +294,7 @@ public abstract class RentablePlace {
 	 * @return
 	 */
 	
-	public String getOwner() { return this.Owner;}
+	public String getOwner() { return this.owner;}
 
 	/**
 	 * Retrieve all bookings of an user in this rentablePlace.
@@ -315,7 +304,7 @@ public abstract class RentablePlace {
 	 */
 	public List<Booking> getBookingsByUser(String username) {
 		
-		List<Booking> bookings = new ArrayList<Booking>();
+		List<Booking> bookings = new ArrayList<>();
 		
 		for(Room room : this.rooms) {
 			

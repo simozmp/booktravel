@@ -20,7 +20,7 @@ public class PersonDAOImpl implements PersonDAO {
 
 	@Override
 	public List<Person> getAllPeopleOfABooking(int bookingId) {
-		List<Person> people = new ArrayList<Person>();
+		List<Person> people = new ArrayList<>();
 		Person person = null;
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -72,7 +72,7 @@ public class PersonDAOImpl implements PersonDAO {
             preparedStatement.execute();
             result = preparedStatement.getGeneratedKeys();
  
-            if (result.next() && result != null) {
+            if (result.next()) {
                 return result.getInt(1);
             } else {
                 return -1;

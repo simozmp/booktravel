@@ -22,7 +22,7 @@ public class RoomDAOImpl implements RoomDAO {
 
 	@Override
 	public List<RoomBean> getAllRoomOfAnHotel(int hotelId) {
-		List<RoomBean> rooms = new ArrayList<RoomBean>();
+		List<RoomBean> rooms = new ArrayList<>();
 		RoomBean room = null;
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -76,7 +76,7 @@ public class RoomDAOImpl implements RoomDAO {
             preparedStatement.execute();
             result = preparedStatement.getGeneratedKeys();
  
-            if (result.next() && result != null) {
+            if (result.next()) {
                 return result.getInt(1);
             } else {
                 return -1;

@@ -22,12 +22,10 @@ public class HotelDAOImpl implements HotelDAO {
 	private static final String READ_BY_OWNER_QUERY = "SELECT * FROM hotel WHERE owner = ?";
 	/** Query for updating the fields of an hotel. */
 	private static final String UPDATE_QUERY = "UPDATE hotel SET name = ?, address = ?, city = ?, description = ?, owner = ? WHERE id = ?";
-	/** Query for deleting an hotel. */
-	private static final String DELETE_QUERY = "DELETE FROM hotel WHERE id = ?";
 
 	@Override
 	public List<HotelBean> getAllHotelByCity(String city) {
-		List<HotelBean> hotels = new ArrayList<HotelBean>();
+		List<HotelBean> hotels = new ArrayList<>();
 		HotelBean hotel = null;
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -79,7 +77,7 @@ public class HotelDAOImpl implements HotelDAO {
 			preparedStatement.execute();
 			resultSet = preparedStatement.getResultSet();
 			
-			if(resultSet.next() && resultSet != null) {
+			if(resultSet.next()) {
 				hotel = new HotelBean(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3), 
 						resultSet.getString(4), resultSet.getString(5), resultSet.getInt(6));
 			}
@@ -118,7 +116,7 @@ public class HotelDAOImpl implements HotelDAO {
             preparedStatement.execute();
             result = preparedStatement.getGeneratedKeys();
  
-            if (result.next() && result != null) {
+            if (result.next()) {
                 return result.getInt(1);
             } else {
                 return -1;
@@ -176,13 +174,12 @@ public class HotelDAOImpl implements HotelDAO {
 
 	@Override
 	public Hotel deleteHotel(Hotel hotel) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public List<HotelBean> getAllHotelByOwner(String owner) {
-		List<HotelBean> hotels = new ArrayList<HotelBean>();
+		List<HotelBean> hotels = new ArrayList<>();
 		HotelBean hotel = null;
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;

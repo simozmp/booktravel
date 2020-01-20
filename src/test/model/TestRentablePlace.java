@@ -33,7 +33,7 @@ public class TestRentablePlace {
 		
 		RentablePlace rentablePlace = new Hotel("nome", "indirizzo", "città", "Proprietario");
 		
-		List<Person> people = new ArrayList<Person>();
+		List<Person> people = new ArrayList<>();
 		
 		Room room1 = new Room("camera 1", 2, 20, 1);
 		room1.addActiveBooking(new Booking(null, null, LocalDate.of(2020, 1, 5), LocalDate.of(2020, 1, 5), people));

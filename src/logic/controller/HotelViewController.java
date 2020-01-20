@@ -59,7 +59,7 @@ public class HotelViewController extends MainViewController {
 		/* Set the data to the view. */
 		this.view.setName(this.model.getName());
 		this.view.setAddress(this.model.getAddress());
-		this.view.setInformation("Bell'Hotel proprio!");
+		this.view.setInformation(this.model.getDescription());
 		
 		/* Set the view to represent how much rooms are available. */
 		this.setRoomAvailability();
@@ -243,6 +243,7 @@ public class HotelViewController extends MainViewController {
 						Main.getInstance().changeToBookingView();
 						new BookingViewController(Main.getInstance().getBookingView(), model, fields, roomBeans);
 					} catch (Exception e) {
+						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					
@@ -284,6 +285,7 @@ public class HotelViewController extends MainViewController {
 				Main.getInstance().changeToBookHotelListView();
 				new BookHotelListViewController(Main.getInstance().getBookHotelListView(),	BookHotelController.getInstance(), fields);
 			} catch (Exception e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			

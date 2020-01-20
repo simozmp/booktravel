@@ -1,6 +1,6 @@
 package test.model;
 
-import logic.model.ActiveBooking;
+import logic.model.Booking;
 import logic.model.Person;
 import logic.model.Room;
 import org.junit.Test;
@@ -30,13 +30,13 @@ public class TestRoom {
 		
 		List<Person> people = new ArrayList<Person>();
 		
-		room.addActiveBooking(new ActiveBooking(null, null, LocalDate.of(2020, 1, 5), LocalDate.of(2020, 1, 5), people));
+		room.addActiveBooking(new Booking(null, null, LocalDate.of(2020, 1, 5), LocalDate.of(2020, 1, 5), people));
 		
-		room.addActiveBooking(new ActiveBooking(null, null, LocalDate.of(2020, 1, 6), LocalDate.of(2020, 1, 10), people));
+		room.addActiveBooking(new Booking(null, null, LocalDate.of(2020, 1, 6), LocalDate.of(2020, 1, 10), people));
 		
-		room.addActiveBooking(new ActiveBooking(null, null, LocalDate.of(2050, 1, 1), LocalDate.of(2050, 1, 7), people));
+		room.addActiveBooking(new Booking(null, null, LocalDate.of(2050, 1, 1), LocalDate.of(2050, 1, 7), people));
 		
-		room.addActiveBooking(new ActiveBooking(null, null, LocalDate.of(2021, 1, 1), LocalDate.of(2022, 1, 1), people));
+		room.addActiveBooking(new Booking(null, null, LocalDate.of(2021, 1, 1), LocalDate.of(2022, 1, 1), people));
 		
 		return room;
 		

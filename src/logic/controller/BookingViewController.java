@@ -132,7 +132,7 @@ public class BookingViewController {
 					Main.getInstance().changeToBookHotelListView();
 					new BookHotelListViewController(Main.getInstance().getBookHotelListView(),	BookHotelController.getInstance(), fields);
 				} catch (Exception e) {
-				
+					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				
@@ -159,7 +159,7 @@ public class BookingViewController {
 				Main.getInstance().changeToHotelView();
 				new HotelViewController(Main.getInstance().getHotelView(), model, fields);
 			} catch (Exception e) {
-			
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			

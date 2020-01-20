@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import logic.model.Person;
+import logic.model.bookingstate.StateEnum;
 
 public class BookingBean {
 	
@@ -15,11 +16,28 @@ public class BookingBean {
 	
 	private List<Person> people;
 	
-	public BookingBean(String hotel, LocalDate checkIn, LocalDate checkOut, List<Person> people) {
+	private String user;
+	
+	private StateEnum state;
+	
+	private int bookingId;
+	
+	public BookingBean() {}
+	
+	public BookingBean(String hotel, LocalDate checkIn, LocalDate checkOut, StateEnum state, String user, int bookingId) {
 		
 		this.hotel = hotel;
 		this.checkIn = checkIn;
 		this.checkOut = checkOut;
+		this.state = state;
+		this.user = user;
+		this.bookingId = bookingId;
+		
+	}
+	
+	public BookingBean(String hotel, LocalDate checkIn, LocalDate checkOut, List<Person> people, StateEnum state, int bookingId, String user) {
+		this(hotel, checkIn, checkOut, state, user, bookingId );
+		
 		this.people = people;
 		
 	}
@@ -54,6 +72,30 @@ public class BookingBean {
 
 	public void setPeople(List<Person> people) {
 		this.people = people;
+	}
+
+	public int getBookingId() {
+		return bookingId;
+	}
+
+	public void setBookingId(int bookingId) {
+		this.bookingId = bookingId;
+	}
+
+	public String getUser() {
+		return user;
+	}
+
+	public void setUser(String user) {
+		this.user = user;
+	}
+
+	public StateEnum getState() {
+		return state;
+	}
+
+	public void setState(StateEnum state) {
+		this.state = state;
 	}
 
 }

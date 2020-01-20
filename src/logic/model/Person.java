@@ -23,6 +23,9 @@ public class Person {
 	 */
 	private String lastname;
 	
+	/** The id of the person. */
+	private int id;
+	
 	/**
 	 * Constructor of the class.
 	 * 
@@ -30,6 +33,14 @@ public class Person {
 	 * @param name			the name
 	 * @param lastname		the last name
 	 */
+	public Person(String fiscalCode, String name, String lastname, int id) {
+		
+		this(fiscalCode, name, lastname);
+		
+		this.setId(id);
+		
+	}
+	
 	public Person(String fiscalCode, String name, String lastname) {
 		
 		this.fiscalCode = fiscalCode;
@@ -37,7 +48,6 @@ public class Person {
 		this.name = name;
 		
 		this.lastname = lastname;
-		
 	}
 	
 	/**
@@ -81,5 +91,13 @@ public class Person {
 	 * @param lastname	the new last name
 	 */
 	public void setLastname(String lastname) { this.lastname = lastname; }
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 }

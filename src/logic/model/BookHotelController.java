@@ -5,8 +5,15 @@ import java.util.List;
 
 import logic.bean.BookingBean;
 import logic.bean.CityDateBean;
+import logic.bean.HotelBean;
 import logic.bean.LoginBean;
 import logic.bean.RoomBean;
+import logic.model.dao.BookingDAO;
+import logic.model.dao.BookingDAOImpl;
+import logic.model.dao.HotelDAO;
+import logic.model.dao.HotelDAOImpl;
+import logic.model.dao.PersonDAO;
+import logic.model.dao.PersonDAOImpl;
 
 /**
  * 
@@ -34,63 +41,59 @@ public class BookHotelController {
 		
 		this.rentablePlaces = new ArrayList<RentablePlace>();
 		
-		this.rentablePlaces.add(new Hotel("hotel 1", "indirizzo 1", "Roma", "owner"));
-//		this.rentablePlaces.add(new Hotel("hotel 2", "indirizzo 2", "Roma"));
-//		this.rentablePlaces.add(new Hotel("hotel 3", "indirizzo 3", "Milano"));
-//		this.rentablePlaces.add(new Hotel("hotel 4", "indirizzo 4", "Milano"));
-//		this.rentablePlaces.add(new Hotel("hotel 5", "indirizzo 5", "Milano"));
-//		this.rentablePlaces.add(new Hotel("hotel 6", "indirizzo 6", "Roma"));
-//		this.rentablePlaces.add(new Hotel("hotel 7", "indirizzo 7", "Roma"));
-//		this.rentablePlaces.add(new Hotel("hotel 8", "indirizzo 8", "Roma"));
-//		this.rentablePlaces.add(new Hotel("hotel 9", "indirizzo 9", "Milano"));
-//		this.rentablePlaces.add(new Hotel("hotel 10", "indirizzo 10", "Milano"));
-//		this.rentablePlaces.add(new Hotel("hotel 11", "indirizzo 11", "Roma"));
-//		this.rentablePlaces.add(new Hotel("hotel 12", "indirizzo 12", "Roma"));
-//		this.rentablePlaces.add(new Hotel("hotel 13", "indirizzo 13", "Roma"));
-//		this.rentablePlaces.add(new Hotel("hotel 14", "indirizzo 14", "Milano"));
-//		this.rentablePlaces.add(new Hotel("hotel 15", "indirizzo 15", "Roma"));
-//		this.rentablePlaces.add(new Hotel("hotel 16", "indirizzo 16", "Roma"));
-//		this.rentablePlaces.add(new Hotel("hotel 17", "indirizzo 17", "Roma"));
-//		this.rentablePlaces.add(new Hotel("hotel 18", "indirizzo 18", "Milano"));
-//		this.rentablePlaces.add(new Hotel("hotel 19", "indirizzo 19", "Milano"));
-//		this.rentablePlaces.add(new Hotel("hotel 20", "indirizzo 20", "Milano"));
-//		this.rentablePlaces.add(new Hotel("hotel 21", "indirizzo 21", "Milano"));
-//		this.rentablePlaces.add(new Hotel("hotel 22", "indirizzo 22","Roma"));
-//		this.rentablePlaces.add(new Hotel("hotel 23", "indirizzo 23", "Roma"));
-//		this.rentablePlaces.add(new Hotel("hotel 24", "indirizzo 24", "Milano"));
-//		this.rentablePlaces.add(new Hotel("hotel 25", "indirizzo 25","Roma"));
-//		this.rentablePlaces.add(new Hotel("hotel 26", "indirizzo 26", "Roma"));
-//		this.rentablePlaces.add(new Hotel("hotel 27", "indirizzo 27", "Milano"));
-		
 	}
 	
 	/**
-	 * Retrieve all rentable places.
+	 * Retrieve all hotel placed in a city.
 	 * 
-	 * @return list that contains rentable places.
+	 * @param city	the name of the city.
+	 * @return		the list of bean that contain data.
 	 */
-	public List<RentablePlace> retrieveRentablePlaces() {
+	public List<HotelBean> retrieveHotelByCity(String city) {
+		List<HotelBean> hotels = new ArrayList<HotelBean>();
 		
-		List<RentablePlace> copy = new ArrayList<RentablePlace>(this.rentablePlaces);
+		HotelDAO dao = new HotelDAOImpl();
+		hotels = dao.getAllHotelByCity(city);		
 		
-		return copy;
-		
+		return hotels;
 	}
 	
 	/**
 	 * 
-	 * @param name 	the name of the rentable place we are searching.
-	 * @return		the rentable place called as "name".
+	 * @param id	the id of the rentable place we are searching.
+	 * @return		the rentable place that match with the id.
 	 */
-	public RentablePlace getRentablePlace(String name) { 
+	public RentablePlace getRentablePlace(int id) { 
 		
-		for(RentablePlace rentablePlace : this.rentablePlaces) {
-			
-			if(rentablePlace.getName().equals(name))
-				return rentablePlace;
-			
-		}				
-		return null;				
+		HotelDAO dao = new HotelDAOImpl();
+		HotelBean hotelBean = dao.getHotel(id);
+		RentablePlace hotel = new Hotel(hotelBean);
+		
+		this.rentablePlaces.add(hotel);
+		
+		return hotel;
+						
+	}
+	
+	/**
+	 * Retrieve the booking by the id and change its state to delete.
+	 * 
+	 * @param id	the booking to delete.
+	 */
+	public void deleteBooking(int id) {
+		
+		BookingBean bookingBean = new BookingDAOImpl().getBooking(id);
+		
+		Booking booking = new Booking(bookingBean);
+		booking.delete();
+		
+	}
+	
+	public void resubmitBooking(int id) {
+		BookingBean bookingBean = new BookingDAOImpl().getBooking(id);
+		
+		Booking booking = new Booking(bookingBean);
+		booking.resubmit();
 	}
 	
 	/**
@@ -127,7 +130,7 @@ public class BookHotelController {
 	 */
 	public void createBooking(CityDateBean fields, List<Person> people, List<RoomBean> roomBeans, RentablePlace rentPlace) {
 		
-		Booking booking = BookingFactory.getInstance().createActiveBooking
+		Booking booking = BookingFactory.getInstance().createBooking
 				(rentPlace.getName(), LoginController.getInstance().getUsername(), fields.getCheckIn(), fields.getCheckOut(), people);
 		
 		rentPlace.addActiveBooking(booking, roomBeans);
@@ -142,24 +145,17 @@ public class BookHotelController {
 	 */
 	public List<BookingBean> retrieveBookingOfAnUser(LoginBean loginBean) {
 		
-		List<Booking> bookings = new ArrayList<Booking>();
+		List<BookingBean> bookings = new ArrayList<BookingBean>();
 		
-		for(RentablePlace rentablePlace : this.rentablePlaces) {
-			
-			bookings.addAll(rentablePlace.getBookingsByUser(loginBean.getUsername()));
-			
+		BookingDAO dao = new BookingDAOImpl();
+		bookings.addAll(dao.getAllBookingOfAUser(loginBean.getUsername()));
+		
+		PersonDAO daoPerson = new PersonDAOImpl();
+		for(BookingBean bean : bookings) {
+			bean.setPeople(daoPerson.getAllPeopleOfABooking(bean.getBookingId()));
 		}
 		
-		List<BookingBean> bookingsBean = new ArrayList<BookingBean>();
-		
-		for(Booking booking : bookings) {
-			
-			BookingBean bean = new BookingBean( booking.getHotel(), booking.getCheckIn(), booking.getCheckOut(), booking.getPeople() );
-			bookingsBean.add(bean);
-			
-		}
-		
-		return bookingsBean;
+		return bookings;
 		
 	}
 	

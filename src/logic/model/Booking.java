@@ -4,40 +4,59 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import logic.bean.BookingBean;
+import logic.model.bookingstate.AcceptedState;
+import logic.model.bookingstate.BookingState;
+import logic.model.bookingstate.DeletedState;
+import logic.model.bookingstate.InactiveState;
+import logic.model.bookingstate.StateEnum;
+import logic.model.bookingstate.SubmittedState;
+import logic.model.dao.PersonDAO;
+import logic.model.dao.PersonDAOImpl;
+
 /**
  * 
  * @author metal
  *
- * This class represent a booking. It is abstract, so it cannot be instantiated.
- * You have to instantiate the concrete class.
+ * This class represent a booking, it is created in its initial state of submitted state.
  */
-public abstract class Booking {
+public class Booking {
+	
+	/**
+	 * Identify uniquely the booking.
+	 */
+	private int id;
+	
+	/**
+	 * The current state of the booking, it can be Submitted, Deleted, Active or Inactive.
+	 */
+	private BookingState currentState;
 
 	/**
 	 * The hotel name where the booking is located.
 	 */
-	protected String hotel;
+	private String hotel;
 	
 	/**
 	 * The user who create this booking.
 	 */
-	protected String user;
+	private String user;
 	
 	/**
 	 * The Check-In date.
 	 */
-	protected LocalDate checkIn;
+	private LocalDate checkIn;
 	
 	/**
 	 * The Check-Out date.
 	 */
-	protected LocalDate checkOut;
+	private LocalDate checkOut;
 	
 	/**
 	 * A reference to a list of people which the booking is composed.
 	 * Never pass it out of this class.
 	 */
-	protected List<Person> people;
+	private List<Person> people;
 	
 	/**
 	 * Constructor of the class.
@@ -48,31 +67,131 @@ public abstract class Booking {
 	 */
 	public Booking(String hotel, String user, LocalDate checkIn, LocalDate checkOut, List<Person> people) {
 		
-		this.hotel = hotel;
+		this(hotel, user, checkIn, checkOut);
 		
-		this.user = user;
+		this.people.addAll(people);
 		
-		this.checkIn = checkIn;
-		
-		this.checkOut = checkOut;
-		
-		this.people = new ArrayList<Person>(people);
+		this.setState(new SubmittedState());
 		
 	}
+	
+	public Booking(String hotel, String user, LocalDate checkIn, LocalDate checkOut) {
+		
+		this.hotel = hotel;		
+		this.user = user;
+		this.checkIn = checkIn;
+		this.checkOut = checkOut;		
+		this.people = new ArrayList<Person>();
+	}
+	
+	/**
+	 * Constructor that takes bean as a parameter.
+	 * 
+	 * @param bean bean that contains data.
+	 */
+	public Booking(BookingBean bean) {
+		
+		this(bean.getHotel(), bean.getUser(), bean.getCheckIn(), bean.getCheckOut());
+		this.setState(bean.getState());
+		this.id = bean.getBookingId();
+		
+		PersonDAO dao = new PersonDAOImpl();
+		this.people.addAll(dao.getAllPeopleOfABooking(bean.getBookingId()));
+		
+	}
+	
+	/**
+	 * Set the state of a booking.
+	 * 
+	 * @param state		type of state.
+	 */
+	public void setState(StateEnum state) {
+		
+		switch(state) {
+		
+		case SUBMITTED:
+			this.currentState = new SubmittedState();
+			break;
+		case ACCEPTED:
+			this.currentState = new AcceptedState();
+			break;
+		case DELETED:
+			this.currentState = new DeletedState();
+			break;
+		case INACTIVE:
+			this.currentState = new InactiveState();
+			break;
+		
+		}
+		
+	}
+	
+	/**
+	 * Set the new state. It is called from internal state of the state machine.
+	 * 
+	 * @param newState		the new state of the state machine.
+	 */
+	public void setState(BookingState newState) {
+		
+		this.currentState = newState;
+		
+	}
+	
+	/**
+	 * 
+	 * @return the current state of the booking.
+	 */
+	public BookingState getState() {
+		
+		return this.currentState;
+		
+	}
+	
+	/**
+	 * It behavior depends by the current state.
+	 */
+	public void accept() {
+		
+		this.currentState.accept(this);
+		
+	}
+	
+	/**
+	 * It behavior depends by the current state.
+	 */
+	public void delete() {
+		
+		this.currentState.delete(this);
+		
+	}
+	
+	/**
+	 * It behavior depends by the current state.
+	 */
+	public void resubmit() {
+		
+		this.currentState.resubmit(this);
+		
+	}
+
 
 	/**
 	 * Get the check in date.
 	 * 
 	 * @return	check in attribute.
 	 */
-	public LocalDate getCheckIn() {	return checkIn; }
+	public LocalDate getCheckIn() {	
+		return checkIn;
+	}
 
 	/**
 	 * Get the check out date.
 	 * 
 	 * @return	check out attribute.
 	 */
-	public LocalDate getCheckOut() { return checkOut; }	
+	public LocalDate getCheckOut() { 
+		return checkOut;
+	}	
 	
 	public String getHotel() {
 		return hotel;
@@ -84,6 +203,18 @@ public abstract class Booking {
 
 	public List<Person> getPeople() {
 		return people;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public StateEnum getEnumValueOfState() {
+		return this.currentState.getEnumValueOfState();
 	}
 
 }

@@ -3,31 +3,31 @@
               Any modifications will be overwritten.
               To include a user specific buildfile here, simply create one in the same
               directory with the processing instruction <?eclipse.ant.import?>
-              as the first entry and export the buildfile again. --><project basedir="." default="build" name="BookTravel">
+              as the first entry and export the buildfile again. --><project basedir="." default="build" name="booktravel">
     <property environment="env"/>
-    <property name="ECLIPSE_HOME" value="../../../eclipse/"/>
-    <property name="junit.output.dir" value="junit"/>
+    <property name="ECLIPSE_HOME" value="../../eclipse/java-2019-09/eclipse/"/>
     <property name="debuglevel" value="source,lines,vars"/>
     <property name="target" value="1.8"/>
     <property name="source" value="1.8"/>
     <path id="JUnit 5.libraryclasspath">
-        <pathelement location="${ECLIPSE_HOME}plugins/org.junit.jupiter.api_5.5.1.v20190826-0900.jar"/>
-        <pathelement location="${ECLIPSE_HOME}plugins/org.junit.jupiter.engine_5.5.1.v20190826-0900.jar"/>
-        <pathelement location="${ECLIPSE_HOME}plugins/org.junit.jupiter.migrationsupport_5.5.1.v20190826-0900.jar"/>
-        <pathelement location="${ECLIPSE_HOME}plugins/org.junit.jupiter.params_5.5.1.v20190826-0900.jar"/>
-        <pathelement location="${ECLIPSE_HOME}plugins/org.junit.platform.commons_1.5.1.v20190826-0900.jar"/>
-        <pathelement location="${ECLIPSE_HOME}plugins/org.junit.platform.engine_1.5.1.v20190826-0900.jar"/>
-        <pathelement location="${ECLIPSE_HOME}plugins/org.junit.platform.launcher_1.5.1.v20190826-0900.jar"/>
-        <pathelement location="${ECLIPSE_HOME}plugins/org.junit.platform.runner_1.5.1.v20190826-0900.jar"/>
-        <pathelement location="${ECLIPSE_HOME}plugins/org.junit.platform.suite.api_1.5.1.v20190826-0900.jar"/>
-        <pathelement location="${ECLIPSE_HOME}plugins/org.junit.vintage.engine_5.5.1.v20190826-0900.jar"/>
-        <pathelement location="${ECLIPSE_HOME}plugins/org.opentest4j_1.2.0.v20190826-0900.jar"/>
-        <pathelement location="${ECLIPSE_HOME}plugins/org.apiguardian_1.1.0.v20190826-0900.jar"/>
-        <pathelement location="${ECLIPSE_HOME}plugins/org.junit_4.12.0.v201504281640/junit.jar"/>
-        <pathelement location="${ECLIPSE_HOME}plugins/org.hamcrest.core_1.3.0.v20180420-1519.jar"/>
+        <pathelement location="../../.p2/pool/plugins/org.junit.jupiter.api_5.5.1.v20190826-0900.jar"/>
+        <pathelement location="../../.p2/pool/plugins/org.junit.jupiter.engine_5.5.1.v20190826-0900.jar"/>
+        <pathelement location="../../.p2/pool/plugins/org.junit.jupiter.migrationsupport_5.5.1.v20190826-0900.jar"/>
+        <pathelement location="../../.p2/pool/plugins/org.junit.jupiter.params_5.5.1.v20190826-0900.jar"/>
+        <pathelement location="../../.p2/pool/plugins/org.junit.platform.commons_1.5.1.v20190826-0900.jar"/>
+        <pathelement location="../../.p2/pool/plugins/org.junit.platform.engine_1.5.1.v20190826-0900.jar"/>
+        <pathelement location="../../.p2/pool/plugins/org.junit.platform.launcher_1.5.1.v20190826-0900.jar"/>
+        <pathelement location="../../.p2/pool/plugins/org.junit.platform.runner_1.5.1.v20190826-0900.jar"/>
+        <pathelement location="../../.p2/pool/plugins/org.junit.platform.suite.api_1.5.1.v20190826-0900.jar"/>
+        <pathelement location="../../.p2/pool/plugins/org.junit.vintage.engine_5.5.1.v20190826-0900.jar"/>
+        <pathelement location="../../.p2/pool/plugins/org.opentest4j_1.2.0.v20190826-0900.jar"/>
+        <pathelement location="../../.p2/pool/plugins/org.apiguardian_1.1.0.v20190826-0900.jar"/>
+        <pathelement location="../../.p2/pool/plugins/org.junit_4.12.0.v201504281640/junit.jar"/>
+        <pathelement location="../../.p2/pool/plugins/org.hamcrest.core_1.3.0.v20180420-1519.jar"/>
     </path>
-    <path id="BookTravel.classpath">
+    <path id="booktravel.classpath">
         <pathelement location="bin"/>
+        <pathelement location="../../Desktop/HW ISPW/jdbc connector/mysql-connector-java-8.0.19/mysql-connector-java-8.0.19.jar"/>
         <path refid="JUnit 5.libraryclasspath"/>
     </path>
     <target name="init">
@@ -48,7 +48,7 @@
         <echo message="${ant.project.name}: ${ant.file}"/>
         <javac debug="true" debuglevel="${debuglevel}" destdir="bin" includeantruntime="false" source="${source}" target="${target}">
             <src path="src"/>
-            <classpath refid="BookTravel.classpath"/>
+            <classpath refid="booktravel.classpath"/>
         </javac>
     </target>
     <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects"/>
@@ -65,26 +65,9 @@
         <property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
         <antcall target="build"/>
     </target>
-    <target name="CustomsAndTraditionsView (1)">
-        <java classname="logic.view.CustomsAndTraditionsView" failonerror="true" fork="yes">
-            <classpath refid="BookTravel.classpath"/>
+    <target name="Main (2)">
+        <java classname="logic.Main" failonerror="true" fork="yes">
+            <classpath refid="booktravel.classpath"/>
         </java>
-    </target>
-    <target name="TestRentablePlace">
-        <mkdir dir="${junit.output.dir}"/>
-        <junit fork="yes" printsummary="withOutAndErr">
-            <formatter type="xml"/>
-            <test name="test.model.TestRentablePlace" todir="${junit.output.dir}"/>
-            <jvmarg line="-ea"/>
-            <classpath refid="BookTravel.classpath"/>
-        </junit>
-    </target>
-    <target name="junitreport">
-        <junitreport todir="${junit.output.dir}">
-            <fileset dir="${junit.output.dir}">
-                <include name="TEST-*.xml"/>
-            </fileset>
-            <report format="frames" todir="${junit.output.dir}"/>
-        </junitreport>
     </target>
 </project>

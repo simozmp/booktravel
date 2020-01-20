@@ -26,7 +26,7 @@ public abstract class MainView extends Application {
 	
 	protected BorderPane borderPane;
 	
-	private HBox hBoxLogin = new HBox(10);
+	private HBox hBoxLogin;
 	
 	private Button btnLogin = new Button("Login");
 	private Button btnSignIn = new Button("Sign In");
@@ -47,7 +47,7 @@ public abstract class MainView extends Application {
 		Text title = new Text("TravelBook");
 		title.setFont(Font.font("Arial", FontWeight.BOLD, 28));
 		hBoxTitle.getChildren().add(title);
-		
+		hBoxLogin = new HBox(10);
 		hBoxLogin.setAlignment(Pos.CENTER_RIGHT);
 		hBoxLogin.getChildren().addAll(btnLogin, btnSignIn, btnLoginAsOwner);
 	 

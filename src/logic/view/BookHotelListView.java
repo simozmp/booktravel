@@ -19,7 +19,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import logic.model.RentablePlace;
+import logic.bean.HotelBean;
 import logic.mydatecell.MyCallback;
 
 public class BookHotelListView extends MainView {
@@ -158,13 +158,13 @@ public class BookHotelListView extends MainView {
 		return this.dPickerCheckOut.getValue(); 
 	}
 	
-	public void populateView (List<RentablePlace> rentablePlaces, EventHandler<ActionEvent> buttonHandler) {
+	public void populateView (List<HotelBean> hotels, EventHandler<ActionEvent> buttonHandler) {
 		
 		VBox vBox = new VBox(10);		
 		List<HBoxCell> list = new ArrayList<HBoxCell>();
 		
-		for(int i = 0; i < rentablePlaces.size(); i++)
-			list.add(new HBoxCell(rentablePlaces.get(i).getName(), rentablePlaces.get(i).getAddress(), buttonHandler));
+		for(int i = 0; i < hotels.size(); i++)
+			list.add(new HBoxCell(hotels.get(i), buttonHandler));
 			
 		vBox.getChildren().addAll(list);
 		vBox.setMaxWidth(Double.MAX_VALUE);
@@ -187,20 +187,20 @@ public class BookHotelListView extends MainView {
 		private Label address = new Label();
 		private Button button = new Button();
 		
-		public HBoxCell(String name, String address, EventHandler<ActionEvent> buttonHandler) {
+		public HBoxCell(HotelBean hotel, EventHandler<ActionEvent> buttonHandler) {
 			
-			super();
+			super(10);
 			
-			this.name.setText(name);
+			this.name.setText(hotel.getName());
 			this.name.setMaxWidth(Double.MAX_VALUE);
 			HBox.setHgrow(this.name, Priority.ALWAYS);
 			
-			this.address.setText(address);
+			this.address.setText(hotel.getAddress());
 			this.address.setMaxWidth(Double.MAX_VALUE);
 			HBox.setHgrow(this.address, Priority.ALWAYS);
 			
 			this.button.setText("Detailed Information");
-			this.button.setId(name);
+			this.button.setId(String.valueOf(hotel.getId()));
 			this.button.setOnAction(buttonHandler);
 			
 			this.getChildren().addAll(this.name, this.address, this.button);

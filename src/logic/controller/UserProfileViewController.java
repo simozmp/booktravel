@@ -2,6 +2,7 @@ package logic.controller;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.control.Control;
 import logic.Main;
 import logic.bean.LoginBean;
 import logic.model.BookHotelController;
@@ -42,9 +43,37 @@ public class UserProfileViewController {
 			view.setUsername(LoginController.getInstance().getUsername());
 		
 		LoginBean loginBean = new LoginBean(LoginController.getInstance().getUsername(), LoginController.getInstance().getPassword());
-		this.view.setBookings(this.model.retrieveBookingOfAnUser(loginBean ));
+		this.view.setBookings(this.model.retrieveBookingOfAnUser(loginBean ), new DeleteHandler(), new ResubmitHandler());
 		
 		this.view.addMainMenuHandler(new MainMenuHandler());
+		
+	}
+	
+	private class ResubmitHandler implements EventHandler<ActionEvent> {
+
+		@Override
+		public void handle(ActionEvent event) {
+			
+			int id = Integer.parseInt(((Control)event.getSource()).getId());	// The id of the booking selected.
+			model.resubmitBooking(id);
+			new UserProfileViewController(Main.getInstance().getUserProfileView(), BookHotelController.getInstance());
+			
+		}
+		
+	}
+	
+	private class DeleteHandler implements EventHandler<ActionEvent> {
+
+		@Override
+		public void handle(ActionEvent event) {
+			
+			int id = Integer.parseInt(((Control)event.getSource()).getId());	// The id of the booking selected.
+			
+			model.deleteBooking(id);
+			
+			new UserProfileViewController(Main.getInstance().getUserProfileView(), BookHotelController.getInstance());
+			
+		}
 		
 	}
 	

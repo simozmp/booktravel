@@ -2,6 +2,11 @@ package logic.model;
 
 import java.util.List;
 
+import logic.bean.HotelBean;
+import logic.bean.RoomBean;
+import logic.model.dao.RoomDAO;
+import logic.model.dao.RoomDAOImpl;
+
 /**
  * 
  * @author metal
@@ -20,11 +25,6 @@ public class Hotel extends RentablePlace {
 	public Hotel(String name, String address, String city, String Owner) {
 		
 		super(name, address, city, Owner);
-		
-		this.rooms.add(new Room("Bella camera", 2, 20, 1));
-		this.rooms.add(new Room("Bella camera 2", 3, 25, 1));
-		this.rooms.add(new Room("Bella camera 3", 4, 30, 2));
-		this.rooms.add(new Room("Bella camera 4", 5, 35, 2));
 
 	}
 	
@@ -40,6 +40,18 @@ public class Hotel extends RentablePlace {
 		
 		super(name, address, city, rooms, Owner);
 		
+	}
+	
+	public Hotel(HotelBean bean) {
+		
+		super(bean.getName(), bean.getAddress(), bean.getCity(), bean.getDescription(), bean.getOwner());
+		
+		RoomDAO dao = new RoomDAOImpl();
+		List<RoomBean> roomBeans = dao.getAllRoomOfAnHotel(bean.getId());
+		
+		for(RoomBean roomBean : roomBeans) {
+			super.rooms.add( new Room(roomBean) );
+		}
 	}
 
 }

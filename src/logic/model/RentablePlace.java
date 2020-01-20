@@ -43,8 +43,7 @@ public abstract class RentablePlace {
 	 * The description of the rentable place.
 	 */
 	protected String description;
-	
-	
+
 	protected String Owner;
 	
 	/**
@@ -103,6 +102,8 @@ public abstract class RentablePlace {
 		this.description = description;
 		
 		this.Owner = Owner;
+		
+		this.rooms = new ArrayList<Room>();
 		
 	}
 	
@@ -233,22 +234,22 @@ public abstract class RentablePlace {
 	/**
 	 * Add a new booking to the rooms specified in roomBeans.
 	 * 
-	 * @param activeBooking		the new booking.
+	 * @param newBooking		the new booking.
 	 * @param roomBeans			the list of RoomBean. Each RoomBean must contain the number of beds required
 	 * 							and the number of room required for this specified beds.
 	 */
-	public void addActiveBooking(Booking activeBooking, List<RoomBean> roomBeans) {
+	public void addActiveBooking(Booking newBooking, List<RoomBean> roomBeans) {
 		
-		LocalDate checkIn = activeBooking.getCheckIn();
+		LocalDate checkIn = newBooking.getCheckIn();
 		
-		LocalDate checkOut = activeBooking.getCheckOut();
+		LocalDate checkOut = newBooking.getCheckOut();
 		
 		for( RoomBean roomBean : roomBeans ) {
 			
 			for( Room room : this.getRooms(roomBean.getBeds(), roomBean.getRoomChoise(), checkIn, checkOut) ) {
 				
 				/* For each room specified in roomBean. */
-				room.addActiveBooking((ActiveBooking) activeBooking);
+				room.addActiveBooking(newBooking);
 				
 			}
 			
@@ -285,6 +286,14 @@ public abstract class RentablePlace {
 	public String getAddress() { return this.address; }
 	
 	/**
+	 * 
+	 * @return  the description
+	 */
+	public String getDescription() {
+		return description;
+	}
+	
+	/**
 	 * Never call this method. It needs for testing.
 	 * 
 	 * @return
@@ -315,6 +324,24 @@ public abstract class RentablePlace {
 		}
 		
 		return bookings;
+	}
+	
+	/**
+	 * Return the booking that match the id.
+	 * 
+	 * @param id	id of the booking.
+	 * @return		the booking that match the id, or null if it doesn't exist.
+	 */
+	public Booking getBooking(int id) {
+		Booking booking = null;
+		
+		for(Room room : this.rooms) {
+			booking = room.getBooking(id);
+			if(booking != null)
+				return booking;
+			
+		}
+		return booking;		
 	}
 
 }

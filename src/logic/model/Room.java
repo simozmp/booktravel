@@ -4,6 +4,16 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import logic.bean.BookingBean;
+import logic.bean.RoomBean;
+import logic.model.bookingstate.AcceptedState;
+import logic.model.bookingstate.StateEnum;
+import logic.model.bookingstate.SubmittedState;
+import logic.model.dao.BookingDAO;
+import logic.model.dao.BookingDAOImpl;
+import logic.model.dao.PersonDAO;
+import logic.model.dao.PersonDAOImpl;
+
 /**
  * 
  * @author metal
@@ -12,6 +22,10 @@ import java.util.List;
  * It exposes methods for checking the availability of itself for the given date.
  */
 public class Room {
+	/**
+	 * User for identifying the room in the hotel.
+	 */
+	private int id;
 	
 	/**
 	 * The description of the room.
@@ -37,7 +51,7 @@ public class Room {
 	 * A reference to active bookings.
 	 * Never pass it out of this class.
 	 */
-	private List<ActiveBooking> activeBookings = new ArrayList<ActiveBooking>();
+	private List<Booking> bookings;
 	
 	/**
 	 * The constructor of the class.
@@ -57,6 +71,25 @@ public class Room {
 		
 		this.toilets = toilets;
 		
+		this.bookings =  new ArrayList<Booking>();
+		
+	}
+	
+	/**
+	 * The constructor that take the bean as parameter.
+	 * 
+	 * @param roomBean	the bean that contain data of the room.
+	 */
+	public Room(RoomBean roomBean) {
+		this(roomBean.getDescription(), roomBean.getBeds(), roomBean.getSize(), roomBean.getToilets());
+		this.id = roomBean.getId();
+		
+		BookingDAO dao = new BookingDAOImpl();
+		List<BookingBean> bookingBeans = dao.getAllBookingOfARoom(roomBean.getId());
+		
+		for(BookingBean bookingBean : bookingBeans) {
+			this.bookings.add(new Booking(bookingBean));
+		}
 	}
 	
 
@@ -69,15 +102,15 @@ public class Room {
 	 */
 	public boolean isAvailable(LocalDate checkIn, LocalDate checkOut) {
 		
-		for(ActiveBooking activeBooking : this.activeBookings) {
+		for(Booking booking : this.getActiveBooking()) {
 			
 			/* For each active booking. */
-			if( checkIn.isBefore(activeBooking.getCheckOut()) && checkOut.isAfter(activeBooking.getCheckIn()) )
+			if( checkIn.isBefore(booking.getCheckOut()) && checkOut.isAfter(booking.getCheckIn()) )
 				
 				/* The given date conflicts with another date of a booking. */
 				return false;
 			
-			if( checkIn.equals(activeBooking.getCheckIn()) && checkOut.equals(activeBooking.checkOut) )
+			if( checkIn.equals(booking.getCheckIn()) && checkOut.equals(booking.getCheckOut()) )
 				
 				/* The given date conflict exactly with another date. */
 				return false;
@@ -88,13 +121,72 @@ public class Room {
 	}
 	
 	/**
-	 * Add a new booking to the room.
+	 * Get all booking that are in submitted state or accepted state.
+	 * 
+	 * @return  all active booking.
+	 */
+	public List<Booking> getActiveBooking() {
+		
+		List<Booking> activeBooking = new ArrayList<Booking>();
+		StateEnum state;
+		
+		for(Booking booking : this.bookings) {
+			state = booking.getEnumValueOfState();
+			
+			switch(state) {
+			case SUBMITTED:
+				activeBooking.add(booking);
+				break;
+			case ACCEPTED:
+				activeBooking.add(booking);
+				break;
+			default:
+				break;
+			}
+			
+		}
+		
+		return activeBooking;
+		
+	}
+	
+	/**
+	 * Find the booking for the given id, if exist.
+	 * 
+	 * @param id 	the id of the booking to find.
+	 * @return		the booking that match the id, if exist, otherwise null.
+	 */
+	public Booking getBooking(int id) {
+		
+		for(Booking booking : this.bookings)
+			if(booking.getId() == id)
+				return booking;
+		
+		return null;
+		
+	}
+	
+	/**
+	 * Add a new booking to the room, and add a row in the database.
 	 * 
 	 * @param activeBooking		the new booking.
 	 */
-	public void addActiveBooking(ActiveBooking activeBooking) {
+	public void addActiveBooking(Booking newBooking) {
 		
-		this.activeBookings.add(activeBooking);
+		this.bookings.add(newBooking);
+		BookingBean bookingPOJO = new BookingBean();
+		bookingPOJO.setCheckIn(newBooking.getCheckIn());
+		bookingPOJO.setCheckOut(newBooking.getCheckOut());
+		bookingPOJO.setState(newBooking.getEnumValueOfState());
+		bookingPOJO.setUser(newBooking.getUser());
+		
+		BookingDAO dao = new BookingDAOImpl();
+		int idBooking = dao.createBooking(bookingPOJO, this.id);
+		
+		PersonDAO personDAO = new PersonDAOImpl();
+		for(Person person : newBooking.getPeople()) {
+			personDAO.createPerson(person, idBooking);
+		}
 		
 	}
 
@@ -162,7 +254,7 @@ public class Room {
 	public List<Booking> getAllBookingOfThisUser(String username) {
 		List<Booking> bookings = new ArrayList<Booking>();
 		
-		for(Booking booking : this.activeBookings) {
+		for(Booking booking : this.bookings) {
 			
 			if(booking.getUser().equals(username))
 				bookings.add(booking);

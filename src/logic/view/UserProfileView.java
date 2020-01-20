@@ -72,40 +72,43 @@ public class UserProfileView extends Application {
 		
 	}
 	
-	public void setBookings(List<BookingBean> bookingsList) {
+	public void setBookings(List<BookingBean> bookingsList, EventHandler<ActionEvent> deleteHandler, EventHandler<ActionEvent> resubmitHandler) {
 
 		VBox vBox = new VBox(10);
 		
 		for(BookingBean bean : bookingsList) {
 			
-			vBox.getChildren().add( new BookingBox(bean.getHotel(), 
-					bean.getCheckIn().toString(), bean.getCheckOut().toString(), bean.getPeople()) );
+			vBox.getChildren().add( new BookingBox(bean, deleteHandler, resubmitHandler) );
 			
 		}
 		
 		this.scrollPane.setContent(vBox);
+		this.scrollPane.setFitToWidth(true);
 		
 	}
 	
 	private class BookingBox extends HBox {
 		
-		private Label lblHotel = new Label();
-		
-		private Label lblCheckIn = new Label();
-		
+		private Label lblHotel = new Label();		
+		private Label lblCheckIn = new Label();		
 		private Label lblCheckOut = new Label();
 		
-		public BookingBox(String hotel, String checkIn, String checkOut, List<Person> people) {
+		private Button btnDelete = new Button("Delete");
+		private Button btnResubmit = new Button("Resubmit");
+		
+		public BookingBox(BookingBean bean, EventHandler<ActionEvent> deleteHandler, EventHandler<ActionEvent> resubmitHandler) {
 			
 			super(10);
+			
+			this.setPadding(new Insets(10, 10, 10, 10));
 			
 			GridPane gridPane = new GridPane();
 			gridPane.setHgap(10);
 			gridPane.setVgap(10);
 			
-			this.lblHotel.setText(hotel);
-			this.lblCheckIn.setText(checkIn);
-			this.lblCheckOut.setText(checkOut);
+			this.lblHotel.setText(bean.getHotel());
+			this.lblCheckIn.setText(bean.getCheckIn().toString());
+			this.lblCheckOut.setText(bean.getCheckOut().toString());
 			
 			gridPane.add(new Label("Hotel Booked"), 0, 0);
 			gridPane.add(lblHotel, 0, 1);
@@ -123,13 +126,36 @@ public class UserProfileView extends Application {
 			
 			int row = 1;
 			
-			for( Person person : people ) {
+			for( Person person : bean.getPeople() ) {
 				peopleGrid.add(new Label(person.getName()), 0, row);
 				peopleGrid.add(new Label(person.getLastname()), 1, row);
 				row++;
 			}
 			
-			this.getChildren().addAll(gridPane, peopleGrid);
+			VBox vBox = new VBox(10);
+			vBox.getChildren().add(new Label("State: " + bean.getState()));
+			
+			switch(bean.getState()) {
+			
+			case SUBMITTED:
+				this.btnDelete.setOnAction(deleteHandler);
+				this.btnDelete.setId(String.valueOf(bean.getBookingId()));
+				vBox.getChildren().add(this.btnDelete);
+				break;
+			case DELETED:
+				this.btnResubmit.setOnAction(resubmitHandler);
+				this.btnResubmit.setId(String.valueOf(bean.getBookingId()));
+				vBox.getChildren().add(this.btnResubmit);
+				break;
+			default:
+				break;
+			
+			}
+			
+			Region region = new Region();
+			HBox.setHgrow(region, Priority.ALWAYS);
+			
+			this.getChildren().addAll(gridPane, peopleGrid, region, vBox);
 			
 		}
 		

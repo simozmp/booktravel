@@ -1,5 +1,6 @@
 package logic.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javafx.event.ActionEvent;
@@ -9,8 +10,8 @@ import javafx.scene.control.Control;
 import javafx.scene.control.Alert.AlertType;
 import logic.Main;
 import logic.bean.CityDateBean;
+import logic.bean.HotelBean;
 import logic.model.BookHotelController;
-import logic.model.RentablePlace;
 import logic.view.BookHotelListView;
 
 /**
@@ -45,16 +46,6 @@ public class BookHotelListViewController extends MainViewController {
 		this.view = (BookHotelListView) super.view;
 		this.fields = fields;
 		
-		if ( this.model.retrieveRentablePlaces(this.fields).isEmpty() )
-			
-			/* The input of the doesn't produce result. */
-			this.view.resultNotFound();
-		
-		else
-			
-			/* Set the data found to the view. */
-			this.view.populateView(this.model.retrieveRentablePlaces(this.fields), new MoreInformationHandler());
-		
 		/* Add handlers to buttons. */
 		this.view.addSearchListener(new SearchHandler());
 		this.view.addMinusHanlder(new MinusHandler());
@@ -70,6 +61,19 @@ public class BookHotelListViewController extends MainViewController {
 			
 			/* The minus button has to be disabled */
 			this.view.disableMinusButton();
+		
+		List<HotelBean> hotels = new ArrayList<HotelBean>();
+		hotels = this.model.retrieveHotelByCity(this.fields.getCity());
+		
+		if ( hotels.isEmpty() )
+			
+			/* The input of the doesn't produce result. */
+			this.view.resultNotFound();
+		
+		else
+			
+			/* Set the data found to the view. */
+			this.view.populateView(hotels, new MoreInformationHandler());
 		
 	}
 
@@ -148,7 +152,7 @@ public class BookHotelListViewController extends MainViewController {
 					fields.setCheckOut(view.getCheckOutDate());
 					fields.setPersonCount(Integer.parseInt(view.getPersonCount()));
 				
-					List<RentablePlace> rentablePlaces = model.retrieveRentablePlaces(fields);
+					List<HotelBean> rentablePlaces = model.retrieveHotelByCity(fields.getCity());
 					
 					if( rentablePlaces.isEmpty() )
 						
@@ -210,14 +214,15 @@ public class BookHotelListViewController extends MainViewController {
 			fields.setCheckOut(view.getCheckOutDate());
 			fields.setPersonCount(Integer.parseInt(view.getPersonCount()));
 			
+			int id = Integer.parseInt( ((Control)event.getSource()).getId() );	// The id of the hotel selected.
+			
 			try {
 				
 				/* Change the view to HotelView and initialize the new controller. */
 				Main.getInstance().changeToHotelView();
-				new HotelViewController(Main.getInstance().getHotelView(),
-						model.getRentablePlace(((Control)event.getSource()).getId()), fields);
+				new HotelViewController(Main.getInstance().getHotelView(), model.getRentablePlace(id), fields);
 			} catch (Exception e) {
-				
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			

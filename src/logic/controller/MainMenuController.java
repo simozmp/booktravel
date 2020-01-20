@@ -57,17 +57,14 @@ public class MainMenuController extends MainViewController {
 	private class SearchHandler implements EventHandler<ActionEvent> {
 		
 		private boolean fieldsAreFilled() {			
-			boolean fieldsAreFilled = !mainMenuView.getCityField().isEmpty() && mainMenuView.getCheckInDate() != null && 
+			return !mainMenuView.getCityField().isEmpty() && mainMenuView.getCheckInDate() != null && 
 					mainMenuView.getCheckOutDate() != null && Integer.parseInt(mainMenuView.getPersonCount()) != 0;
-			
-			return fieldsAreFilled;
 		}
 		
 		private boolean checkInDateIsBeforeCheckOutDate() {
-			boolean isBefore = mainMenuView.getCheckInDate().isBefore(mainMenuView.getCheckOutDate()) ||
+			return mainMenuView.getCheckInDate().isBefore(mainMenuView.getCheckOutDate()) ||
 					mainMenuView.getCheckInDate().equals(mainMenuView.getCheckOutDate());
-			
-			return isBefore;
+
 		}
 		
 		private void checkEmptyFields() {

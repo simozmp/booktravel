@@ -42,13 +42,13 @@ public class SubmittedState implements BookingState {
 		
 	}
 
-	/**
-	 * Nothing can happen if you call resubmit and the booking
-	 * is in submitted state.
-	 */
+	
 	@Override
 	public void resubmit(Booking context) {
-		
+		/*
+		 * Nothing can happen if you call resubmit and the booking
+		 * is in submitted state.
+		 */
 	}
 
 	@Override

@@ -89,7 +89,7 @@ public class BookingDAOImpl implements BookingDAO {
 
 	@Override
 	public List<BookingBean> getAllBookingOfAUser(String username) {
-		List<BookingBean> bookings = new ArrayList<BookingBean>();
+		List<BookingBean> bookings = new ArrayList<>();
 		BookingBean booking = null;
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;

@@ -14,12 +14,10 @@ import logic.model.dao.BookingDAOImpl;
  */
 public class DeletedState implements BookingState {
 
-	/**
-	 * A deleted booking cannot be accepted.
-	 */
 	@Override
 	public void accept(Booking context) {
-		
+		/* This method is empty because a booking in deleted state
+		 * cannot be accepted. */
 	}
 
 	/**
@@ -27,7 +25,8 @@ public class DeletedState implements BookingState {
 	 */
 	@Override
 	public void delete(Booking context) {
-		
+		/* This method is empty because a booking in deleted state
+		 * can't be deleted yet. */
 	}
 
 	/**

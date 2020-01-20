@@ -129,18 +129,15 @@ public class BookHotelListViewController extends MainViewController {
 	 */
 	private class SearchHandler implements EventHandler<ActionEvent> {
 		
-		private boolean fieldsAreFilled() {			
-			boolean fieldsAreFilled = !bookHotelListView.getCityField().isEmpty() && bookHotelListView.getCheckInDate() != null && 
+		private boolean fieldsAreFilled() {						
+			return !bookHotelListView.getCityField().isEmpty() && bookHotelListView.getCheckInDate() != null && 
 					bookHotelListView.getCheckOutDate() != null && Integer.parseInt(bookHotelListView.getPersonCount()) != 0;
-			
-			return fieldsAreFilled;
 		}
 		
 		private boolean checkInDateIsBeforeCheckOutDate() {
-			boolean isBefore = bookHotelListView.getCheckInDate().isBefore(bookHotelListView.getCheckOutDate()) ||
+			return bookHotelListView.getCheckInDate().isBefore(bookHotelListView.getCheckOutDate()) ||
 					bookHotelListView.getCheckInDate().equals(bookHotelListView.getCheckOutDate());
 			
-			return isBefore;
 		}
 		
 		private void checkEmptyFields() {

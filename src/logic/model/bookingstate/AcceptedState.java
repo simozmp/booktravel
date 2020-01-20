@@ -15,7 +15,8 @@ public class AcceptedState implements BookingState{
 
 	@Override
 	public void accept(Booking context) {
-				
+		/* This method is empty because a booking in accepted state
+		 * remains in accepted state if you call accept operation. */
 	}
 
 	@Override
@@ -34,7 +35,8 @@ public class AcceptedState implements BookingState{
 
 	@Override
 	public void resubmit(Booking context) {
-		
+		/* This method is empty because a booking accepted state cannot
+		 * be resubmitted.. */
 	}
 
 	@Override

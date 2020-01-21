@@ -117,80 +117,67 @@ public class MainMenuView extends MainView {
 		
 	}
 	
-	public void setVisibleErrCityField(boolean value) {
-		
-		this.txtErrCity.setVisible(value);
-		
+	public void setVisibleErrCityField(boolean value) {		
+		this.txtErrCity.setVisible(value);		
 	}
 	
-	public void setVisibleErrCheckInField(boolean value) {
-		
-		this.txtErrCheckIn.setVisible(value);
-		
+	public void setVisibleErrCheckInField(boolean value) {		
+		this.txtErrCheckIn.setVisible(value);		
 	}
 	
-	public void setVisibleErrCheckOutField(boolean value) {
-		
-		this.txtErrCheckOut.setVisible(value);
-		
+	public void setVisibleErrCheckOutField(boolean value) {		
+		this.txtErrCheckOut.setVisible(value);		
 	}
 	
-	public void setVisibleErrPersonCount(boolean value) {
-		
-		this.txtErrPersonCount.setVisible(value);
-		
+	public void setVisibleErrPersonCount(boolean value) {		
+		this.txtErrPersonCount.setVisible(value);		
 	}
 	
-	public void addSearchListener(EventHandler<ActionEvent> searchHandler) {
-		
-		this.btnSearch.setOnAction(searchHandler);
-		
+	public void addSearchListener(EventHandler<ActionEvent> searchHandler) {		
+		this.btnSearch.setOnAction(searchHandler);		
 	}
 	
-	public void addGetStartedListener(EventHandler<ActionEvent> getStartedHandler) {
-		
-		this.btnGetStarted.setOnAction(getStartedHandler);
-		
+	public void addGetStartedListener(EventHandler<ActionEvent> getStartedHandler) {		
+		this.btnGetStarted.setOnAction(getStartedHandler);		
 	}
 	
-	public void resetPersonCount() {
-		
-		this.lblPersonCount.setText("0");
-		
+	public void enableMinusButton() {		
+		this.btnMinus.setDisable(false);		
 	}
 	
-	public void disableMinusButton() {
-		
-		this.btnMinus.setDisable(true);
-		
+	public void disableMinusButton() {		
+		this.btnMinus.setDisable(true);		
 	}
 	
-	public void enableMinusButton() {
-		
-		this.btnMinus.setDisable(false);
-		
+	public void addMinusHanlder(EventHandler<ActionEvent> minusHandler) {		
+		this.btnMinus.setOnAction(minusHandler);		
 	}
 	
-	public void addPlusHanlder(EventHandler<ActionEvent> addHandler) {
-		
-		this.btnPlus.setOnAction(addHandler);
-		
+	public void addPlusHanlder(EventHandler<ActionEvent> addHandler) {		
+		this.btnPlus.setOnAction(addHandler);		
 	}
 	
-	public void addMinusHanlder(EventHandler<ActionEvent> minusHandler) {
-		
-		this.btnMinus.setOnAction(minusHandler);
-		
+	public String getPersonCount() {
+		return this.lblPersonCount.getText(); 
 	}
 	
-	public void setPersonCountText(String value) { this.lblPersonCount.setText(value); }
+	public void setPersonCountText(String value) { 
+		this.lblPersonCount.setText(value); 
+	}	
 	
-	public String getPersonCount() { return this.lblPersonCount.getText(); }
+	public String getCityField() { 
+		return this.txtFieldCity.getText();	
+	}
 	
-	public String getCityField() { return this.txtFieldCity.getText();	}
+	public void resetPersonCount() {		
+		this.lblPersonCount.setText("0");		
+	}
+	public LocalDate getCheckOutDate() { 
+		return this.dPickerCheckOut.getValue(); 
+	}
+	public LocalDate getCheckInDate() {
+		return this.dPickerCheckIn.getValue(); 
+	}
 	
-	public LocalDate getCheckInDate() { return this.dPickerCheckIn.getValue(); }
-	
-	public LocalDate getCheckOutDate() { return this.dPickerCheckOut.getValue(); }
 
 }

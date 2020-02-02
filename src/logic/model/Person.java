@@ -50,6 +50,8 @@ public class Person {
 		this.lastname = lastname;
 	}
 	
+	public Person() {}
+	
 	/**
 	 * Get the fiscal code.
 	 * 

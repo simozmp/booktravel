@@ -1,9 +1,13 @@
 package logic.controller;
 
+import java.util.Collections;
+import java.util.List;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Control;
 import logic.Main;
+import logic.bean.BookingBean;
 import logic.bean.LoginBean;
 import logic.model.BookHotelController;
 import logic.model.LoginController;
@@ -43,7 +47,9 @@ public class UserProfileViewController {
 			view.setUsername(LoginController.getInstance().getUsername());
 		
 		LoginBean loginBean = new LoginBean(LoginController.getInstance().getUsername(), LoginController.getInstance().getPassword());
-		this.view.setBookings(this.model.retrieveBookingOfAnUser(loginBean ), new DeleteHandler(), new ResubmitHandler());
+		List<BookingBean> bookings = this.model.retrieveBookingOfAnUser(loginBean);
+		Collections.reverse(bookings);
+		this.view.setBookings(bookings, new DeleteHandler(), new ResubmitHandler());
 		
 		this.view.addMainMenuHandler(new MainMenuHandler());
 		

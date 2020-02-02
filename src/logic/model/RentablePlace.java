@@ -181,6 +181,27 @@ public abstract class RentablePlace {
 		return roomBean;
 		
 	}
+	/**
+	 * Get the rooms that are available for the given input.
+	 * 
+	 * @param fields input of the user.
+	 * @return	the list of rooms available.
+	 */
+	public List<RoomBean> getAvailableRooms(CityDateBean fields) {
+		List<RoomBean> rooms = new ArrayList<>();
+		
+		if(fields.getPersonCount() == 1) {
+			rooms.add(this.getNumberOfRoomByBeds(2, fields));
+		} else {
+			for(int i = 1; i <= fields.getPersonCount(); i++) {
+				RoomBean roomBean = this.getNumberOfRoomByBeds(i, fields);
+				if(roomBean.getAvailability() != 0)
+					rooms.add(roomBean);
+			}
+		}
+		
+		return rooms;
+	}
 	
 	/**
 	 * It finds an amount of rooms specified by "number" that contain an amount of "beds" and that 

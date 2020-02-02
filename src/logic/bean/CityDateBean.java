@@ -9,6 +9,15 @@ public class CityDateBean {
 	private LocalDate checkOut;
 	private int personCount;
 	
+	public CityDateBean() {}
+	
+	public CityDateBean(String city, LocalDate checkIn, LocalDate checkOut, int personCount) {
+		this.city = city;
+		this.checkIn = checkIn;
+		this.checkOut = checkOut;
+		this.personCount = personCount;
+	}
+	
 	public String getCity() { return city; }
 	
 	public void setCity(String city) { this.city = city; }

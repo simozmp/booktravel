@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import logic.controller.MainMenuController;
 import logic.model.BookHotelController;
+import logic.model.dao.CreateDatabase;
 import logic.view.BookHotelListView;
 import logic.view.BookingView;
 import logic.view.HotelView;
@@ -63,7 +64,7 @@ public class Main extends Application{
 	/**
 	 * Constructor of this class. It initialize every view.
 	 */
-	public Main() {
+	public Main() {		
 		
 		this.mainMenuView = new MainMenuView();
 		this.bookHotelListView = new BookHotelListView();
@@ -80,7 +81,7 @@ public class Main extends Application{
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		
+		CreateDatabase.createTables();
 		launch(args);
 
 	}

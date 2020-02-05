@@ -43,7 +43,7 @@ public class ManageRoomList {
 	
 	
 	
-	public synchronized static ManageRoomList getInstance() {
+	public static synchronized  ManageRoomList getInstance() {
 
 		if (ManageRoomList.instace == null)
 

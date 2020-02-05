@@ -42,7 +42,10 @@ public class ManageRoomListView extends Application {
 		Text title = new Text("TravelBook");
 		title.setFont(Font.font("Arial", FontWeight.BOLD, 28));
 		hBoxTitle.getChildren().add(title);
-
+		VBox vBoxLeft = new VBox(5);
+		vBoxLeft.setPadding(new Insets(50, 20, 20, 0));
+		vBoxLeft.getChildren().addAll(btnAddRoom, btnBooking, btnBack);
+		
 		HBox hBoxAddHotel = new HBox(10);
 		hBoxAddHotel.setAlignment(Pos.BOTTOM_RIGHT);
 		hBoxAddHotel.getChildren().addAll();
@@ -52,10 +55,6 @@ public class ManageRoomListView extends Application {
 		hBoxTitle.setMaxWidth(Double.MAX_VALUE);
 		hBoxTop.getChildren().addAll(hBoxTitle);
 
-		VBox vBoxLeft = new VBox(5);
-		vBoxLeft.setPadding(new Insets(50, 20, 20, 0));
-		vBoxLeft.getChildren().addAll(btnAddRoom, btnBooking, btnBack);
-
 		borderPane.setTop(hBoxTop);
 		borderPane.setLeft(vBoxLeft);
 		borderPane.setCenter(this.scrollPane);
@@ -64,6 +63,7 @@ public class ManageRoomListView extends Application {
 		primaryStage.setScene(scene);
 		primaryStage.setResizable(false);
 		primaryStage.show();
+
 
 	}
 

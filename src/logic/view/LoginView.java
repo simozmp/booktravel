@@ -14,29 +14,29 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class LoginView extends Application {
-
+	
 	private Button btnLogin = new Button("Login");
-
+	
 	private Button btnCancel = new Button("Cancel");
-
+	
 	private TextField txtFieldUsername = new TextField();
-
+	
 	private PasswordField txtFieldPassword = new PasswordField();
-
+	
 	private Stage window;
-
+	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-
+		
 		window = primaryStage;
 		window.initModality(Modality.APPLICATION_MODAL);
 		window.setTitle("Login");
 		window.setWidth(300);
 		window.setHeight(200);
-
+		
 		Label lblUsername = new Label("Username");
 		Label lblpassword = new Label("Password");
-
+		
 		GridPane gridPane = new GridPane();
 		gridPane.setAlignment(Pos.CENTER);
 		gridPane.setHgap(10);
@@ -47,41 +47,41 @@ public class LoginView extends Application {
 		gridPane.add(txtFieldPassword, 1, 1);
 		gridPane.add(btnLogin, 0, 2);
 		gridPane.add(btnCancel, 1, 2);
-
+		
 		Scene scene = new Scene(gridPane);
 		window.setScene(scene);
 		window.showAndWait();
-
+		
 	}
-
-	public void closeWindow() {
-
+	
+	public void closeWindow() {	
+		
 		window.close();
-
+		
 	}
-
+	
 	public void setLoginHandler(EventHandler<ActionEvent> loginHandler) {
-
+		
 		btnLogin.setOnAction(loginHandler);
-
+		
 	}
-
+	
 	public void setCancelHandler(EventHandler<ActionEvent> cancelHandler) {
-
+		
 		btnCancel.setOnAction(cancelHandler);
-
+		
 	}
-
+	
 	public String getUsername() {
-
+		
 		return txtFieldUsername.getText();
-
+		
 	}
-
+	
 	public String getPassword() {
-
+		
 		return txtFieldPassword.getText();
-
+		
 	}
 
 }

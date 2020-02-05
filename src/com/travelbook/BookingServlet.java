@@ -37,7 +37,6 @@ public class BookingServlet extends HttpServlet {
      */
     public BookingServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**

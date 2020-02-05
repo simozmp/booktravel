@@ -31,7 +31,6 @@ public class MainMenuServlet extends HttpServlet {
      */
     public MainMenuServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**

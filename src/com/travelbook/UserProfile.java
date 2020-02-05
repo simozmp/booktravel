@@ -27,7 +27,6 @@ public class UserProfile extends HttpServlet {
      */
     public UserProfile() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**

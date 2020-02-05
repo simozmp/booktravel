@@ -29,7 +29,7 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		throw new UnsupportedOperationException();
 	}
 
 	/**
@@ -42,7 +42,6 @@ public class LoginServlet extends HttpServlet {
 		LoginBean loginBean = new LoginBean(username, password);
 		if(LoginController.getInstance().theUserExist(loginBean)) {
 			request.getSession().setAttribute("username", username);
-			//response.sendRedirect(url);
 		} else {
 			url = "/login.jsp";
 			request.setAttribute("prevurl", url);

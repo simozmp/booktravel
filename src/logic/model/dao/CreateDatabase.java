@@ -66,9 +66,11 @@ public class CreateDatabase {
 			"    ON UPDATE NO ACTION)\r\n" + 
 			"ENGINE = InnoDB;";
 	
+	public CreateDatabase() {}
+	
 	private static final void createDatabase() {		
-		String jdbc_driver = "com.mysql.cj.jdbc.Driver";
-		String db_url = "jdbc:mysql://localhost?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+		String jdbcDriver = "com.mysql.cj.jdbc.Driver";
+		String dbUrl = "jdbc:mysql://localhost?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
 		
 		String user = "root";
 		String password = "password";
@@ -77,8 +79,8 @@ public class CreateDatabase {
 		Statement stmt = null;
 		
 		try {
-			Class.forName(jdbc_driver);
-			conn = DriverManager.getConnection(db_url, user, password);
+			Class.forName(jdbcDriver);
+			conn = DriverManager.getConnection(dbUrl, user, password);
 			stmt = conn.createStatement();
 			stmt.executeUpdate(CREATE_DATABASE_QUERY);
 		} catch (SQLException e) {

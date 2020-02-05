@@ -123,6 +123,8 @@ public class Booking {
 		case INACTIVE:
 			this.currentState = new InactiveState();
 			break;
+		default:
+			break;
 
 		}
 

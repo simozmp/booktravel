@@ -19,6 +19,12 @@ import logic.util.Util;
 @WebServlet("/MainMenuServlet")
 public class MainMenuServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	private static final String FIELD_HOTELS = "hotels";
+	private static final String FIELD_CITY = "city";
+	private static final String FIELD_CHECKIN = "checkin";
+	private static final String FIELD_CHECKOUT = "checkout";
+	private static final String FIELD_PERSONCOUNT = "personcount";
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -33,18 +39,18 @@ public class MainMenuServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String url = "/HotelListView.jsp";
 		
-		String city = request.getParameter("city");
-		String checkIn = request.getParameter("checkin");
-		String checkOut = request.getParameter("checkout");
-		String personCount = request.getParameter("personcount");
+		String city = request.getParameter(FIELD_CITY);
+		String checkIn = request.getParameter(FIELD_CHECKIN);
+		String checkOut = request.getParameter(FIELD_CHECKOUT);
+		String personCount = request.getParameter(FIELD_PERSONCOUNT);
 		CityDateBean fields = new CityDateBean(city, Util.parseDate(checkIn), Util.parseDate(checkOut), Integer.parseInt(personCount));
 		List<HotelBean> hotels = BookHotelController.getInstance().retrieveHotelByCity(city);
 		
-		request.setAttribute("hotels", hotels);
-		request.setAttribute("city", city);
-		request.setAttribute("checkin", checkIn);
-		request.setAttribute("checkout", checkOut);
-		request.setAttribute("personcount", personCount);
+		request.setAttribute(FIELD_HOTELS, hotels);
+		request.setAttribute(FIELD_CITY, city);
+		request.setAttribute(FIELD_CHECKIN, checkIn);
+		request.setAttribute(FIELD_CHECKOUT, checkOut);
+		request.setAttribute(FIELD_PERSONCOUNT, personCount);
 		request.getSession().setAttribute("fields", fields);
 		getServletContext().getRequestDispatcher(url).forward(request, response);
 	}
@@ -55,17 +61,17 @@ public class MainMenuServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
 		String url = "/HotelListView.jsp";
 		
-		String city = request.getParameter("city");
-		String checkIn = request.getParameter("checkin");
-		String checkOut = request.getParameter("checkout");
-		String personCount = request.getParameter("personcount");
+		String city = request.getParameter(FIELD_CITY);
+		String checkIn = request.getParameter(FIELD_CHECKIN);
+		String checkOut = request.getParameter(FIELD_CHECKOUT);
+		String personCount = request.getParameter(FIELD_PERSONCOUNT);
 		List<HotelBean> hotels = BookHotelController.getInstance().retrieveHotelByCity(city);
 		
-		request.setAttribute("hotels", hotels);
-		request.setAttribute("city", city);
-		request.setAttribute("checkin", checkIn);
-		request.setAttribute("checkout", checkOut);
-		request.setAttribute("personcount", personCount);
+		request.setAttribute(FIELD_HOTELS, hotels);
+		request.setAttribute(FIELD_CITY, city);
+		request.setAttribute(FIELD_CHECKIN, checkIn);
+		request.setAttribute(FIELD_CHECKOUT, checkOut);
+		request.setAttribute(FIELD_PERSONCOUNT, personCount);
 		getServletContext().getRequestDispatcher(url).forward(request, response);
 	}
 

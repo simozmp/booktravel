@@ -188,19 +188,19 @@ public abstract class RentablePlace {
 	 * @return	the list of rooms available.
 	 */
 	public List<RoomBean> getAvailableRooms(CityDateBean fields) {
-		List<RoomBean> rooms = new ArrayList<>();
+		List<RoomBean> roomsAvailable = new ArrayList<>();
 		
 		if(fields.getPersonCount() == 1) {
-			rooms.add(this.getNumberOfRoomByBeds(2, fields));
+			roomsAvailable.add(this.getNumberOfRoomByBeds(2, fields));
 		} else {
 			for(int i = 1; i <= fields.getPersonCount(); i++) {
 				RoomBean roomBean = this.getNumberOfRoomByBeds(i, fields);
 				if(roomBean.getAvailability() != 0)
-					rooms.add(roomBean);
+					roomsAvailable.add(roomBean);
 			}
 		}
 		
-		return rooms;
+		return roomsAvailable;
 	}
 	
 	/**

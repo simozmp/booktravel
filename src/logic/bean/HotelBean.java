@@ -4,10 +4,10 @@ package logic.bean;
  * 
  * @author metal
  *
- * This class is a bean that contain data of an hotel.
+ *         This class is a bean that contain data of an hotel.
  */
 public class HotelBean {
-	
+
 	/** The name of the hotel. */
 	private String name;
 	/** The address of the hotel. */
@@ -20,16 +20,16 @@ public class HotelBean {
 	private String owner;
 	/** The id of the hotel. */
 	private int id;
-	
+
 	public HotelBean(String name, String address, String city, String description, String owner, int id) {
-		
+
 		this.name = name;
 		this.address = address;
 		this.city = city;
 		this.description = description;
 		this.owner = owner;
 		this.id = id;
-		
+
 	}
 
 	public String getName() {

@@ -4,25 +4,25 @@ package logic.model;
  * 
  * @author metal
  * 
- * This class represent the user in the system.
+ *         This class represent the user in the system.
  */
 public class User {
-	
+
 	private String username;
-	
+
 	private String password;
-	
+
 	private String name;
-	
+
 	private String lastname;
 
 	/**
-	 * Constructor. 
+	 * Constructor.
 	 * 
-	 * @param username	username.
-	 * @param password	password.
-	 * @param name		name.
-	 * @param lastname	lastname.
+	 * @param username username.
+	 * @param password password.
+	 * @param name     name.
+	 * @param lastname lastname.
 	 */
 	public User(String username, String password, String name, String lastname) {
 		this.username = username;
@@ -30,7 +30,7 @@ public class User {
 		this.name = name;
 		this.lastname = lastname;
 	}
-	
+
 	public User() {
 		this.username = "";
 		this.password = "";

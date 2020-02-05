@@ -1,19 +1,19 @@
 package logic.bean;
 
 public class LoginBean {
-	
+
 	private String username;
-	
+
 	private String password;
 
-	public LoginBean() {		
+	public LoginBean() {
 		this.username = "";
-		this.password = "";		
+		this.password = "";
 	}
 
-	public LoginBean(String username, String password) {		
+	public LoginBean(String username, String password) {
 		this.username = username;
-		this.password = password;		
+		this.password = password;
 	}
 
 	public String getUsername() {

@@ -10,12 +10,11 @@ import javafx.util.Callback;
  * 
  * @author metal
  *
- * This class provide the implementation of the Callback<T, T> interface.
- * It needs to disable all the past days in a datepicker.
+ *         This class provide the implementation of the Callback<T, T>
+ *         interface. It needs to disable all the past days in a datepicker.
  * 
- * Example: 
- * DatePicker picker = new DatePicker();
- * picker.setDayCellFactory(MyCallback.getDayCellFactory);
+ *         Example: DatePicker picker = new DatePicker();
+ *         picker.setDayCellFactory(MyCallback.getDayCellFactory);
  */
 public class MyCallback implements Callback<DatePicker, DateCell> {
 
@@ -23,21 +22,21 @@ public class MyCallback implements Callback<DatePicker, DateCell> {
 	public DateCell call(final DatePicker param) {
 		return new DateCell() {
 			@Override
-			 public void updateItem(LocalDate item, boolean empty) {
-                super.updateItem(item, empty);
+			public void updateItem(LocalDate item, boolean empty) {
+				super.updateItem(item, empty);
 
-                if (item.isBefore(LocalDate.now())) {
-                    setDisable(true);
-               
-                }
-            }
+				if (item.isBefore(LocalDate.now())) {
+					setDisable(true);
+
+				}
+			}
 		};
 	}
-	
+
 	public static MyCallback getDayCellFactory() {
-		
+
 		return new MyCallback();
-		
+
 	}
 
 }

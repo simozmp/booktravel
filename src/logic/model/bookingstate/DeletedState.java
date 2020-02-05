@@ -10,14 +10,15 @@ import logic.model.dao.BookingDAOImpl;
  * 
  * @author metal
  *
- * This class represent the deleted state of a booking.
+ *         This class represent the deleted state of a booking.
  */
 public class DeletedState implements BookingState {
 
 	@Override
 	public void accept(Booking context) {
-		/* This method is empty because a booking in deleted state
-		 * cannot be accepted. */
+		/*
+		 * This method is empty because a booking in deleted state cannot be accepted.
+		 */
 	}
 
 	/**
@@ -25,8 +26,9 @@ public class DeletedState implements BookingState {
 	 */
 	@Override
 	public void delete(Booking context) {
-		/* This method is empty because a booking in deleted state
-		 * can't be deleted yet. */
+		/*
+		 * This method is empty because a booking in deleted state can't be deleted yet.
+		 */
 	}
 
 	/**
@@ -34,16 +36,16 @@ public class DeletedState implements BookingState {
 	 */
 	@Override
 	public void resubmit(Booking context) {
-		
-		if(context.getCheckIn().isAfter(LocalDate.now())) {
+
+		if (context.getCheckIn().isAfter(LocalDate.now())) {
 			context.setState(new SubmittedState());
 			BookingBean bean = new BookingBean();
 			bean.setBookingId(context.getId());
 			bean.setState(StateEnum.SUBMITTED);
-			
+
 			new BookingDAOImpl().updateBooking(bean);
 		}
-		
+
 	}
 
 	@Override

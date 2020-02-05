@@ -1,71 +1,78 @@
-package logic.model;
+ package logic.model;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import logic.Main;
-import logic.controller.MainMenuController;
+
+import logic.bean.RoomBean;
+
+import logic.model.dao.RoomDAO;
+import logic.model.dao.RoomDAOImpl;
 
 public class ManageRoomList {
 
 	private static ManageRoomList instace = null;
-	private  List<Room> rooms;
-	
+	private List<RoomBean> rooms;
+
 	public ManageRoomList() {
 
-		this.rooms = new ArrayList<Romm>();
-		this.rooms. addAll(new Room("Bella camera", 2, 20, 1));
+		this.rooms = new ArrayList<RoomBean>();
+	
 	}
 	
-	public List<Room> retrieveRooms() {
-		
-		List<Room> copy = new ArrayList<Room>(this.rooms);
-		
+	
+	public List<RoomBean> retrieveRoom(int id) {
+
+		RoomDAO dao = new RoomDAOImpl();
+		return dao.getAllRoomOfAnHotel(id);
+	}
+	
+	public List<RoomBean> retrieveRooms() {
+
+		List<RoomBean> copy = new ArrayList<RoomBean>(this.rooms);
+
 		return copy;
+
+	}
+
+	public  List<RoomBean>  retrieveRooms(int hotelId) {
+		RoomDAO dao = new RoomDAOImpl();
+		List<RoomBean> rooms = dao.getAllRoomOfAnHotel(hotelId);
+		return rooms;
+		
 		
 	}
 	
-	public RentablePlace getRoom(String name) { 
-		
-		for(Room rentablePlace : this.rooms) {
-			
-			if(rentablePlace.getName().equals(name))
-				return rentablePlace;
-			
-		}				
-		return null;				
-	}
-	
-	public List<RentablePlace> retrieveRooms(String owner) {
-		
-		List<RentablePlace> searchResult = new ArrayList<RentablePlace>();
-		
-		for( Room rentablePlace : this.rooms ) {
-			
-			if( rentablePlace.getOwner().equals(owner))
-				
-				searchResult.add(rentablePlace);
-			
+	public List<RoomBean> retrieveRooms(List<RoomBean> rooms) {
+
+		List<RoomBean> searchResult = new ArrayList<RoomBean>();
+
+		for (RoomBean rentableRoom : this.rooms) {
+
+				searchResult.add(rentableRoom);	
+
 		}
-		
+
 		return searchResult;
-		
+
 	}
+	
 	
 	public synchronized static ManageRoomList getInstance() {
-		
-		if(ManageRoomList.instace== null) 
-			
-			ManageRoomList.instace= new ManageRoomList();
-		
+
+		if (ManageRoomList.instace == null)
+
+			ManageRoomList.instace = new ManageRoomList();
+
 		return ManageRoomList.instace;
 
-	
-	
 	}
 	
+	public static void createRoom(RoomBean bean,int id) {
+		RoomBean bean1 =new RoomBean("camera", 2, 15, 1, 4);
+		
+		RoomDAO dao = new RoomDAOImpl();
+		dao.createRoom(bean1, id);
+	}
 
-	
 }

@@ -1,4 +1,4 @@
- package logic.view;
+package logic.view;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -19,67 +19,55 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-
 public class CustomizeRoomView extends Application {
-	
-	
-	
 
-	
-
-	private TextField txtSize= new TextField();
+	private TextField txtSize = new TextField();
 
 	private Label lblToiletsCount = new Label("0");
 	private Label lblBedsCount = new Label("0");
-	
-	
+
 	private Button btnSave = new Button("Save");
 	private Button btnSaveAndAdd = new Button("Save and add");
-	
+
 	private Button btnPlus = new Button("+");
 	private Button btnMinus = new Button("-");
-	
+
 	private Button btnPlus1 = new Button("+");
 	private Button btnMinus1 = new Button("-");
 
-
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-	
+
 		primaryStage.setTitle("TravelBook");
-		
+
 		BorderPane borderPane = new BorderPane();
 		borderPane.setPadding(new Insets(20, 20, 20, 20));
-		
+
 		HBox hBoxTitle = new HBox();
 		hBoxTitle.setAlignment(Pos.CENTER_LEFT);
-		
+
 		Text title = new Text("TravelBook");
 		title.setFont(Font.font("Arial", FontWeight.BOLD, 28));
 		hBoxTitle.getChildren().add(title);
-		
-		
+
 		HBox hBoxTop = new HBox();
 		HBox.setHgrow(hBoxTitle, Priority.ALWAYS);
 		hBoxTitle.setMaxWidth(Double.MAX_VALUE);
 		hBoxTop.getChildren().addAll(hBoxTitle);
-		
+
 		HBox hBoxSave = new HBox(20);
 		hBoxSave.setPadding(new Insets(20, 20, 20, 20));
 		hBoxSave.setPrefWidth(Double.MAX_VALUE);
-		
+
 		HBox hBoxSaveAndAdd = new HBox(20);
 		hBoxSaveAndAdd.setPadding(new Insets(20, 20, 20, 20));
 		hBoxSaveAndAdd.setPrefWidth(Double.MAX_VALUE);
-		
-		
-		
+
 		Label lblSize = new Label("Size:");
-		
+
 		Label lblBeds = new Label("How many beds there are?");
 		Label lblToilets = new Label("How many Toilettes there are?");
-		
-	
+
 		GridPane gridPane = new GridPane();
 		gridPane.setVgap(10);
 		gridPane.setHgap(10);
@@ -87,103 +75,97 @@ public class CustomizeRoomView extends Application {
 		gridPane.add(txtSize, 0, 1);
 		gridPane.add(lblBeds, 1, 0);
 		gridPane.add(lblToilets, 2, 0);
-		
-		
+
 		HBox toiletsCountHBox = new HBox(10);
 		toiletsCountHBox.setAlignment(Pos.CENTER);
 		toiletsCountHBox.getChildren().addAll(btnPlus1, lblToiletsCount, btnMinus1);
-		
-		gridPane.add(toiletsCountHBox, 2, 1);	
 
-		
+		gridPane.add(toiletsCountHBox, 2, 1);
+
 		HBox bedsCountHBox = new HBox(10);
 		bedsCountHBox.setAlignment(Pos.CENTER);
 		bedsCountHBox.getChildren().addAll(btnPlus, lblBedsCount, btnMinus);
-		
-		gridPane.add(bedsCountHBox, 1, 1);		
-		
+
+		gridPane.add(bedsCountHBox, 1, 1);
+
 		this.disableMinusButton();
 		this.disableMinusButton1();
-		this.btnSave.setFont(Font.font(18)); 
+		this.btnSave.setFont(Font.font(18));
 		hBoxSave.setAlignment(Pos.CENTER);
 		btnSave.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 		hBoxSave.getChildren().addAll(gridPane, btnSave, btnSaveAndAdd);
-		
-		
-		
-		
-		
-		
-		
+
 		VBox vBoxMain = new VBox(50);
 		vBoxMain.setPadding(new Insets(20, 20, 20, 20));
 		vBoxMain.getChildren().addAll(hBoxSave, hBoxSaveAndAdd);
-		
+
 		borderPane.setTop(hBoxTop);
 		borderPane.setCenter(vBoxMain);
-		
+
 		Scene scene = new Scene(borderPane, 1200, 800);
 		primaryStage.setScene(scene);
 		primaryStage.setResizable(false);
 		primaryStage.show();
-		
 
-}
+	}
+
 	public void disableMinusButton() {
-		
+
 		this.btnMinus.setDisable(true);
-		
+
 	}
+
 	public void disableMinusButton1() {
-		
+
 		this.btnMinus1.setDisable(true);
-		
+
 	}
-	
+
 	public void enableMinusButton() {
-		
+
 		this.btnMinus.setDisable(false);
-		
+
 	}
+
 	public void enableMinusButton1() {
-		
+
 		this.btnMinus1.setDisable(false);
-		
+
 	}
-	
+
 	public void addPlusHanlder(EventHandler<ActionEvent> addHandler) {
-		
+
 		this.btnPlus.setOnAction(addHandler);
-		
+
 	}
-	
+
 	public void addMinusHanlder(EventHandler<ActionEvent> minusHandler) {
-		
+
 		this.btnMinus.setOnAction(minusHandler);
-		
+
 	}
-	
+
 	public void addPlusHanlder1(EventHandler<ActionEvent> addHandler1) {
-		
+
 		this.btnPlus1.setOnAction(addHandler1);
-		
+
 	}
-	
+
 	public void addMinusHanlder1(EventHandler<ActionEvent> minusHandler1) {
-		
+
 		this.btnMinus1.setOnAction(minusHandler1);
-		
+
 	}
-	
+
 	public void addSaveListener(EventHandler<ActionEvent> saveHandler) {
-		
+
 		this.btnSave.setOnAction(saveHandler);
-		
+
 	}
-	
+
 	public void addSaveAndAddListener(EventHandler<ActionEvent> saveAndAddHandler) {
-		
+
 		this.btnSaveAndAdd.setOnAction(saveAndAddHandler);
-		
+
 	}
 }

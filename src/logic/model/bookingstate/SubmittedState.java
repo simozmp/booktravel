@@ -10,21 +10,21 @@ import logic.model.dao.BookingDAOImpl;
  * 
  * @author metal
  *
- * This class represent the submitted state in which a booking can be
- * just after it's creation.
+ *         This class represent the submitted state in which a booking can be
+ *         just after it's creation.
  */
 public class SubmittedState implements BookingState {
 
 	/**
-	 * A booking in submitted state can be accepted by the owner of 
-	 * a rentable place.
+	 * A booking in submitted state can be accepted by the owner of a rentable
+	 * place.
 	 */
 	@Override
 	public void accept(Booking context) {
-		
-		if(context.getCheckIn().isBefore(LocalDate.now()))
+
+		if (context.getCheckIn().isBefore(LocalDate.now()))
 			context.setState(new AcceptedState());
-		
+
 	}
 
 	/**
@@ -32,22 +32,21 @@ public class SubmittedState implements BookingState {
 	 */
 	@Override
 	public void delete(Booking context) {
-		
+
 		context.setState(new DeletedState());
 		BookingBean bean = new BookingBean();
 		bean.setBookingId(context.getId());
 		bean.setState(StateEnum.DELETED);
-		
+
 		new BookingDAOImpl().updateBooking(bean);
-		
+
 	}
 
-	
 	@Override
 	public void resubmit(Booking context) {
 		/*
-		 * Nothing can happen if you call resubmit and the booking
-		 * is in submitted state.
+		 * Nothing can happen if you call resubmit and the booking is in submitted
+		 * state.
 		 */
 	}
 
@@ -55,7 +54,5 @@ public class SubmittedState implements BookingState {
 	public StateEnum getEnumValueOfState() {
 		return StateEnum.SUBMITTED;
 	}
-
-
 
 }

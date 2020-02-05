@@ -14,30 +14,31 @@ public class LoginViewOwnerController extends LoginViewController {
 		super(view, model);
 		super.view.setLoginHandler(new LoginHandler());
 	}
+
 	private class LoginHandler implements EventHandler<ActionEvent> {
 
 		@Override
 		public void handle(ActionEvent event) {
-			
+
 			LoginBean loginBean = new LoginBean(view.getUsername(), view.getPassword());
-			
-			if(!model.theOwnerExist(loginBean)) {
-				
+
+			if (!model.theOwnerExist(loginBean)) {
+
 				Alert alert = new Alert(AlertType.ERROR);
 				alert.setTitle("Error");
 				alert.setHeaderText(null);
 				alert.setContentText("Username or password are wrong.");
-				
+
 				alert.showAndWait();
-				
+
 			} else {
-				
+
 				view.closeWindow();
-				
+
 			}
-			
+
 		}
-		
+
 	}
 
 }

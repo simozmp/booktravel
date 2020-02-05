@@ -108,9 +108,14 @@ public class Main extends Application{
 	 * 
 	 * @throws Exception
 	 */
-	public void changeToUserProfileView() throws Exception {
+	public void changeToUserProfileView()  {
 		
-		this.userProfileView.start(primaryStage);
+		try {
+			this.userProfileView.start(primaryStage);
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
 		
 	}
 	
@@ -125,9 +130,13 @@ public class Main extends Application{
 		
 	}
 	
-	public void changeToMainMenuView() throws Exception {
+	public void changeToMainMenuView()  {
 		
-		this.mainMenuView.start(primaryStage);
+		try {
+			this.mainMenuView.start(primaryStage);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 	}
 	
@@ -136,9 +145,13 @@ public class Main extends Application{
 	 * 
 	 * @throws Exception
 	 */
-	public void changeToBookHotelListView() throws Exception {
+	public void changeToBookHotelListView() {
 		
-		this.bookHotelListView.start(primaryStage);
+		try {
+			this.bookHotelListView.start(primaryStage);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 	}
 	
@@ -147,9 +160,13 @@ public class Main extends Application{
 	 * 
 	 * @throws Exception
 	 */
-	public void changeToHotelView() throws Exception {
+	public void changeToHotelView() {
 		
-		this.hotelView.start(primaryStage);
+		try {
+			this.hotelView.start(primaryStage);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 	}
 	
@@ -158,9 +175,13 @@ public class Main extends Application{
 	 * 
 	 * @throws Exception
 	 */
-	public void changeToBookingView() throws Exception {
+	public void changeToBookingView() {
 		
-		this.bookingView.start(primaryStage);
+		try {
+			this.bookingView.start(primaryStage);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 	}
 	
@@ -215,8 +236,12 @@ public class Main extends Application{
 	 * @throws Exception
 	 */
 	
-	public void changeToManageHotelListView() throws Exception {
-		this.manageHotelListView.start(primaryStage);
+	public void changeToManageHotelListView()  {
+		try {
+			this.manageHotelListView.start(primaryStage);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	
 		
 	}
@@ -224,8 +249,12 @@ public class Main extends Application{
 	public ManageHotelListView getManageHotelListView() {return this.manageHotelListView;}
 	
 	
-	public void changeToManageRoomListView() throws Exception {
-		this.manageRoomListView.start(primaryStage);
+	public void changeToManageRoomListView() {
+		try {
+			this.manageRoomListView.start(primaryStage);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	
 		
 	}

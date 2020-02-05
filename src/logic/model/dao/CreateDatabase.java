@@ -66,7 +66,7 @@ public class CreateDatabase {
 			"    ON UPDATE NO ACTION)\r\n" + 
 			"ENGINE = InnoDB;";
 	
-	public CreateDatabase() {}
+	private CreateDatabase() {}
 	
 	private static final void createDatabase() {		
 		String jdbcDriver = "com.mysql.cj.jdbc.Driver";
@@ -83,9 +83,7 @@ public class CreateDatabase {
 			conn = DriverManager.getConnection(dbUrl, user, password);
 			stmt = conn.createStatement();
 			stmt.executeUpdate(CREATE_DATABASE_QUERY);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
+		} catch (SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
 		} finally {
 			try {

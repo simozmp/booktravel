@@ -63,7 +63,8 @@ public class ManageRoomListController {
 	private class DeleteHandler implements EventHandler<ActionEvent> {
 
 		@Override
-		public void handle(ActionEvent event) {
+		public void handle(ActionEvent event) { //not implemented
+			
 
 
 		}

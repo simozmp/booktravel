@@ -70,7 +70,7 @@ public class ManageBookingListView extends Application {
 	public void populateView(List<RentablePlace> rentablePlaces, EventHandler<ActionEvent> buttonHandler) {
 
 		VBox vBox = new VBox(10);
-		List<HBoxCell> list = new ArrayList<HBoxCell>();
+		List<HBoxCell> list = new ArrayList<>();
 
 		for (int i = 0; i < rentablePlaces.size(); i++)
 			list.add(new HBoxCell(rentablePlaces.get(i).getName(), rentablePlaces.get(i).getAddress(), buttonHandler));

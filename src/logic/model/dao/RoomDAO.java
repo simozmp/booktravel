@@ -30,6 +30,5 @@ public interface RoomDAO {
 	 */
 	public boolean updateRoom(RoomBean room);
 
-;
 
 }

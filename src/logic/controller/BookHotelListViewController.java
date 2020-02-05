@@ -231,14 +231,9 @@ public class BookHotelListViewController extends MainViewController {
 
 			int id = Integer.parseInt(((Control) event.getSource()).getId()); // The id of the hotel selected.
 
-			try {
-
-				/* Change the view to HotelView and initialize the new controller. */
-				Main.getInstance().changeToHotelView();
-				new HotelViewController(Main.getInstance().getHotelView(), model.getRentablePlace(id), fields);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			/* Change the view to HotelView and initialize the new controller. */
+			Main.getInstance().changeToHotelView();
+			new HotelViewController(Main.getInstance().getHotelView(), model.getRentablePlace(id), fields);
 
 		}
 

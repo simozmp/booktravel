@@ -101,17 +101,11 @@ public class MainMenuController extends MainViewController {
 					fields.setCity(mainMenuView.getCityField());
 					fields.setCheckIn(mainMenuView.getCheckInDate());
 					fields.setCheckOut(mainMenuView.getCheckOutDate());
-					fields.setPersonCount(Integer.parseInt(mainMenuView.getPersonCount()));
+					fields.setPersonCount(Integer.parseInt(mainMenuView.getPersonCount()));					
 
-					try {
-
-						/* Set the new controller and change the view. */
-						Main.getInstance().changeToBookHotelListView();
-						new BookHotelListViewController(Main.getInstance().getBookHotelListView(), model, fields);
-
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
+					/* Set the new controller and change the view. */
+					Main.getInstance().changeToBookHotelListView();
+					new BookHotelListViewController(Main.getInstance().getBookHotelListView(), model, fields);					
 
 				} else {
 

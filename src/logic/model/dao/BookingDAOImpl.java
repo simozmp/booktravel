@@ -8,12 +8,16 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import logic.bean.BookingBean;
 import logic.model.bookingstate.StateEnum;
 
 public class BookingDAOImpl implements BookingDAO {
 
+	private static final Logger LOGGER = Logger.getLogger( BookingDAOImpl.class.getName() );
+	
 	/** Query for creating a new booking. */
 	private static final String CREATE_QUERY = "INSERT INTO booking (check_in, check_out, state, user,  room_id) VALUES (?, ?, ?, ?, ?)";
 	/** Query for reading the booking. */
@@ -51,18 +55,18 @@ public class BookingDAOImpl implements BookingDAO {
 				bookings.add(booking);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			LOGGER.log( Level.SEVERE, e.toString(), e );
 
 		} finally {
 			try {
 				resultSet.close();
 			} catch (Exception rse) {
-				rse.printStackTrace();
+				LOGGER.log( Level.SEVERE, rse.toString(), rse );
 			}
 			try {
 				preparedStatement.close();
 			} catch (Exception sse) {
-				sse.printStackTrace();
+				LOGGER.log( Level.SEVERE, sse.toString(), sse );
 			}
 
 		}
@@ -92,18 +96,18 @@ public class BookingDAOImpl implements BookingDAO {
 				bookings.add(booking);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			LOGGER.log( Level.SEVERE, e.toString(), e );
 
 		} finally {
 			try {
 				resultSet.close();
 			} catch (Exception rse) {
-				rse.printStackTrace();
+				LOGGER.log( Level.SEVERE, rse.toString(), rse );
 			}
 			try {
 				preparedStatement.close();
 			} catch (Exception sse) {
-				sse.printStackTrace();
+				LOGGER.log( Level.SEVERE, sse.toString(), sse );
 			}
 
 		}
@@ -133,17 +137,17 @@ public class BookingDAOImpl implements BookingDAO {
 				return -1;
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			LOGGER.log( Level.SEVERE, e.toString(), e );
 		} finally {
 			try {
 				result.close();
 			} catch (Exception rse) {
-				rse.printStackTrace();
+				LOGGER.log( Level.SEVERE, rse.toString(), rse );
 			}
 			try {
 				preparedStatement.close();
 			} catch (Exception sse) {
-				sse.printStackTrace();
+				LOGGER.log( Level.SEVERE, sse.toString(), sse );
 			}
 
 		}
@@ -164,12 +168,12 @@ public class BookingDAOImpl implements BookingDAO {
 			preparedStatement.execute();
 			return true;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			LOGGER.log( Level.SEVERE, e.toString(), e );
 		} finally {
 			try {
 				preparedStatement.close();
 			} catch (Exception sse) {
-				sse.printStackTrace();
+				LOGGER.log( Level.SEVERE, sse.toString(), sse );
 			}
 		}
 		return false;
@@ -198,18 +202,18 @@ public class BookingDAOImpl implements BookingDAO {
 				booking.setBookingId(resultSet.getInt(5));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			LOGGER.log( Level.SEVERE, e.toString(), e );
 
 		} finally {
 			try {
 				resultSet.close();
 			} catch (Exception rse) {
-				rse.printStackTrace();
+				LOGGER.log( Level.SEVERE, rse.toString(), rse );
 			}
 			try {
 				preparedStatement.close();
 			} catch (Exception sse) {
-				sse.printStackTrace();
+				LOGGER.log( Level.SEVERE, sse.toString(), sse );
 			}
 		}
 

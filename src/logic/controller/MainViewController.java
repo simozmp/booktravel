@@ -103,14 +103,10 @@ public abstract class MainViewController {
 		public void handle(ActionEvent event) {
 
 			if (LoginController.getInstance().isLogged()) {
-
-				try {
-					new UserProfileViewController(Main.getInstance().getUserProfileView(),
+				
+				new UserProfileViewController(Main.getInstance().getUserProfileView(),
 							BookHotelController.getInstance());
-					Main.getInstance().changeToUserProfileView();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+				Main.getInstance().changeToUserProfileView();				
 
 			}
 

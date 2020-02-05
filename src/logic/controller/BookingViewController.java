@@ -127,16 +127,11 @@ public class BookingViewController {
 				alert.setContentText("New Booking Confirmed.");
 
 				alert.showAndWait();
-
-				try {
-
-					/* Change view and set new controller. */
-					Main.getInstance().changeToBookHotelListView();
-					new BookHotelListViewController(Main.getInstance().getBookHotelListView(),
+				
+				Main.getInstance().changeToBookHotelListView();
+				new BookHotelListViewController(Main.getInstance().getBookHotelListView(),
 							BookHotelController.getInstance(), fields);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+				
 
 			}
 
@@ -154,16 +149,11 @@ public class BookingViewController {
 	private class BackHandler implements EventHandler<ActionEvent> {
 
 		@Override
-		public void handle(ActionEvent event) {
+		public void handle(ActionEvent event) {		
 
-			try {
-
-				/* Change the view and set new controller. */
-				Main.getInstance().changeToHotelView();
-				new HotelViewController(Main.getInstance().getHotelView(), model, fields);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			/* Change the view and set new controller. */
+			Main.getInstance().changeToHotelView();
+			new HotelViewController(Main.getInstance().getHotelView(), model, fields);			
 
 		}
 

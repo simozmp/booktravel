@@ -217,16 +217,11 @@ public class HotelViewController extends MainViewController {
 					
 				}
 				
-				if( totalBeds >= fields.getPersonCount() ) {
-					
-					try {
+				if( totalBeds >= fields.getPersonCount() ) {					
 						
-						/* Change view and start new controller. */
-						Main.getInstance().changeToBookingView();
-						new BookingViewController(Main.getInstance().getBookingView(), hotelModel, fields, roomBeans);
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
+					/* Change view and start new controller. */
+					Main.getInstance().changeToBookingView();
+					new BookingViewController(Main.getInstance().getBookingView(), hotelModel, fields, roomBeans);					
 					
 				} else {
 					
@@ -258,16 +253,11 @@ public class HotelViewController extends MainViewController {
 	private class BackHandler implements EventHandler<ActionEvent> {
 
 		@Override
-		public void handle(ActionEvent event) {
-			
-			try {
+		public void handle(ActionEvent event) {			
 				
-				/* Change the view and start new controller. */
-				Main.getInstance().changeToBookHotelListView();
-				new BookHotelListViewController(Main.getInstance().getBookHotelListView(),	BookHotelController.getInstance(), fields);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			/* Change the view and start new controller. */
+			Main.getInstance().changeToBookHotelListView();
+			new BookHotelListViewController(Main.getInstance().getBookHotelListView(),	BookHotelController.getInstance(), fields);			
 			
 		}
 		

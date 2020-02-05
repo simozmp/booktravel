@@ -56,7 +56,7 @@ public class ManageHotelList {
 	}
 
 
-	public static synchronized  ManageHotelList getInstance() {
+	public synchronized static ManageHotelList getInstance() {
 
 		if (ManageHotelList.instace == null)
 

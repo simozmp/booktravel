@@ -1,6 +1,5 @@
 package logic.view;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,142 +10,127 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import logic.controller.ManageRoomListController.BackHandler;
-import logic.model.RentablePlace;
-import logic.mydatecell.MyCallback;
+import logic.bean.RoomBean;
+
 
 public class ManageRoomListView extends Application {
-	
+
 	private ScrollPane scrollPane = new ScrollPane();
-	
-	
+
 	private Button btnAddRoom = new Button("AddRoom");
 	private Button btnBack = new Button("Back");
 	private Button btnBooking = new Button("Booking");
-	
+
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		BorderPane borderPane = new BorderPane();
 		borderPane.setPadding(new Insets(20, 20, 20, 20));
-		
+
 		HBox hBoxTitle = new HBox();
 		hBoxTitle.setAlignment(Pos.CENTER_LEFT);
-		
+
 		Text title = new Text("TravelBook");
 		title.setFont(Font.font("Arial", FontWeight.BOLD, 28));
 		hBoxTitle.getChildren().add(title);
-		
+
 		HBox hBoxAddHotel = new HBox(10);
 		hBoxAddHotel.setAlignment(Pos.BOTTOM_RIGHT);
 		hBoxAddHotel.getChildren().addAll();
-		
+
 		HBox hBoxTop = new HBox();
 		HBox.setHgrow(hBoxTitle, Priority.ALWAYS);
 		hBoxTitle.setMaxWidth(Double.MAX_VALUE);
 		hBoxTop.getChildren().addAll(hBoxTitle);
-		
-		
+
 		VBox vBoxLeft = new VBox(5);
 		vBoxLeft.setPadding(new Insets(50, 20, 20, 0));
 		vBoxLeft.getChildren().addAll(btnAddRoom, btnBooking, btnBack);
-		
-		
-		
-	
-		
+
 		borderPane.setTop(hBoxTop);
 		borderPane.setLeft(vBoxLeft);
 		borderPane.setCenter(this.scrollPane);
- 
+
 		Scene scene = new Scene(borderPane, 1200, 800);
 		primaryStage.setScene(scene);
 		primaryStage.setResizable(false);
 		primaryStage.show();
-		
+
 	}
-	
-	
-	
-	public void populateView (List<RentablePlace> room, EventHandler<ActionEvent> buttonHandler, EventHandler<ActionEvent> buttonHandler1) {
-		
-		VBox vBox = new VBox(10);		
-		List<HBoxCell> list = new ArrayList<>();
-		
-		for(int i = 0; i < room.size(); i++)
-			list.add(new HBoxCell(room.get(i).getName(), room.get(i).getAddress(), buttonHandler, buttonHandler1));
-			
+
+	public void populateView(List<RoomBean> list2, EventHandler<ActionEvent> buttonHandler,
+			EventHandler<ActionEvent> buttonHandler1) {
+
+		VBox vBox = new VBox(10);
+		List<HBoxCell> list = new ArrayList<HBoxCell>();
+
+		for (int i = 0; i < list2.size(); i++)
+			list.add(new HBoxCell(list2.get(i).getId(), buttonHandler, buttonHandler1));
+
 		vBox.getChildren().addAll(list);
 		vBox.setMaxWidth(Double.MAX_VALUE);
-			
+
 		this.scrollPane.setContent(vBox);
-		this.scrollPane.setFitToWidth(true);		
-		
-	}	
-	
+		this.scrollPane.setFitToWidth(true);
+
+	}
+
 	public class HBoxCell extends HBox {
-		
+
 		private Label name = new Label();
 		private Label address = new Label();
 		private Button button = new Button();
-		
-		public HBoxCell(String name, String address, EventHandler<ActionEvent> buttonHandler, EventHandler<ActionEvent> buttonHandler1) {
-			
+
+		public HBoxCell(String name, String address, EventHandler<ActionEvent> buttonHandler,
+				EventHandler<ActionEvent> buttonHandler1) {
+
 			super();
-			
+
 			this.name.setText(name);
 			this.name.setMaxWidth(Double.MAX_VALUE);
 			HBox.setHgrow(this.name, Priority.ALWAYS);
-			
-			this.address.setText(address);
-			this.address.setMaxWidth(Double.MAX_VALUE);
-			HBox.setHgrow(this.address, Priority.ALWAYS);
-			
+
+		
+
 			this.button.setText("Delete");
 			this.button.setId(name);
 			this.button.setOnAction(buttonHandler);
-			
+
 			this.button.setText("More");
 			this.button.setId(name);
 			this.button.setOnAction(buttonHandler1);
-			
-			
-			
+
 			this.getChildren().addAll(this.name, this.address, this.button);
-			
+
 		}
-		
-		public String getName() { return this.name.getText(); }
-		
-		public String getAddress() { return this.address.getText(); }
-		
-	}
 
 		public HBoxCell(int id, EventHandler<ActionEvent> buttonHandler, EventHandler<ActionEvent> buttonHandler1) {
-		
+			// TODO Auto-generated constructor stub
 		}
 
+		public String getName() {
+			return this.name.getText();
+		}
 
+		public String getAddress() {
+			return this.address.getText();
+		}
 
-	public void addBackHandler(EventHandler<ActionEvent> handler) {
-		
-		btnBack.setOnAction(handler);
-		
 	}
 
-	
+	public void addBackHandler(EventHandler<ActionEvent> handler) {
+
+		btnBack.setOnAction(handler);
+
+	}
 
 }

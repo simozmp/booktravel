@@ -33,11 +33,19 @@ public class ManageHotelListController {
 		this.owner = owner;
 
 		this.view.addExitHandler(new ExitHandler());
-		this.view.addCreateHotelHandler(new CreateHotelHandler());
+		this.view.addCreateHotelHandler(new createHotelHandler());
 		this.view.addProfileHandelr(new ProfileHandelr());
-	
+		// this.view.add
+		/**
+		 * if ( this.model.retrieveRentablePlaces(this.fields).isEmpty() )
+		 * 
+		 * /* The input of the doesn't produce result. this.view.resultNotFound();
+		 * 
+		 * else
+		 **/
+		/* Set the data found to the view. */
 		this.view.populateView(this.model.retrieveHotelByOwner(this.owner), new MoreInformationHandler(),
-				new DeleteHandler());
+				new deleteHandler());
 
 	}
 
@@ -50,7 +58,6 @@ public class ManageHotelListController {
 				Main.getInstance().changeToMainMenuView();
 				new MainMenuController(Main.getInstance().getMainMenuView(), BookHotelController.getInstance());
 			} catch (Exception e) {
-			
 				e.printStackTrace();
 			}
 
@@ -80,8 +87,10 @@ public class ManageHotelListController {
 
 			try {
 
+				/* Change the view to HotelView and initialize the new controller. */
 				Main.getInstance().changeToManageRoomListView();
-			
+				// new HotelViewController(Main.getInstance().getHotelView(),
+				// model.getRentablePlace(((Control)event.getSource()).getId()), fields);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -91,7 +100,7 @@ public class ManageHotelListController {
 	}
 	
 
-	private class CreateHotelHandler implements EventHandler<ActionEvent>{
+	private class createHotelHandler implements EventHandler<ActionEvent>{
 		HotelBean bean = new HotelBean("hotel 1", "indirizzo 1", "Roma", "owner", owner, 4);
 		@Override
 		public void handle(ActionEvent event) {
@@ -103,7 +112,7 @@ public class ManageHotelListController {
 		}
 	}
 	
-	private class DeleteHandler implements EventHandler<ActionEvent>{
+	private class deleteHandler implements EventHandler<ActionEvent>{
 		//int id =HotelBean.getId(id);
 		@Override
 		public void handle(ActionEvent event) {

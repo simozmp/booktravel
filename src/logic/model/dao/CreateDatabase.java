@@ -130,7 +130,7 @@ public class CreateDatabase {
 		CreateDatabase.executeQuery(CREATE_TABLE_PERSON);
 		
 		String hotelRoma = "INSERT INTO `travelbook`.`hotel` (`name`, `address`, `city`, `description`, `owner`, `id`) VALUES ('hotel roma', 'via roma 1', 'roma', 'bell\\'hotel proprio', 'owner', 1);";
-		String hotelBello = "INSERT INTO `travelbook`.`hotel` (`name`, `address`, `city`, `description`, `owner`, `id`) VALUES ('hotel bello', 'via bella 1', 'rioma', 'descrizione bella', 'owner', 2);";
+		String hotelBello = "INSERT INTO `travelbook`.`hotel` (`name`, `address`, `city`, `description`, `owner`, `id`) VALUES ('hotel bello', 'via bella 1', 'roma', 'descrizione bella', 'owner', 2);";
 		
 		String room1 = "INSERT INTO `travelbook`.`room` (`description`, `beds`, `size`, `toilets`, `id`, `hotel_id`) VALUES ('bellissima camera con 2 letti e 1 bagno', 2, 20, 1, 1, 1);";
 		String room2 = "INSERT INTO `travelbook`.`room` (`description`, `beds`, `size`, `toilets`, `id`, `hotel_id`) VALUES ('belissima camera con 3 letti e 1 bagno', 3, 25, 1, 2, 1);";

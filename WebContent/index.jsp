@@ -7,13 +7,13 @@
 <title>TravelBook</title>
 
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-<link href="jquery.datetimepicker.min.css" rel="stylesheet"/>
+<link href="css/jquery.datetimepicker.min.css" rel="stylesheet"/>
 
 
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-<script src="jquery.datetimepicker.full.min.js"></script>
+<script src="js/jquery.datetimepicker.full.min.js"></script>
 
 
 

@@ -77,24 +77,6 @@ public class HotelViewController extends MainViewController {
 		
 		List<RoomBean> roomsAvailability = hotelModel.getAvailableRooms(fields);
 		
-//		if( this.fields.getPersonCount() == 1 ) {
-//			
-//			roomsAvailability.add(this.hotelModel.getNumberOfRoomByBeds(2, this.fields));
-//			
-//		} else {
-//		
-//			for( int i = 1; i <= this.fields.getPersonCount(); i++ ) {
-//				
-//				RoomBean roomBean = this.hotelModel.getNumberOfRoomByBeds(i, this.fields);
-//				
-//				if(roomBean.getAvailability() != 0)
-//				
-//					roomsAvailability.add(roomBean);
-//				
-//			}
-//			
-//		}
-		
 		this.hotelView.createRoomSelector(roomsAvailability, new PlusHandler(), new MinusHandler());
 		
 	}

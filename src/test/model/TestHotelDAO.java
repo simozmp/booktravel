@@ -35,7 +35,7 @@ public class TestHotelDAO {
 		hotelDao = new HotelDAOImpl();
 		List<HotelBean> hotels = hotelDao.getAllHotelByOwner(OWNER_1);
 		int size =hotels.size();
-		HotelBean hotel = new HotelBean("hotel 1", "indirizzo 1", "Roma", "descrizione", "owner", 2);
+		HotelBean hotel = new HotelBean("hotel 1", "indirizzo 1", "Roma", "descrizione", OWNER_1 , 2);
 		hotelDao.createHotel(hotel);
 		List<HotelBean> hotels2 = hotelDao.getAllHotelByOwner("owner");
 		int size1 =hotels2.size();

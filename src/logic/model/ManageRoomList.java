@@ -16,7 +16,7 @@ public class ManageRoomList {
 
 	public ManageRoomList() {
 
-		this.rooms = new ArrayList<RoomBean>();
+		this.rooms = new ArrayList<>();
 	
 	}
 	
@@ -29,33 +29,18 @@ public class ManageRoomList {
 	
 	public List<RoomBean> retrieveRooms() {
 
-		List<RoomBean> copy = new ArrayList<RoomBean>(this.rooms);
-
-		return copy;
+		return new ArrayList<>(this.rooms);
 
 	}
 
 	public  List<RoomBean>  retrieveRooms(int hotelId) {
 		RoomDAO dao = new RoomDAOImpl();
-		List<RoomBean> rooms = dao.getAllRoomOfAnHotel(hotelId);
-		return rooms;
+		return dao.getAllRoomOfAnHotel(hotelId);
 		
 		
 	}
 	
-	public List<RoomBean> retrieveRooms(List<RoomBean> rooms) {
-
-		List<RoomBean> searchResult = new ArrayList<RoomBean>();
-
-		for (RoomBean rentableRoom : this.rooms) {
-
-				searchResult.add(rentableRoom);	
-
-		}
-
-		return searchResult;
-
-	}
+	
 	
 	
 	public synchronized static ManageRoomList getInstance() {
@@ -68,7 +53,7 @@ public class ManageRoomList {
 
 	}
 	
-	public static void createRoom(RoomBean bean,int id) {
+	public static void createRoom(int id) {
 		RoomBean bean1 =new RoomBean("camera", 2, 15, 1, 4);
 		
 		RoomDAO dao = new RoomDAOImpl();

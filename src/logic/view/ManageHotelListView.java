@@ -45,22 +45,22 @@ public class ManageHotelListView extends Application {
 		HBox hBoxTitle = new HBox();
 		hBoxTitle.setAlignment(Pos.CENTER_LEFT);
 
+		HBox hBoxAddHotel = new HBox(10);
+		hBoxAddHotel.setAlignment(Pos.BOTTOM_RIGHT);
+		hBoxAddHotel.getChildren().addAll();
+		
 		Text title = new Text("TravelBook");
 		title.setFont(Font.font("Arial", FontWeight.BOLD, 28));
 		hBoxTitle.getChildren().add(title);
 
-		HBox hBoxAddHotel = new HBox(10);
-		hBoxAddHotel.setAlignment(Pos.BOTTOM_RIGHT);
-		hBoxAddHotel.getChildren().addAll();
-
+		VBox vBoxLeft = new VBox(5);
+		vBoxLeft.setPadding(new Insets(50, 20, 20, 0));
+		vBoxLeft.getChildren().addAll(btnAddHotel, btnProfile, btnBooking, btnExit);
+		
 		HBox hBoxTop = new HBox();
 		HBox.setHgrow(hBoxTitle, Priority.ALWAYS);
 		hBoxTitle.setMaxWidth(Double.MAX_VALUE);
 		hBoxTop.getChildren().addAll(hBoxTitle);
-
-		VBox vBoxLeft = new VBox(5);
-		vBoxLeft.setPadding(new Insets(50, 20, 20, 0));
-		vBoxLeft.getChildren().addAll(btnAddHotel, btnProfile, btnBooking, btnExit);
 
 		borderPane.setTop(hBoxTop);
 		borderPane.setLeft(vBoxLeft);

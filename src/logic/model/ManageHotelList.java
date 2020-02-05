@@ -66,13 +66,13 @@ public class ManageHotelList {
 
 	}
 	
-	public static void createHotel(HotelBean bean) {
+	public static void CreateHotel(HotelBean bean) {
 	
 		HotelDAO dao = new HotelDAOImpl();
 		 dao.createHotel(bean);
 	}
 	
-	public static void deleteHotel(int id){
+	public static void DeleteHotel(int id){
 		HotelBean hBean = new HotelDAOImpl().getHotel(id);
 		Hotel hotel = new Hotel(hBean);
 		HotelDAO dao = new HotelDAOImpl();

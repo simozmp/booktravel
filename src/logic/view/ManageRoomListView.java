@@ -71,7 +71,7 @@ public class ManageRoomListView extends Application {
 			EventHandler<ActionEvent> buttonHandler1) {
 
 		VBox vBox = new VBox(10);
-		List<HBoxCell> list = new ArrayList<HBoxCell>();
+		List<HBoxCell> list = new ArrayList<>();
 
 		for (int i = 0; i < list2.size(); i++)
 			list.add(new HBoxCell(list2.get(i).getId(), buttonHandler, buttonHandler1));
@@ -90,7 +90,7 @@ public class ManageRoomListView extends Application {
 		private Label address = new Label();
 		private Button button = new Button();
 
-		public HBoxCell(String name, String address, EventHandler<ActionEvent> buttonHandler,
+		public HBoxCell(String name, EventHandler<ActionEvent> buttonHandler,
 				EventHandler<ActionEvent> buttonHandler1) {
 
 			super();
@@ -114,7 +114,6 @@ public class ManageRoomListView extends Application {
 		}
 
 		public HBoxCell(int id, EventHandler<ActionEvent> buttonHandler, EventHandler<ActionEvent> buttonHandler1) {
-			// TODO Auto-generated constructor stub
 		}
 
 		public String getName() {

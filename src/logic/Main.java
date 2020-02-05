@@ -1,5 +1,8 @@
 package logic;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javafx.application.Application;
 import javafx.stage.Stage;
 import logic.controller.MainMenuController;
@@ -21,6 +24,8 @@ import logic.view.UserProfileView;
  * This class manage the switching between views.
  */
 public class Main extends Application{
+	
+	private static final Logger LOGGER = Logger.getLogger( Main.class.getName() );
 	
 	/**
 	 * Reference to the main menu.
@@ -113,8 +118,7 @@ public class Main extends Application{
 		try {
 			this.userProfileView.start(primaryStage);
 		} catch (Exception e) {
-
-			e.printStackTrace();
+			LOGGER.log( Level.SEVERE, e.toString(), e );
 		}
 		
 	}
@@ -135,7 +139,7 @@ public class Main extends Application{
 		try {
 			this.mainMenuView.start(primaryStage);
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOGGER.log( Level.SEVERE, e.toString(), e );
 		}
 		
 	}
@@ -150,7 +154,7 @@ public class Main extends Application{
 		try {
 			this.bookHotelListView.start(primaryStage);
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOGGER.log( Level.SEVERE, e.toString(), e );
 		}
 		
 	}
@@ -165,7 +169,7 @@ public class Main extends Application{
 		try {
 			this.hotelView.start(primaryStage);
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOGGER.log( Level.SEVERE, e.toString(), e );
 		}
 		
 	}
@@ -180,7 +184,7 @@ public class Main extends Application{
 		try {
 			this.bookingView.start(primaryStage);
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOGGER.log( Level.SEVERE, e.toString(), e );
 		}
 		
 	}
@@ -240,7 +244,7 @@ public class Main extends Application{
 		try {
 			this.manageHotelListView.start(primaryStage);
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOGGER.log( Level.SEVERE, e.toString(), e );
 		}
 	
 		
@@ -253,7 +257,7 @@ public class Main extends Application{
 		try {
 			this.manageRoomListView.start(primaryStage);
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOGGER.log( Level.SEVERE, e.toString(), e );
 		}
 	
 		

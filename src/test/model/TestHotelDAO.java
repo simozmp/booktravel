@@ -37,7 +37,7 @@ public class TestHotelDAO {
 		int size =hotels.size();
 		HotelBean hotel = new HotelBean("hotel 1", "indirizzo 1", "Roma", "descrizione", OWNER_1 , 2);
 		hotelDao.createHotel(hotel);
-		List<HotelBean> hotels2 = hotelDao.getAllHotelByOwner("owner");
+		List<HotelBean> hotels2 = hotelDao.getAllHotelByOwner(OWNER_1);
 		int size1 =hotels2.size();
 		Assert.assertEquals(size +1, size1);
 		

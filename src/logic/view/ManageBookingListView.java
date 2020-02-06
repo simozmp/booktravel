@@ -92,14 +92,15 @@ public class ManageBookingListView extends Application {
 		public HBoxCell(String name, String address, EventHandler<ActionEvent> buttonHandler) {
 
 			super();
-
+			
+			this.address.setText(address);
+			this.address.setMaxWidth(Double.MAX_VALUE);
+			HBox.setHgrow(this.address, Priority.ALWAYS);
+			
 			this.name.setText(name);
 			this.name.setMaxWidth(Double.MAX_VALUE);
 			HBox.setHgrow(this.name, Priority.ALWAYS);
 
-			this.address.setText(address);
-			this.address.setMaxWidth(Double.MAX_VALUE);
-			HBox.setHgrow(this.address, Priority.ALWAYS);
 
 			this.button.setText("Delete");
 			this.button.setId(name);

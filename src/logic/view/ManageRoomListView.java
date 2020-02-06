@@ -52,18 +52,21 @@ public class ManageRoomListView extends Application {
 
 		HBox hBoxTop = new HBox();
 		HBox.setHgrow(hBoxTitle, Priority.ALWAYS);
-		hBoxTitle.setMaxWidth(Double.MAX_VALUE);
 		hBoxTop.getChildren().addAll(hBoxTitle);
+		hBoxTitle.setMaxWidth(Double.MAX_VALUE);
+		
 
-		borderPane.setTop(hBoxTop);
 		borderPane.setLeft(vBoxLeft);
+		borderPane.setTop(hBoxTop);
+		
 		borderPane.setCenter(this.scrollPane);
+		
+	
 
 		Scene scene = new Scene(borderPane, 1200, 800);
 		primaryStage.setScene(scene);
 		primaryStage.setResizable(false);
 		primaryStage.show();
-
 
 	}
 

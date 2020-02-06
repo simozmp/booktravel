@@ -47,7 +47,7 @@ public class TestHotelDAO {
 	public void testGetAllHotelByOwner() {
 		hotelDao = new HotelDAOImpl();
 	
-		List<HotelBean> hotels = hotelDao.getAllHotelByOwner("owner");
+		List<HotelBean> hotels = hotelDao.getAllHotelByOwner(OWNER_1);
 		Assert.assertEquals(2, hotels.size());
 	
 		

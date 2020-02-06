@@ -115,7 +115,7 @@ public class ManageHotelListController {
 	
 		@Override
 		public void handle(ActionEvent event) {
-	
+			 throw new UnsupportedOperationException();
 		}
 		
 	}
